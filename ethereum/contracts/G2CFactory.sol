@@ -34,6 +34,20 @@ contract CustomERC20Token is ERC20, Ownable {
     }
 
     TokenData[] public allTokens;
+    
+    struct STNFlowData {
+        string programa;
+        string portaria;
+        string titulo;
+        string dataEmissao;
+        string dataVencimento;
+        uint256 quantidade;
+        uint256 preco;
+        uint256 valorFinanceiro;
+        string aberturaContabil;
+    }
+
+    mapping(uint256 => STNFlowData) public stnFlows;
 
     constructor(
         string memory name,
@@ -58,5 +72,34 @@ contract CustomERC20Token is ERC20, Ownable {
 
     function getAllTokens() public view returns (TokenData[] memory) {
         return allTokens;
+    }
+
+    function registerSTNFlow(
+        uint256 tokenId,
+        string memory programa,
+        string memory portaria,
+        string memory titulo,
+        string memory dataEmissao,
+        string memory dataVencimento,
+        uint256 quantidade,
+        uint256 preco,
+        uint256 valorFinanceiro,
+        string memory aberturaContabil
+    ) external onlyOwner {
+        stnFlows[tokenId] = STNFlowData({
+            programa: programa,
+            portaria: portaria,
+            titulo: titulo,
+            dataEmissao: dataEmissao,
+            dataVencimento: dataVencimento,
+            quantidade: quantidade,
+            preco: preco,
+            valorFinanceiro: valorFinanceiro,
+            aberturaContabil: aberturaContabil
+        });
+    }
+
+    function getSTNFlowData(uint256 tokenId) external view returns (STNFlowData memory) {
+        return stnFlows[tokenId];
     }
 }
