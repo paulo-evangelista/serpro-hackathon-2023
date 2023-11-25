@@ -1,0 +1,32 @@
+
+@TOKEN = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjgsInVzZXJuYW1lIjoicGF1bGFvQHBhdWxvLmNvbSIsInJvbGUiOiJ1c2VyIiwiaWF0IjoxNzAwODcyMjkwLCJleHAiOjE3MDY5MjAyOTB9.ZDRZs_UcF1SC500zwyOzaM0VwabFePMvC-4-mtVrUrM
+@URL= http://localhost:3050
+
+
+POST {{URL}}/auth/signup
+Content-Type: application/json
+
+{
+    "email": "paulao@paulo.com",
+    "password": "paulo",
+    "document": "123456789",
+    "wallet": "0x0",
+    "firstName": "Paulo",
+    "lastName": "Evangelista"
+}
+
+###
+
+POST {{URL}}/auth/login
+Content-Type: application/json
+
+{
+    "email": "paulao@paulo.com",
+    "password": "paulo"
+}
+
+###
+
+GET {{URL}}/auth/test
+Authorization: Bearer {{TOKEN}}
+
