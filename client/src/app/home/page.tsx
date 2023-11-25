@@ -1,7 +1,7 @@
 "use client";
-import { Footer } from "./components/Footer";
-import { Navbar } from "./components/Navbar";
-import { useMetamask } from "./hooks/useMetamask";
+import { Footer } from "../components/Footer";
+import { Navbar } from "../components/Navbar";
+import { useMetamask } from "../hooks/useMetamask";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -151,14 +151,14 @@ export default function Home() {
 							</p>
 						</div>
 					</div>
-					<div className="flex justify-center">
+					{/* <div className="flex justify-center">
 						<p className="text-gray-700 font-semibold text-center">
 							Ultima atualização:{" "}
 							<span className="text-gray-700 font-normal">
 								{lastUpdatedTime}
 							</span>
 						</p>
-					</div>
+					</div> */}
 				</div>
 
 				{/* Titles */}
