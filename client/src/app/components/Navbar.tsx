@@ -6,9 +6,11 @@ import { useState } from "react";
 import Image from "next/image";
 import menu from "@/app/assets/menu.svg";
 import xIcon from "@/app/assets/x.svg";
+import { useAuth } from "../context";
 
 export const Navbar = () => {
-	const { account, connectWallet } = useMetamask();
+	const { account } = useAuth();
+
 	const [isOpen, setIsOpen] = useState(false);
 
 	const handleClick = () => {
@@ -42,7 +44,7 @@ export const Navbar = () => {
 					</Link>
 				</div>
 				<div className="flex flex-col text-lg">
-					<Link href={"/"} className="px-2">
+					<Link href={"/home"} className="px-2">
 						Home
 					</Link>
 					<Link href={"/about"} className="px-2">
@@ -56,7 +58,7 @@ export const Navbar = () => {
 
 			{/* Navbar */}
 			<div className="bg-[#26336a] text-[#f1f1f1] flex flex-1 absolute top-0 items-center left-0 px-2 py-4 w-full justify-between">
-				<div className="flex">
+				<div className="flex w-auto md:w-1/3 border-2 border-red-500 items-center justify-start">
 					<button
 						onClick={handleClick}
 						className={`flex flex-col justify-center items-center ${
@@ -71,9 +73,9 @@ export const Navbar = () => {
 					</Link>
 				</div>
 
-				<div className="hidden md:flex">
+				<div className="hidden md:flex w-auto md:w-1/3 border-2 border-red-500 items-center justify-center">
 					<ul className="flex flex-row">
-						<Link href={"/"} className="px-2">
+						<Link href={"/home"} className="px-2">
 							Home
 						</Link>
 						<Link href={"/about"} className="px-2">
@@ -86,31 +88,20 @@ export const Navbar = () => {
 				</div>
 
 				{account ? (
-					<div className="flex">
+					<div className="flex w-auto items-center md:w-1/3 border-2 border-red-500 items-center justify-end">
 						<Link href={"/profile"}>
 							<div className="flex items-center">
 								<Jazzicon
 									diameter={32}
 									seed={jsNumberForAddress(account)}
 								/>
-								<p className="ml-2">
-									{account.slice(0, 6) +
-										"..." +
-										account.slice(
-											account.length - 4,
-											account.length
-										)}
-								</p>
 							</div>
 						</Link>
 					</div>
 				) : (
-					<div className="flex">
-						<button
-							className="bg-[#f1f1f1] text-[#26336a] px-4 py-2 rounded-md"
-							onClick={connectWallet}
-						>
-							Conectar
+					<div className="flex w-auto md:w-1/3 items-end border-2 border-red-500 items-center justify-end">
+						<button className="bg-[#f1f1f1] text-[#26336a] px-4 py-2 rounded-md">
+							Login
 						</button>
 					</div>
 				)}
