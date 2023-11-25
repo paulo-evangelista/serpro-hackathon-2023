@@ -10,7 +10,7 @@ export class CompanyController {
 
   @Get("approveUser")
   async approveUser() {
-    // return await this.companyService.User();
+    return await this.companyService.approveUser();
   }
 
   
