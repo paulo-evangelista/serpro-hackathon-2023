@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@govbr-ds/webcomponents": "^1.14.0",
+    "ethers": "^6.8.1",
+    "jazzicon": "^1.5.0",
     "next": "14.0.3",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-jazzicon": "^1.0.4"
   },
   "devDependencies": {
     "@types/node": "^20",

@@ -1,20 +1,11 @@
-//SPDX-License-Identifier: MIT
+// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.22;
 
-import "../node_modules/@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
-import "../node_modules/@chainlink/contracts/src/v0.8/shared/access/ConfirmedOwner.sol";
+// import "../node_modules/@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
+// import "../node_modules/@chainlink/contracts/src/v0.8/shared/access/ConfirmedOwner.sol";
 
-// import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
-// import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
-
-/**
- * Request testnet LINK and ETH here: https://faucets.chain.link/
- * Find information on LINK Token Contracts and get the latest ETH and LINK faucets here: https://docs.chain.link/docs/link-token-contracts/
- */
-
-/**
- * THIS IS AN EXAMPLE CONTRACT THAT USES UN-AUDITED CODE.
- */
+import "@chainlink/contracts/src/v0.8/ChainlinkClient.sol";
+import "@chainlink/contracts/src/v0.8/ConfirmedOwner.sol";
 
 contract Oracle is ChainlinkClient, ConfirmedOwner {
     using Chainlink for Chainlink.Request;
@@ -31,7 +22,12 @@ contract Oracle is ChainlinkClient, ConfirmedOwner {
     }
 
     // Send a request to the Chainlink oracle
-    function request() public {
+    function request(string memory _access_token) public {
+        require(
+            keccak256(bytes(_access_token)) == keccak256(bytes("123456")),
+            "Access token invalid!"
+        );
+
         Chainlink.Request memory req = buildOperatorRequest(
             jobId,
             this.fulfill.selector
@@ -39,14 +35,14 @@ contract Oracle is ChainlinkClient, ConfirmedOwner {
 
         // DEFINE THE REQUEST PARAMETERS (example)
         req.add("method", "GET");
-        req.add(
-            "url",
-            "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR"
-        );
+        req.add("url", "https://serpro-hackathon-2023.vercel.app/api");
         req.add(
             "headers",
             '["content-type", "application/json", "set-cookie", "sid=14A52"]'
         );
+
+        req.add("access_token", _access_token);
+
         req.add("body", "");
         req.add("contact", "derek_linkwellnodes.io");
 
