@@ -1,5 +1,6 @@
 # Hackathon Web3 - Tokenização do Tesouro Nacional
 ## Problema
+Desafio 1: Desenvolvimento de tecnologias para casos de uso utilizando títulos públicos tokenizados para aplicações em: Tesouro Direto e Mercado Secundário. Com a finalidade de incentivar a massificação, adoção e uso dos títulos, por investidores no Brasil e/ou no Exterior, prestigiando fácil acesso e a usabilidade das ferramentas.
 
 ## Solução
 
