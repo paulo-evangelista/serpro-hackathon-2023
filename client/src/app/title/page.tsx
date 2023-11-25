@@ -76,9 +76,9 @@ const Title = () => {
                         className="w-full h-full object-cover"
                     />
                 </div>
-                <div className="absolute inset-0 flex items-center justify-center">
+                <div className="absolute inset-0 flex items-center justify-start px-32">
                     <h1 className="text-white text-4xl font-bold text-center">
-                        Escolha e invista em títulos públicos!
+                        Escolha e invista em títulos públicos
                     </h1>
                 </div>
             </div >
