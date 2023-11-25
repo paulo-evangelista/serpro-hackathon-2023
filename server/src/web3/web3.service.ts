@@ -12,6 +12,6 @@ export class Web3Service {
             process.env.INFURA_APIKEY,
         );
 
-        this.wallet = new ethers.Wallet(process.env.WALLET_PK, this.provider);
+        this.wallet = new ethers.Wallet(process.env.GOV_PK, this.provider);
     }
 }
