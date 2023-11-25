@@ -18,42 +18,21 @@ Desafio 1: Desenvolvimento de tecnologias para casos de uso utilizando títulos 
     -   TypeScript
     -   Tailwind CSS
 -   Back-end
-    -   Node.js
-    -   Express.js
-    -   Prisma
+    -   Nest.js
+    -   TypeORM
     -   Postgresql
 -   Blockchain
     -   Solidity
-    -   Truffle
     -   Hardhat
     -   Ethers.js
-    -   Chainlink Services (Automation, Data Feed, Functions)
-    -   IPFS
+    -   Chainlink Services (Data Feed)
+-   Infraestrutura
+    -   Docker
 
 ## Árvore de arquivos
 
 ```
-├── backend
-│    ├── controllers
-│    ├── database
-│    ├── middlewares
-│    ├── prisma
-│    ├── routes
-│    ├── services
-│
-├── blockchain
-│    ├── build
-│    ├── contracts
-│    ├── migrations
-│
-├── dao
-│    ├── contracts
-│    ├── deploy
-│    ├── scripts
-│    ├── test
-│    ├── utils
-│
-├── frontend
+├── client
 │    ├── animations
 │    ├── assets
 │    ├── components
@@ -62,7 +41,20 @@ Desafio 1: Desenvolvimento de tecnologias para casos de uso utilizando títulos 
 │    ├── styles
 │    ├── utils
 │
-├── ai
+├── ethereum
+│    ├── build
+│    ├── contracts
+│    ├── migrations
+│
+│
+├── server
+│    ├── controllers
+│    ├── database
+│    ├── middlewares
+│    ├── prisma
+│    ├── routes
+│    ├── services
+│
 ```
 
 ## Rodando a aplicação
