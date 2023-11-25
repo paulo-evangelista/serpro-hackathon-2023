@@ -1,8 +1,8 @@
 "use client";
-import { useEffect, useState } from "react";
-import { useMetamask } from "../hooks/useMetamask";
-import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
+import { Navbar } from "../components/Navbar";
+import { useMetamask } from "../hooks/useMetamask";
+import { useEffect, useState } from "react";
 
 export default function Home() {
 	const { account, connectWallet } = useMetamask();
@@ -81,8 +81,30 @@ export default function Home() {
 	return (
 		<div>
 			<Navbar />
-
+			<div className="relative mt-20 mb-10">
+				<div className="w-full h-80 overflow-hidden">
+				<img
+					src="https://www.tesourodireto.com.br/data/files/7E/31/02/3D/25907810B0345668894D49A8/Banner-1.png"
+					alt="Imagem de fundo"
+					className="w-full h-full object-cover"
+				/>
+				</div>
+				<div className="absolute inset-0 flex items-center justify-start px-32">
+				<div className="flex flex-col">
+					<h1 className="text-white text-4xl font-bold mb-2">
+					Tesouro RendA+
+					</h1>
+					<p className="text-white mb-2">
+					Planeje a sua aposentadoria com o novo título do Tesouro Direto
+					</p>
+					<button className="bg-green-700 text-white px-6 py-3 rounded-lg">
+					Conheça o RendA+ e comece a investir
+					</button>
+				</div>
+				</div>
+			</div>
 			<main className="mt-16 flex flex-col flex-1 justify-center p-2 w-full md:w-3/4 lg:w-3/5 mx-auto">
+				
 				<h1 className="text-4xl text-gray-700 font-semibold mb-8">
 					Confira a rentabilidade de cada título
 				</h1>
@@ -112,14 +134,14 @@ export default function Home() {
 							</p>
 						</div>
 					</div>
-					<div className="flex justify-center">
+					{/* <div className="flex justify-center">
 						<p className="text-gray-700 font-semibold text-center">
 							Ultima atualização:{" "}
 							<span className="text-gray-700 font-normal">
 								{lastUpdatedTime}
 							</span>
 						</p>
-					</div>
+					</div> */}
 				</div>
 
 				{/* Titles */}

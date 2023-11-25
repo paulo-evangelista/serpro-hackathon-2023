@@ -6,6 +6,7 @@ import { useState } from "react";
 import Image from "next/image";
 import menu from "@/app/assets/menu.svg";
 import xIcon from "@/app/assets/x.svg";
+import tIcon from "@/app/assets/td.svg";
 import { useAuth } from "../context";
 
 export const Navbar = () => {
@@ -46,8 +47,11 @@ export const Navbar = () => {
 					<Link href={"/home"} className="px-2">
 						Home
 					</Link>
+					<Link href={"/title"} className="px-2">
+							Títulos
+					</Link>
 					<Link href={"/about"} className="px-2">
-						Sobre
+						Conheça
 					</Link>
 					<Link href={"/contact"} className="px-2">
 						Contato
@@ -66,9 +70,9 @@ export const Navbar = () => {
 					>
 						<Image src={menu} width={24} height={24} alt="menu" />
 					</button>
-
-					<Link href={"/"}>
-						<p className="text-2xl">Tesouro Direto</p>
+					<Link href={"/"} className="ml-4">
+						{/* <p className="text-2xl">Tesouro Direto</p> */}
+						<Image src={tIcon} width={200} height={200} alt="menu" />
 					</Link>
 				</div>
 
@@ -77,8 +81,11 @@ export const Navbar = () => {
 						<Link href={"/home"} className="px-2">
 							Home
 						</Link>
+						<Link href={"/title"} className="px-2">
+							Títulos
+						</Link>
 						<Link href={"/about"} className="px-2">
-							Sobre
+							Conheça
 						</Link>
 						<Link href={"/contact"} className="px-2">
 							Contato
