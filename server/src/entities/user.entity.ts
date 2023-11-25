@@ -4,9 +4,11 @@ import {
     PrimaryGeneratedColumn,
     CreateDateColumn,
     ManyToMany,
+    OneToMany,
 } from 'typeorm';
 
-import { Investiment } from './investment.entity';
+import { Investment } from './investment.entity';
+import { Company } from './company.entity';
 
 @Entity()
 export class User {
@@ -18,9 +20,6 @@ export class User {
 
     @Column()
     password: string;
-    // CPF ou CNPJ
-    @Column()
-    document: string;
 
     @Column()
     wallet: string;
@@ -34,9 +33,9 @@ export class User {
     @CreateDateColumn()
     created_at: Date;
 
-    @Column({ default: false })
-    is_admin: boolean;
+    @OneToMany(() => Investment, (investiment) => investiment.owner)
+    investments: Investment[];
 
-    @ManyToMany(() => Investiment, (investiment) => investiment.id)
-    investments: Investiment[];
+    @ManyToMany(() => Company, (company) => company.approved_users)
+    approved_by: Company[];
 }

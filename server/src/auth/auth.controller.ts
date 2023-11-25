@@ -1,40 +1,80 @@
-import { Body, Controller, Post, UseGuards, Get, Request, Res, Param } from '@nestjs/common';
+import {
+    Body,
+    Controller,
+    Post,
+    UseGuards,
+    Get,
+    Request,
+    Res,
+    Param,
+    ClassSerializerInterceptor,
+    UseInterceptors,
+} from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { IsUser, IsAdmin } from './auth.guard';
+import { IsUser, IsAdmin, IsCompany } from './auth.guard';
 import { Response } from 'express';
 
+@UseInterceptors(ClassSerializerInterceptor)
 @Controller('auth')
 export class AuthController {
     constructor(private readonly authService: AuthService) {}
 
-    @Post('signup')
-    async signup(@Body() body: any) {
-      console.log(body)
-        return await this.authService.signup(body);
+    @Post('signupCompany')
+    async signupCompany(@Body() body: any) {
+        console.log(body);
+        return await this.authService.signupCompany(
+            body.email,
+            body.password,
+            body.wallet,
+            body.name,
+        );
+    }
+
+    @Post('signupGovernment')
+    async signupGovernment(@Body() body: any) {
+        console.log(body);
+        return await this.authService.signupGovernment(
+            body.email,
+            body.password,
+            body.firstName,
+            body.lastName,
+        );
+    }
+
+    @Post('signupUser')
+    async signupUser(@Body() body: any) {
+        console.log(body);
+        return await this.authService.signupUser(
+            body.email,
+            body.password,
+            body.wallet,
+            body.firstName,
+            body.lastName,
+        );
     }
 
     @Post('login')
-    async login(@Body() body: any, @Res({passthrough: true}) res: Response) {
+    async login(@Body() body: any, @Res({ passthrough: true }) res: Response) {
         const jwt = await this.authService.login(body.email, body.password);
         res.cookie('jwt', jwt, { httpOnly: false });
-        return {jwt}
+        return { jwt };
     }
 
     @UseGuards(IsUser)
-    @Get("test")
+    @Get('testUser')
     async test() {
-        return "You passed the auth guard!";
+        return 'You passed the auth guard!';
+    }
+
+    @UseGuards(IsCompany)
+    @Get('testCompany')
+    async test2() {
+        return 'You passed the admin auth guard!';
     }
 
     @UseGuards(IsAdmin)
-    @Get("testAdmin")
-    async test2() {
-        return "You passed the admin auth guard!";
-    }
-
-    @Get("makeAdmin/:id")
-    async makeAdmin(@Param('id') id: number) {
-        return await this.authService.makeAdmin(id);
-
+    @Get('testAdmin')
+    async test3() {
+        return 'You passed the company auth guard!';
     }
 }

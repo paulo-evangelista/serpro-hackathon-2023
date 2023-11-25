@@ -7,6 +7,8 @@ import { Web3Module } from './web3/web3.module';
 import { AuthModule } from './auth/auth.module';
 import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './auth/jwtConstants';
+import { GovernmentModule } from './government/government.module';
+import { UserModule } from './user/user.module';
 
 @Module({
     imports: [
@@ -30,6 +32,8 @@ import { jwtConstants } from './auth/jwtConstants';
             secret: jwtConstants.secret,
             signOptions: { expiresIn: '10w' },
         }),
+        GovernmentModule,
+        UserModule,
     ],
     controllers: [AppController],
     providers: [AppService],

@@ -3,25 +3,23 @@ import {
     Column,
     PrimaryGeneratedColumn,
     CreateDateColumn,
+    OneToMany,
 } from 'typeorm';
+import { Company } from './company.entity';
 
 @Entity()
-export class Asset {
+export class Government_User {
     @PrimaryGeneratedColumn()
     id: number;
 
     @Column({ unique: true })
     email: string;
 
-    @Column()
+    @Column({ nullable: false })
     password: string;
 
-    // CPF ou CNPJ
     @Column()
-    document: string;
-
-    @Column()
-    fistName: string;
+    firstName: string;
 
     @Column()
     lastName: string;
@@ -29,6 +27,6 @@ export class Asset {
     @CreateDateColumn()
     created_at: Date;
 
-    @Column({ default: false })
-    is_admin: boolean;
+    @OneToMany(() => Company, (company) => company.approved_by)
+    approved_companies: Company[];
 }
