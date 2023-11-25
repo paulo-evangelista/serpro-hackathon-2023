@@ -82,7 +82,7 @@ const Title = () => {
                     </h1>
                 </div>
             </div >
-            <div className="max-w-screen-md mx-auto">
+            <div className="max-w-screen-xl mx-auto">
                 <h1 className="text-4xl text-gray-700 font-semibold mb-8">
                     Confira a rentabilidade de cada título
                 </h1>

@@ -103,71 +103,78 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
-			<main className="mt-16 flex flex-col flex-1 justify-center p-2 w-full md:w-3/4 lg:w-3/5 mx-auto">
-				
-				<h1 className="text-4xl text-gray-700 font-semibold mb-8">
-					Confira a rentabilidade de cada título
-				</h1>
+			<div className="max-w-screen-xl mx-auto">
+                <h1 className="text-4xl text-gray-700 font-semibold mb-8">
+                    Confira a rentabilidade de cada título
+                </h1>
 
-				{/* Availability */}
-				<div className="border border-gray-600 rounded-md flex flex-col justify-center mb-8">
-					<div className="flex items-center justify-between p-4">
-						<div className="flex items-center justify-center w-1/2">
-							{/* small green ball */}
-							<div className="bg-green-500 rounded-full w-2 h-2 mr-2"></div>
-							<p className="text-gray-700 text-2xl">
-								Mercado Aberto
-							</p>
-						</div>
+                {/* Availability */}
+                <div className="border border-gray-600 rounded-md flex flex-col justify-center mb-8">
+                    <div className="flex items-center justify-between p-4">
+                        <div className="flex items-center justify-center w-1/2">
+                            {/* small green ball */}
+                            <div className="bg-green-500 rounded-full w-2 h-2 mr-2"></div>
+                            <p className="text-gray-700 text-2xl">
+                                Mercado Aberto
+                            </p>
+                        </div>
 
-						<div className="mx-2 text-4xl text-gray-400 font-thin">
-							|
-						</div>
+                        <div className="mx-2 text-4xl text-gray-400 font-thin">
+                            |
+                        </div>
 
-						<div className="flex flex-col justify-center">
-							<p className="text-gray-700">
-								Horario de funcionamento:
-							</p>
-							<p className="text-gray-700 text-lg font-semibold">
-								Nossos serviços estão disponíveis 24 horas por
-								dia, 7 dias por semana.
-							</p>
-						</div>
-					</div>
-					{/* <div className="flex justify-center">
+                        <div className="flex flex-col justify-center">
+                            <p className="text-gray-700">
+                                Horario de funcionamento:
+                            </p>
+                            <p className="text-gray-700 text-lg font-semibold">
+                                Nossos serviços estão disponíveis 24 horas por
+                                dia, 7 dias por semana.
+                            </p>
+                        </div>
+						<div className="flex justify-center">
 						<p className="text-gray-700 font-semibold text-center">
 							Ultima atualização:{" "}
 							<span className="text-gray-700 font-normal">
 								{lastUpdatedTime}
 							</span>
 						</p>
-					</div> */}
-				</div>
-
-				{/* Titles */}
-				<div className="flex flex-col">
-					<div className="grid grid-cols-5 gap-4 mb-4 text-[#26336a] text-md font-semibold">
-						<p>Título</p>
-						<p>Rentabilidade</p>
-						<p>Investimento mínimo</p>
-						<p>Preço unitário</p>
-						<p>Vencimento</p>
 					</div>
-
-					{titles.map((title, index) => (
-						<div
-							key={index}
-							className={`grid grid-cols-5 gap-4 text-md mb-4`}
-						>
-							<p>{title.name}</p>
-							<p>{title.profitability}</p>
-							<p>{title.minimumInvestment}</p>
-							<p>{title.unitPrice}</p>
-							<p>{title.dueDate}</p>
-						</div>
-					))}
-				</div>
-			</main>
+                    </div>
+                </div>
+                {/* Titles */}
+                <div className="overflow-x-auto">
+                    <table className="table-auto w-full">
+                        <thead>
+                        <tr className="bg-gray-200">
+                            <th className="px-4 py-2">Título</th>
+                            <th className="px-4 py-2">Rentabilidade</th>
+                            <th className="px-4 py-2">Investimento mínimo</th>
+                            <th className="px-4 py-2">Preço unitário</th>
+                            <th className="px-4 py-2">Vencimento</th>
+                            <th className="px-4 py-2">Simular</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {titles.map((title, index) => (
+                            <tr key={index} className="border-b">
+                            <td className="px-4 py-2">{title.name}</td>
+                            <td className="px-4 py-2">{title.profitability}</td>
+                            <td className="px-4 py-2">{title.minimumInvestment}</td>
+                            <td className="px-4 py-2">{title.unitPrice}</td>
+                            <td className="px-4 py-2">{title.dueDate}</td>
+                            <td className="px-4 py-2">
+                                <button className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300">
+                                Simular
+                                </button>
+                            </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                    </table>
+                </div>
+                <Footer />
+		    </div>
 
 			<Footer />
 		</div>
