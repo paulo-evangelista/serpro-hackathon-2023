@@ -56,7 +56,7 @@ export class AuthController {
     @Post('login')
     async login(@Body() body: any, @Res({ passthrough: true }) res: Response) {
         const jwt = await this.authService.login(body.email, body.password);
-        res.cookie('jwt', jwt, { httpOnly: false });
+        res.cookie('jwt', jwt.jwt, { httpOnly: false });
         return { jwt };
     }
 

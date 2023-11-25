@@ -7,7 +7,6 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class GovernmentService {
-
     constructor(
         @InjectRepository(Government_User)
         private readonly governmentUserRepository: Repository<Government_User>,
@@ -15,17 +14,17 @@ export class GovernmentService {
         private readonly companyRepository: Repository<Company>,
     ) {}
 
-    async aproveCompany(userId, govId){
-        const companyEntrie = await this.companyRepository.findOne(userId);
+    async aproveCompany(userId: number, govId: number) {
+        const companyEntrie = await this.companyRepository.findOne({ where: { id: userId } });
 
-        if(!companyEntrie){
-            throw new Error("Empresa não encontrada");
+        if (!companyEntrie) {
+            throw new Error('Empresa não encontrada');
         }
 
-        const govEntrie = await this.governmentUserRepository.findOne(govId);
+        const govEntrie = await this.governmentUserRepository.findOne({ where: { id: govId } });
 
-        if(!govEntrie){
-            throw new Error("Usuário do governo não encontrado");
+        if (!govEntrie) {
+            throw new Error('Usuário do governo não encontrado');
         }
 
         companyEntrie.approved_by = govEntrie;
