@@ -1,128 +1,105 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.19;
 
-import '@openzeppelin/contracts/token/ERC721/ERC721.sol';
-import '@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol';
-import '@openzeppelin/contracts/token/ERC721/extensions/ERC721Burnable.sol';
-import '@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol';
-import '@openzeppelin/contracts/access/Ownable.sol';
+import '../node_modules/@openzeppelin/contracts/token/ERC20/ERC20.sol';
+import '../node_modules/@openzeppelin/contracts/access/Ownable.sol';
 
-contract G2CFactory is Ownable {
-    event NewG2CCreated(address indexed g2cContract, string name, string symbol);
+contract ERC20Factory is Ownable {
+    event NewERC20Created(address indexed erc20Contract, string name, string symbol);
 
     constructor() Ownable(msg.sender) {}
 
-    function createG2C(
+    function createERC20(
         string memory name,
         string memory symbol,
+        uint256 initialSupply,
         string memory baseURI
     ) external onlyOwner returns (address) {
-        G2C newG2C = new G2C(name, symbol, baseURI, msg.sender);
-        emit NewG2CCreated(address(newG2C), name, symbol);
-        return address(newG2C);
+        CustomERC20Token newERC20 = new CustomERC20Token(name, symbol, initialSupply, msg.sender);
+        newERC20.setBaseURI(baseURI);
+        emit NewERC20Created(address(newERC20), name, symbol);
+        return address(newERC20);
     }
 }
 
-contract G2C is ERC721, ERC721URIStorage, ERC721Enumerable, ERC721Burnable, Ownable {
+contract CustomERC20Token is ERC20, Ownable {
     uint256 private idCounter;
     string public baseURI;
 
-    event Mint(address indexed wallet, uint256 indexed tokenId);
-    error soulbondError(string message);
+    event Mint(address indexed minter, address indexed to, uint256 amount);
 
     struct TokenData {
         uint256 tokenId;
         address owner;
-    }   
+    }
 
     TokenData[] public allTokens;
+    
+    struct STNFlowData {
+        string programa;
+        string portaria;
+        string titulo;
+        string dataEmissao;
+        string dataVencimento;
+        uint256 quantidade;
+        uint256 preco;
+        uint256 valorFinanceiro;
+        string aberturaContabil;
+    }
+
+    mapping(uint256 => STNFlowData) public stnFlows;
 
     constructor(
         string memory name,
         string memory symbol,
-        string memory __baseURI,
+        uint256 initialSupply,
         address owner
-    ) ERC721(name, symbol) Ownable(owner) {
-        idCounter = 0;
-        baseURI = __baseURI;
+    ) ERC20(name, symbol) Ownable(owner){
+        _mint(msg.sender, initialSupply);
+        idCounter = initialSupply;
     }
 
     function setBaseURI(string memory newURI) public onlyOwner {
         baseURI = newURI;
     }
 
-    function _baseURI() internal view override(ERC721) returns (string memory) {
-        return baseURI;
-    }
-
-    function safeMint(
-        address to,
-        string memory tokenUri
-    ) public onlyOwner returns (uint256) {
+    function mint(address to, uint256 amount) external onlyOwner {
         idCounter++;
-        _safeMint(to, idCounter);
-        _setTokenURI(idCounter, tokenUri);
+        _mint(to, amount);
         allTokens.push(TokenData(idCounter, to));
-        emit Mint(to, idCounter);
-        return idCounter;
+        emit Mint(msg.sender, to, amount);
     }
 
     function getAllTokens() public view returns (TokenData[] memory) {
         return allTokens;
     }
 
-    function safeTransferFrom(
-        address from,
-        address to,
+    function registerSTNFlow(
         uint256 tokenId,
-        bytes memory data
-    ) public override(IERC721, ERC721) {
-        if  (from != address(0) && to != address(0)) {
-            revert soulbondError('This token cannot be transferred');
-        }
-        return super.safeTransferFrom(from, to, tokenId, data);
+        string memory programa,
+        string memory portaria,
+        string memory titulo,
+        string memory dataEmissao,
+        string memory dataVencimento,
+        uint256 quantidade,
+        uint256 preco,
+        uint256 valorFinanceiro,
+        string memory aberturaContabil
+    ) external onlyOwner {
+        stnFlows[tokenId] = STNFlowData({
+            programa: programa,
+            portaria: portaria,
+            titulo: titulo,
+            dataEmissao: dataEmissao,
+            dataVencimento: dataVencimento,
+            quantidade: quantidade,
+            preco: preco,
+            valorFinanceiro: valorFinanceiro,
+            aberturaContabil: aberturaContabil
+        });
     }
 
-    function transferFrom(
-        address from,
-        address to,
-        uint256 tokenId
-    ) public override(IERC721, ERC721) {
-        if (from != address(0) && to != address(0)) {
-            revert soulbondError('This token cannot be transferred');
-        }
-        return super.transferFrom(from, to, tokenId);
-    }
-
-    function tokenURI(
-        uint256 tokenId
-    ) public view override(ERC721, ERC721URIStorage) returns (string memory) {
-        return super.tokenURI(tokenId);
-    }
-
-    function supportsInterface(
-        bytes4 interfaceId
-    )
-        public
-        view
-        override(ERC721, ERC721URIStorage, ERC721Enumerable)
-        returns (bool)
-    {
-        return super.supportsInterface(interfaceId);
-    }
-
-    function _increaseBalance(
-        address account,
-        uint128 amount
-    ) internal override(ERC721, ERC721Enumerable) {
-        return super._increaseBalance(account, amount);
-    }
-
-    function _update(
-        address to,
-        uint256 tokenId,
-        address auth
-    ) internal override(ERC721, ERC721Enumerable) returns (address) {
-        return super._update(to, tokenId, auth);
+    function getSTNFlowData(uint256 tokenId) external view returns (STNFlowData memory) {
+        return stnFlows[tokenId];
     }
 }
