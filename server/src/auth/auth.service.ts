@@ -10,6 +10,12 @@ export class AuthService {
         private jwtService: JwtService
     ){}
     async signup({email, password, document, wallet, firstName, lastName}) {
+        
+        const user = await this.userRepository.findOne({where: {email: email}})
+        if (user) {
+            throw new BadRequestException('User already exists');
+        }
+        
         return await this.userRepository.save({
             email, password, document, wallet, firstName, lastName
         });
@@ -25,12 +31,22 @@ export class AuthService {
         if (user.password !== password) {
             throw new UnauthorizedException('Password is incorrect');
         }
-
+        
         const payload = { sub: user.id, username: user.email, role: "user" };
 
-    return {
-      access_token: await this.jwtService.signAsync(payload),
-    };
+        if (user.is_admin) payload.role = "admin";
 
+
+    return await this.jwtService.signAsync(payload)
+
+    }
+
+    async makeAdmin(id: number) {
+        const user = await this.userRepository.findOne({where: {id: id}})
+        if (!user) {
+            throw new BadRequestException('User not found');
+        }
+        user.is_admin = true;
+        return await this.userRepository.save(user);
     }
 }
