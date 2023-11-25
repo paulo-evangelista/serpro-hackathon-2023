@@ -144,8 +144,8 @@ const Title = () => {
                         </tbody>
                     </table>
                 </div>
-                <Footer />
 		    </div>
+            <Footer />
         </div>
     );
 }

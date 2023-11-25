@@ -173,9 +173,7 @@ export default function Home() {
                         </tbody>
                     </table>
                 </div>
-                <Footer />
 		    </div>
-
 			<Footer />
 		</div>
 	);
