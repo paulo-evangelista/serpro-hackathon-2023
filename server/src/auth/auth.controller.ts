@@ -11,7 +11,7 @@ import {
     UseInterceptors,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { IsUser, IsAdmin, IsCompany } from './auth.guard';
+import { IsUser, IsGovernment, IsCompany } from './auth.guard';
 import { Response } from 'express';
 
 @UseInterceptors(ClassSerializerInterceptor)
@@ -72,7 +72,7 @@ export class AuthController {
         return 'You passed the admin auth guard!';
     }
 
-    @UseGuards(IsAdmin)
+    @UseGuards(IsGovernment)
     @Get('testAdmin')
     async test3() {
         return 'You passed the company auth guard!';

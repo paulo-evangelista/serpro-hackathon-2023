@@ -9,6 +9,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { jwtConstants } from './auth/jwtConstants';
 import { GovernmentModule } from './government/government.module';
 import { UserModule } from './user/user.module';
+import { CompanyModule } from './company/company.module';
 
 @Module({
     imports: [
@@ -34,6 +35,7 @@ import { UserModule } from './user/user.module';
         }),
         GovernmentModule,
         UserModule,
+        CompanyModule,
     ],
     controllers: [AppController],
     providers: [AppService],

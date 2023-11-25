@@ -1,39 +1,30 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { ethers } from "ethers";
+import axios from "axios";
 
 export const AuthContext = createContext({});
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-	const [account, setAccount] = useState<string | null>(null);
+	const [account, setAccount] = useState<{
+		email: string,
+		name: string,
+		wallet: string
+	} | null>(null);
 
-	const connectWallet = async () => {
-		if (window.ethereum) {
-			try {
-				const provider = new ethers.BrowserProvider(window.ethereum);
+	const signUp = async (data: {
+		email: string,
+		password: string,
+		wallet: string,
+		name: string
+	}): Promise<void> => {
+		const response = await axios.post("http://localhost:3333/users", data)
+		const { email, name, wallet } = await response.json();
 
-				const signer = provider.getSigner();
-				const address = (await signer).address;
-				setAccount(address);
-				localStorage.setItem("isWalletConnected", "true");
-			} catch (err) {
-				console.error(err);
-			}
-		} else {
-			console.log("Please install Metamask");
-		}
-	};
-
-	useEffect(() => {
-		const isWalletConnected = localStorage.getItem("isWalletConnected");
-
-		if (isWalletConnected) {
-			connectWallet();
-		}
-	}, []);
+		setAccount(wallet);
+	}
 
 	return (
-		<AuthContext.Provider value={{ account, setAccount, connectWallet }}>
+		<AuthContext.Provider value={{ account, setAccount }}>
 			{children}
 		</AuthContext.Provider>
 	);
