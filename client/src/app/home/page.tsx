@@ -90,17 +90,17 @@ export default function Home() {
 				/>
 				</div>
 				<div className="absolute inset-0 flex items-center justify-start px-32">
-				<div className="flex flex-col">
-					<h1 className="text-white text-4xl font-bold mb-2">
-					Tesouro RendA+
-					</h1>
-					<p className="text-white mb-2">
-					Planeje a sua aposentadoria com o novo título do Tesouro Direto
-					</p>
-					<button className="bg-green-700 text-white px-6 py-3 rounded-lg">
-					Conheça o RendA+ e comece a investir
-					</button>
-				</div>
+					<div className="flex flex-col">
+						<h1 className="text-white text-4xl font-bold mb-2">
+						Tesouro RendA+
+						</h1>
+						<p className="text-white mb-2">
+						Planeje a sua aposentadoria com o novo título do Tesouro Direto
+						</p>
+						<button className="bg-green-700 text-white px-6 py-3 rounded-lg">
+						Conheça o RendA+ e comece a investir
+						</button>
+					</div>
 				</div>
 			</div>
 			<main className="mt-16 flex flex-col flex-1 justify-center p-2 w-full md:w-3/4 lg:w-3/5 mx-auto">
