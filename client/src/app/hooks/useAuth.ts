@@ -1,34 +1,12 @@
-import { useContext } from "react";
-import { ethers } from "ethers";
-import { AuthContext } from "../context";
+import React, { useContext } from "react";
+import { AuthContext } from "@/app/context";
 
-export const useMetamask = () => {
-    const { account, setAccount } = useContext(AuthContext);
+export const useAuth = () => {
+	const context = useContext(AuthContext);
 
-    const connectWallet = async () => {
-        if (window.ethereum) {
-            try {
-                const provider = new ethers.BrowserProvider(window.ethereum);
+	if (context === undefined) {
+		throw new Error("useAuth must be used within an AuthProvider");
+	}
 
-                const accounts = await window.ethereum.request({
-                    method: "eth_requestAccounts",
-                });
-
-                console.log(accounts);
-
-                const signer = provider.getSigner();
-                const address = (await signer).address;
-                setAccount(address);
-                localStorage.setItem("isWalletConnected", "true");
-            } catch (err) {
-                console.error(err);
-            }
-        } else {
-            alert(
-                "Please install MetaMask 🦊! https://metamask.io/download.html"
-            );
-        }
-    };
-
-    return { account, connectWallet };
+	return context;
 };
