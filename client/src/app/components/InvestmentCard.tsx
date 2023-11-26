@@ -10,7 +10,7 @@ const InvestmentCard = ({
 	dueDate: string;
 }) => {
 	return (
-		<div className="max-w-sm rounded overflow-hidden shadow-lg bg-white p-6 m-4">
+		<div className="max-w-xm rounded overflow-hidden shadow-lg bg-white px-6 py-16 m-4">
 			<div className="font-bold text-xl mb-2">{title}</div>
 			<p className="text-gray-700 text-base mb-4">
 				Rentabilidade anual: {yieldAnnual}
@@ -18,7 +18,7 @@ const InvestmentCard = ({
 			<p className="text-gray-700 text-base mb-6">
 				Vencimento: {dueDate}
 			</p>
-			<button className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
+			<button className="bg-green-700 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full">
 				Simule o investimento
 			</button>
 		</div>
@@ -26,7 +26,6 @@ const InvestmentCard = ({
 };
 
 const InvestmentOptions = () => {
-	// Os dados dos cartões podem vir de um estado ou propriedade
 	const investmentOptions = [
 		{
 			title: "TESOURO PREFIXADO 2026",
