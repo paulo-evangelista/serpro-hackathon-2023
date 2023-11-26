@@ -21,7 +21,7 @@ export class User {
     @Column()
     password: string;
 
-    @Column()
+    @Column({nullable: true})
     wallet: string;
 
     @Column()
@@ -32,6 +32,9 @@ export class User {
 
     @CreateDateColumn()
     created_at: Date;
+
+    @Column({nullable: true})
+    private_key: string
 
     @OneToMany(() => Investment, (investiment) => investiment.owner)
     investments: Investment[];
