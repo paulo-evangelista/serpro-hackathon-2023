@@ -20,6 +20,7 @@ type LoginResponse = LoginData & {
 type SignUpData = {
 	email: string;
 	password: string;
+	type: string;
 	wallet?: string;
 	name?: string;
 	firstName?: string;
@@ -90,12 +91,21 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		data: LoginResponse | SignUpResponse,
 		type: string
 	): void => {
-		setAccount(data);
+		setAccount({ ...data, type });
 
 		localStorage.setItem("account", JSON.stringify(data));
 		localStorage.setItem("accountType", type);
 		localStorage.setItem("isLoggedIn", "true");
 	};
+
+	useEffect(() => {
+		const account = localStorage.getItem("account");
+		if (account) {
+			setAccount(JSON.parse(account));
+		} else {
+			setAccount(null);
+		}
+	}, []);
 
 	return (
 		<AuthContext.Provider value={{ account, signUp, login, logout }}>
