@@ -1,7 +1,16 @@
 "use client";
 import { useAuth } from "@/app/hooks/useAuth";
+import { ethers } from "ethers";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
+
+declare global {
+	interface Window {
+		ethereum: any;
+	}
+}
 
 export default function UserSignUp() {
 	const [hasNoAddress, setHasNoAddress] = useState(false);
@@ -11,9 +20,19 @@ export default function UserSignUp() {
 		register,
 		handleSubmit,
 		formState: { errors },
-		watch,
+		setValue,
 		resetField,
 	} = useForm();
+
+	const router = useRouter();
+
+	const importWallet = async () => {
+		const provider = new ethers.BrowserProvider(window.ethereum);
+		const signer = provider.getSigner();
+		const address = (await signer).address;
+
+		setValue("wallet", address);
+	};
 
 	const onSubmit = async (data: any) => {
 		await signUp(
@@ -24,9 +43,11 @@ export default function UserSignUp() {
 			"user"
 		)
 			.then((res: any) => {
-				console.log(res);
+				toast.success("Cadastro realizado com sucesso!");
+				router.push("/login");
 			})
 			.catch((err: any) => {
+				toast.error("Erro ao realizar cadastro!\nTente novamente.");
 				console.error(err);
 			});
 	};
@@ -91,6 +112,16 @@ export default function UserSignUp() {
 						className="px-4 py-2 border border-gray-300 rounded-md mr-2 w-full"
 						disabled={hasNoAddress}
 					/>
+
+					<button
+						type="button"
+						className="px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600"
+						title="Importar carteira do Metamask"
+						onClick={importWallet}
+					>
+						🦊
+					</button>
+
 					<div>
 						<input
 							type="checkbox"

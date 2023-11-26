@@ -10,6 +10,7 @@ import { useAuth } from "../context";
 
 export const Navbar = () => {
 	const [isOpen, setIsOpen] = useState(false);
+
 	const { account }: any = useAuth();
 
 	const handleClick = () => {
@@ -47,7 +48,7 @@ export const Navbar = () => {
 					</Link>
 				</div>
 				<div className="flex flex-col text-lg">
-					<Link href={"/home"} className="px-2">
+					<Link href={"/"} className="px-2">
 						Home
 					</Link>
 					<Link href={"/title"} className="px-2">
@@ -86,7 +87,7 @@ export const Navbar = () => {
 
 				<div className="hidden md:flex w-auto md:w-1/3 items-center justify-center">
 					<ul className="flex flex-row">
-						<Link href={"/home"} className="px-2">
+						<Link href={"/"} className="px-2">
 							Home
 						</Link>
 						<Link href={"/title"} className="px-2">
@@ -107,12 +108,11 @@ export const Navbar = () => {
 							<div className="flex items-center">
 								<Jazzicon
 									diameter={32}
-									seed={jsNumberForAddress(account.firstName)}
+									seed={jsNumberForAddress(
+										account.wallet || account.email
+									)}
 								/>
-								<p className="ml-2">
-									{account.firstName |
-										account.email.split("@")[0]}
-								</p>
+								<p className="ml-2">{account.email}</p>
 							</div>
 						</Link>
 					</div>
