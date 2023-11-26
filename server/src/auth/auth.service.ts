@@ -5,6 +5,7 @@ import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { Government_User } from 'src/entities/government_user.entity';
 import { Company } from 'src/entities/company.entity';
+import { Web3Service } from 'src/web3/web3.service';
 
 @Injectable()
 export class AuthService {
@@ -16,32 +17,32 @@ export class AuthService {
         @InjectRepository(Company)
         private readonly companyRepository: Repository<Company>,
         private jwtService: JwtService,
+        private web3Service: Web3Service,
     ) {}
 
     async signupUser(email: string, password: string, wallet: string, firstName: string, lastName: string) {
         await this.checkIfUserExists(email);
 
-        let entrie = this.userRepository.create({
+        if (!wallet) {
+            const { address, privateKey } = this.web3Service.createWallet();
+            const entrie = this.userRepository.create({
+                email,
+                password,
+                wallet: address,
+                private_key: privateKey,
+                firstName,
+                lastName,
+            });
+            return await this.userRepository.save(entrie);
+        }
+
+        const entrie = this.userRepository.create({
             email,
             password,
             wallet,
             firstName,
             lastName,
         });
-
-        if (!wallet) {
-            const { newWallet, pk } = await this.createWallet();
-
-            console.log('Generated wallet: ', newWallet, pk);
-
-            entrie = this.userRepository.create({
-                email,
-                password,
-                wallet: newWallet,
-                firstName,
-                lastName,
-            });
-        }
 
         return await this.userRepository.save(entrie);
     }

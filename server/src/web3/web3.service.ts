@@ -7,15 +7,16 @@ export class Web3Service {
     private contract: ethers.Contract;
     private contractAbi: any;
     constructor() {
-        this.provider = new ethers.InfuraProvider(
-            'sepolia',
-            process.env.INFURA_APIKEY,
-        );
+        this.provider = new ethers.InfuraProvider('sepolia', process.env.INFURA_APIKEY);
 
         this.wallet = new ethers.Wallet(process.env.GOV_PK, this.provider);
     }
 
-    async createWallet() {
-        ethers.Wallet.createRandom()
+    createWallet() {
+        const wallet = ethers.Wallet.createRandom();
+        return {
+            address: wallet.address,
+            privateKey: wallet.privateKey,
+        };
     }
 }

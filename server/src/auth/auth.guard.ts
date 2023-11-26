@@ -1,9 +1,4 @@
-import {
-    CanActivate,
-    ExecutionContext,
-    Injectable,
-    UnauthorizedException,
-} from '@nestjs/common';
+import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './jwtConstants';
 import { Request } from 'express';
@@ -27,9 +22,7 @@ export class IsUser implements CanActivate {
             request['user'] = payload;
             console.log(payload);
         } catch {
-            throw new UnauthorizedException(
-                'Rota apenas para usuários autenticados',
-            );
+            throw new UnauthorizedException('Rota apenas para usuários autenticados');
         }
         return true;
     }
@@ -56,9 +49,7 @@ export class IsGovernment implements CanActivate {
             });
 
             if (payload.role !== 'government') {
-                throw new UnauthorizedException(
-                    'rota apenas para administradores autenticados',
-                );
+                throw new UnauthorizedException('rota apenas para administradores autenticados');
             }
 
             request['user'] = payload;
@@ -90,9 +81,7 @@ export class IsCompany implements CanActivate {
             });
 
             if (payload.role !== 'company') {
-                throw new UnauthorizedException(
-                    'rota apenas para corretoras autenticadas',
-                );
+                throw new UnauthorizedException('rota apenas para corretoras autenticadas');
             }
 
             request['user'] = payload;

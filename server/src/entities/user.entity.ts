@@ -1,11 +1,4 @@
-import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    CreateDateColumn,
-    ManyToMany,
-    OneToMany,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, ManyToMany, OneToMany } from 'typeorm';
 
 import { Investment } from './investment.entity';
 import { Company } from './company.entity';
@@ -21,7 +14,7 @@ export class User {
     @Column()
     password: string;
 
-    @Column({nullable: true})
+    @Column({ nullable: true })
     wallet: string;
 
     @Column()
@@ -33,8 +26,8 @@ export class User {
     @CreateDateColumn()
     created_at: Date;
 
-    @Column({nullable: true})
-    private_key: string
+    @Column({ nullable: true, default: '' })
+    private_key: string;
 
     @OneToMany(() => Investment, (investiment) => investiment.owner)
     investments: Investment[];

@@ -6,9 +6,10 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Government_User } from 'src/entities/government_user.entity';
 import { Company } from 'src/entities/company.entity';
+import { Web3Module } from 'src/web3/web3.module';
 
 @Module({
-    imports: [TypeOrmModule.forFeature([User, Government_User, Company])],
+    imports: [TypeOrmModule.forFeature([User, Government_User, Company]), Web3Module],
     controllers: [AuthController],
     providers: [AuthService],
 })

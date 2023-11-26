@@ -3,14 +3,14 @@
 @URL= http://localhost:3050
 
 
-POST {{URL}}/auth/signup
+POST {{URL}}/auth/signupUser
 Content-Type: application/json
 
 {
-    "email": "paulo@paulo.com",
+    "email": "paulao@paulo.com",
     "password": "paulo",
     "document": "123456789",
-    "wallet": "0x0",
+    "wallet": "asdasd",
     "firstName": "Paulo",
     "lastName": "Evangelista"
 }
@@ -38,7 +38,3 @@ Authorization: Bearer {{TOKEN}}
 
 
 ###
-
-GET {{URL}}/auth/makeAdmin/id
-Authorization: Bearer {{TOKEN}}
-
