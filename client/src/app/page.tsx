@@ -5,7 +5,7 @@ import { Navbar } from "./components/Navbar";
 import { useAuth } from "@/app/hooks/useAuth";
 
 export default function Index(): JSX.Element {
-	const { account, signUp } = useAuth();
+	const { account, signUp }: any = useAuth();
 
 	const data = {
 		email: "marcelo.feitoza@sou.inteli.edu.br",
