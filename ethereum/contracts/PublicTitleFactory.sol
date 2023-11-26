@@ -1,12 +1,9 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.22;
+pragma solidity ^0.8.18;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
-import "@openzeppelin/contracts/access/Ownable.sol";
+import "./CustomPublicTitle.sol";
 
-import "./Token.sol";
-
-contract Factory is Ownable {
+contract PublicTitleFactory is Ownable {
     event NewERC721Created(
         address indexed erc721Contract,
         string name,
@@ -28,9 +25,12 @@ contract Factory is Ownable {
     function createERC721(
         string memory _name,
         string memory _symbol,
-        string memory baseURI
+        string memory baseURI,
+        uint256 _annualProfitability,
+        uint256 _unitPrice,
+        uint256 _maturityDate
     ) external onlyOwner returns (address) {
-        CustomERC721Token newERC721 = new CustomERC721Token(_name, _symbol);
+        CustomPublicTitle newERC721 = new CustomPublicTitle(_name, _symbol, _annualProfitability, _unitPrice, _maturityDate);
         newERC721.setBaseURI(baseURI);
         childContracts[childContractCount] = address(newERC721);
         emit NewERC721Created(address(newERC721), _name, _symbol);
@@ -54,20 +54,20 @@ contract Factory is Ownable {
         require(to != address(0), "Cannot mint to the zero address");
 
         // Get the child contract instance
-        CustomERC721Token childContract = CustomERC721Token(
+        CustomPublicTitle childContract = CustomPublicTitle(
             childContracts[childId]
         );
 
         // Call the mint function of the child contract
-        childContract.mint(to, amount);
+        childContract.mint(to, amount, childId);
     }
 
-    function setBaseURIFromFactory(
-        uint256 childId,
-        string memory newURI
-    ) external onlyOwner {
+    function setBaseURIFromFactory(uint256 childId, string memory newURI)
+        external
+        onlyOwner
+    {
         require(childId < childContractCount, "Invalid child ID");
-        CustomERC721Token childContract = CustomERC721Token(
+        CustomPublicTitle childContract = CustomPublicTitle(
             childContracts[childId]
         );
         childContract.setBaseURI(newURI);
@@ -79,10 +79,11 @@ contract Factory is Ownable {
         string memory _program,
         string memory _lobby,
         uint256 _financialAmount,
-        string memory _accountingOpening
+        string memory _accountingOpening,
+        uint256 _amount
     ) external onlyOwner {
         require(childId < childContractCount, "Invalid child ID");
-        CustomERC721Token childContract = CustomERC721Token(
+        CustomPublicTitle childContract = CustomPublicTitle(
             childContracts[childId]
         );
         childContract.registerSTNFlow(
@@ -90,16 +91,17 @@ contract Factory is Ownable {
             _program,
             _lobby,
             _financialAmount,
-            _accountingOpening
+            _accountingOpening,
+            _amount
         );
     }
 
-    function removeInstitutionFromFactory(
-        uint256 childId,
-        address account
-    ) external onlyOwner {
+    function removeInstitutionFromFactory(uint256 childId, address account)
+        external
+        onlyOwner
+    {
         require(childId < childContractCount, "Invalid child ID");
-        CustomERC721Token childContract = CustomERC721Token(
+        CustomPublicTitle childContract = CustomPublicTitle(
             childContracts[childId]
         );
         childContract.removeInstitution(account);
@@ -112,7 +114,7 @@ contract Factory is Ownable {
         uint256 tokenId
     ) external onlyOwner {
         require(childId < childContractCount, "Invalid child ID");
-        CustomERC721Token childContract = CustomERC721Token(
+        CustomPublicTitle childContract = CustomPublicTitle(
             childContracts[childId]
         );
         childContract.transferToken(from, to, tokenId);
@@ -123,18 +125,19 @@ contract Factory is Ownable {
         address _institutionAddress
     ) external onlyOwner returns (address) {
         require(childId < childContractCount, "Invalid child ID");
-        CustomERC721Token childContract = CustomERC721Token(
+        CustomPublicTitle childContract = CustomPublicTitle(
             childContracts[childId]
         );
         return childContract.addInstitution(_institutionAddress);
     }
 
-    function getMinterFromFactory(
-        uint256 childId,
-        address _minter
-    ) external view returns (bool) {
+    function getMinterFromFactory(uint256 childId, address _minter)
+        external
+        view
+        returns (bool)
+    {
         require(childId < childContractCount, "Invalid child ID");
-        CustomERC721Token childContract = CustomERC721Token(
+        CustomPublicTitle childContract = CustomPublicTitle(
             childContracts[childId]
         );
         return childContract.getMinter(_minter);

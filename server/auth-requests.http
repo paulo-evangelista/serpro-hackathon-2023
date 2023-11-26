@@ -38,7 +38,3 @@ Authorization: Bearer {{TOKEN}}
 
 
 ###
-
-GET {{URL}}/auth/makeAdmin/id
-Authorization: Bearer {{TOKEN}}
-
