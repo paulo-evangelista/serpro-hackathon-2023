@@ -2,6 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import '@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol';
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -10,7 +11,7 @@ interface IInstitutionContract {
     function checkIfUserHavePermission(address) external view returns (bool);
 }
 
-contract CustomPublicTitle is ERC721, ERC721URIStorage, Ownable {
+contract CustomPublicTitle is ERC721,ERC721Enumerable, ERC721URIStorage, Ownable {
     // counter para os ids das nfts emitidas
     uint256 private idCounter;
 
@@ -117,6 +118,10 @@ contract CustomPublicTitle is ERC721, ERC721URIStorage, Ownable {
         baseURI = newURI;
     }
 
+    function _baseURI() internal view override(ERC721) returns (string memory) {
+        return baseURI;
+    }
+
     function safeMint(
         address to,
         uint256 _amount,
@@ -160,7 +165,7 @@ contract CustomPublicTitle is ERC721, ERC721URIStorage, Ownable {
         wasLiquidated = true;
     }
 
-    // overrides para probir a transferência
+    // overrides para proibir a transferência
 
     function safeTransferFrom(
         address from,
@@ -168,7 +173,7 @@ contract CustomPublicTitle is ERC721, ERC721URIStorage, Ownable {
         uint256 tokenId,
         bytes memory data
     ) public override(IERC721, ERC721) {
-        if  (from != address(0) && to != address(0)) {
+        if  (from != address(0)) {
             revert soulbondError('This token cannot be tranfered');
         }
         return super.safeTransferFrom(from, to, tokenId, data);
@@ -179,7 +184,7 @@ contract CustomPublicTitle is ERC721, ERC721URIStorage, Ownable {
         address to,
         uint256 tokenId
     ) public override(IERC721, ERC721) {
-        if (from != address(0) && to != address(0)) {
+        if (from != address(0)) {
             revert soulbondError('This token cannot be tranfered');
         }
         return super.transferFrom(from, to, tokenId);
@@ -190,13 +195,20 @@ contract CustomPublicTitle is ERC721, ERC721URIStorage, Ownable {
 
     function supportsInterface(
         bytes4 interfaceId
-    ) public view override(ERC721, ERC721URIStorage) returns (bool) {
+    ) public view override(ERC721, ERC721URIStorage, ERC721Enumerable) returns (bool) {
         return super.supportsInterface(interfaceId);
+    }
+
+    function _increaseBalance(
+        address account,
+        uint128 amount
+    ) internal override(ERC721, ERC721Enumerable) {
+        return super._increaseBalance(account, amount);
     }
 
     function tokenURI(
         uint256 tokenId
-    ) public view override(ERC721, ERC721URIStorage) returns (string memory) {
+    ) public view override(ERC721, ERC721URIStorage, ERC721Enumerable) returns (string memory) {
         return super.tokenURI(tokenId);
     }
 }
