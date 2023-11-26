@@ -1,4 +1,9 @@
-import { Injectable } from '@nestjs/common';
+import { Get, Injectable } from '@nestjs/common';
 
 @Injectable()
-export class UserService {}
+export class UserService {
+    @Get('all')
+    async getAll() {
+        return 'all users';
+    }
+}

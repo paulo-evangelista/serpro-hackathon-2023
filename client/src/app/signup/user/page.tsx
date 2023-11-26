@@ -48,7 +48,6 @@ export default function UserSignUp() {
 			})
 			.catch((err: any) => {
 				toast.error("Erro ao realizar cadastro!\nTente novamente.");
-				console.error(err);
 			});
 	};
 
@@ -106,21 +105,24 @@ export default function UserSignUp() {
 				)}
 
 				<div className="flex flex-1 flex-col">
-					<input
-						{...register("wallet", { required: !hasNoAddress })}
-						placeholder="Endereço da carteira na rede Ethereum"
-						className="px-4 py-2 border border-gray-300 rounded-md mr-2 w-full"
-						disabled={hasNoAddress}
-					/>
+					<div className="flex">
+						<input
+							{...register("wallet", { required: !hasNoAddress })}
+							placeholder="Endereço da carteira na rede Ethereum"
+							className="px-4 py-2 border border-gray-300 rounded-md mr-2 w-full"
+							disabled={hasNoAddress}
+						/>
 
-					<button
-						type="button"
-						className="px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600"
-						title="Importar carteira do Metamask"
-						onClick={importWallet}
-					>
-						🦊
-					</button>
+						<button
+							type="button"
+							className="px-4 py-2 bg-orange-500 text-white rounded-md cursor-pointer hover:bg-orange-600 disabled:bg-gray-400 hover:disabled:bg-gray-500 hover:disabled:cursor-not-allowed"
+							title="Importar carteira do Metamask"
+							onClick={importWallet}
+							disabled={hasNoAddress}
+						>
+							🦊
+						</button>
+					</div>
 
 					<div>
 						<input

@@ -11,10 +11,10 @@ export class CompanyService {
         @InjectRepository(Company) private readonly companyRepository: Repository<Company>,
         @InjectRepository(User) private readonly userRepository: Repository<User>,
     ) {}
-    async approveUser(userId: number, govId: number) {
 
+    async approveUser(userId: number, govId: number) {
         // TODO: CHAMAR O CONTRATO  PARA APROVAR USUARIO.
-        
+
         const companyEntrie = await this.companyRepository.findOne({ where: { id: govId } });
 
         if (!companyEntrie) {
@@ -29,5 +29,9 @@ export class CompanyService {
 
         companyEntrie.approved_users.push(userEntrie);
         return await this.companyRepository.save(companyEntrie);
+    }
+
+    async getAllAssets() {
+        return await this.companyRepository.find();
     }
 }
