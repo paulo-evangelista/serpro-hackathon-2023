@@ -1,5 +1,6 @@
 "use client";
 import { Footer } from "../components/Footer";
+import InvestmentCard from "../components/InvestmentCard";
 import { Navbar } from "../components/Navbar";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -106,10 +107,18 @@ export default function Home() {
 					</div>
 				</div>
 			</div>
+			<Graph />
 			<div className="max-w-screen-xl mx-auto">
-				<h1 className="text-4xl text-gray-700 font-semibold mb-8">
-					Confira a rentabilidade de cada título
-				</h1>
+				<div className="flex mb-16 bt-16">
+					<InvestmentCard title={"TESOURO PREFIXADO 2026"} yieldAnnual={"11%"} minimumInvestment={""} dueDate={"01/01/2026"}/>
+					<InvestmentCard title={"TESOURO PREFIXADO 2026"} yieldAnnual={"11%"} minimumInvestment={""} dueDate={"01/01/2026"}/>
+					<InvestmentCard title={"TESOURO PREFIXADO 2026"} yieldAnnual={"11%"} minimumInvestment={""} dueDate={"01/01/2026"}/>
+					<InvestmentCard title={"TESOURO PREFIXADO 2026"} yieldAnnual={"11%"} minimumInvestment={""} dueDate={"01/01/2026"}/>
+				</div>
+				
+                <h1 className="text-4xl text-gray-700 font-semibold mb-8">
+                    Confira a rentabilidade de cada título
+                </h1>
 
 				{/* Availability */}
 				<div className="border border-gray-600 rounded-md flex flex-col justify-center mb-8">
@@ -189,5 +198,86 @@ export default function Home() {
 			</div>
 			<Footer />
 		</div>
+	);
+}
+
+const Graph =() => {
+	  const [investment, setInvestment] = useState(1000000);
+	  const [years, setYears] = useState(20);
+	
+
+	  const [savingsOutcome, setSavingsOutcome] = useState(3227448.53);
+	  const [treasuryOutcome, setTreasuryOutcome] = useState(5117696.74);
+	
+	  const handleInvestmentChange = (e: any) => {
+		const value = e.target.value.replace(/\D/g, '');
+		setInvestment(Number(value));
+		calculateOutcomes(Number(value), years);
+	  };
+	
+	  const handleYearsChange = (e: any) => {
+		const value = e.target.value;
+		setYears(Number(value));
+		calculateOutcomes(investment, Number(value));
+	  };
+	
+
+	  const calculateOutcomes = (amount: any, duration: any) => {
+		const savingsInterestRate = 0.05;
+		const treasuryInterestRate = 0.10;
+	
+		const savings = amount * Math.pow(1 + savingsInterestRate, duration);
+		const treasury = amount * Math.pow(1 + treasuryInterestRate, duration);
+	
+		setSavingsOutcome(savings);
+		setTreasuryOutcome(treasury);
+	  };
+	
+	return (
+	  <div className="p-10">
+		<div className="max-w-2xl mx-auto">
+		  <h1 className="text-2xl font-bold mb-6">SIMULE SEU INVESTIMENTO</h1>
+		  <p className="mb-4">Compare e confira as vantagens de investir seu dinheiro no Tesouro Direto.</p>
+		  
+		  <div className="flex flex-col space-y-4 mb-8">
+			<label htmlFor="amount">Eu tenho R$</label>
+			<input
+			  id="amount"
+			  className="form-input mt-1 block w-full border-2 border-gray-200 p-2"
+			  type="text"
+			  onChange={handleInvestmentChange}
+			  value={investment.toLocaleString('pt-BR')}
+			/>
+			
+			<label htmlFor="years">Para aplicar durante</label>
+			<input
+			  id="years"
+			  className="form-input mt-1 block w-full border-2 border-gray-200 p-2"
+			  type="number"
+			  onChange={handleYearsChange}
+			  value={years}
+			/> anos
+		  </div>
+		  
+		  <div className="flex justify-around mb-4">
+			<div className="text-center">
+			  <div className="bg-blue-500 w-24 h-24 mx-auto"></div>
+			  <p className="mt-2">POUPANÇA</p>
+			  <p className="font-bold">{savingsOutcome.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+			</div>
+			<div className="text-center">
+			  <div className="bg-teal-500 w-24 h-32 mx-auto"></div>
+			  <p className="mt-2">TESOURO IPCA+ 2045</p>
+			  <p className="font-bold">{treasuryOutcome.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' })}</p>
+			</div>
+		  </div>
+		  
+		  <button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
+			Simule mais opções
+		  </button>
+		  <p className="text-xs mt-4">*Projeção do valor líquido de resgate (após taxas e impostos).</p>
+		  <p className="text-xs">*As simulações são baseadas em projeções de mercado. Isso não garante resultados futuros.</p>
+		</div>
+	  </div>
 	);
 }
