@@ -44,20 +44,6 @@ export class AuthService {
             lastName,
         });
 
-        if (!wallet) {
-            const { newWallet, pk } = await this.createWallet();
-
-            console.log('Generated wallet: ', newWallet, pk);
-
-            entrie = this.userRepository.create({
-                email,
-                password,
-                wallet: newWallet,
-                firstName,
-                lastName,
-            });
-        }
-
         return await this.userRepository.save(entrie);
     }
 
