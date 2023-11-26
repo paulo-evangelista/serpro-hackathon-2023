@@ -1,13 +1,4 @@
-import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    CreateDateColumn,
-    OneToMany,
-    ManyToMany,
-    JoinTable,
-    ManyToOne,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany, ManyToMany, JoinTable, ManyToOne } from 'typeorm';
 import { User } from './user.entity';
 import { Investment } from './investment.entity';
 import { Government_User } from './government_user.entity';

@@ -6,12 +6,10 @@ import { IsCompany } from 'src/auth/auth.guard';
 @UseGuards(IsCompany)
 @Controller('company')
 export class CompanyController {
-  constructor(private readonly companyService: CompanyService) {}
+    constructor(private readonly companyService: CompanyService) {}
 
-  @Get("approveUser")
-  async approveUser() {
-    return await this.companyService.approveUser();
-  }
-
-  
+    @Get('approveUser')
+    async approveUser() {
+        return await this.companyService.approveUser();
+    }
 }

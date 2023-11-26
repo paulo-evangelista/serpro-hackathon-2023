@@ -1,10 +1,4 @@
-import {
-    Entity,
-    Column,
-    PrimaryGeneratedColumn,
-    CreateDateColumn,
-    OneToMany,
-} from 'typeorm';
+import { Entity, Column, PrimaryGeneratedColumn, CreateDateColumn, OneToMany } from 'typeorm';
 import { Investment } from './investment.entity';
 
 // TABELA APENAS PARA TITULOS PRÉ FIXADOS SEM LIQUIDEZ DIÁRIA

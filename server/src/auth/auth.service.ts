@@ -23,18 +23,18 @@ export class AuthService {
     async signupUser(email: string, password: string, wallet: string, firstName: string, lastName: string) {
         await this.checkIfUserExists(email);
 
-        if (!wallet){
-        const {address, privateKey} = this.web3Service.createWallet()
-        const entrie = this.userRepository.create({
-            email,
-            password,
-            wallet: address,
-            private_key: privateKey,
-            firstName,
-            lastName,
-        });
-        return await this.userRepository.save(entrie);
-        } 
+        if (!wallet) {
+            const { address, privateKey } = this.web3Service.createWallet();
+            const entrie = this.userRepository.create({
+                email,
+                password,
+                wallet: address,
+                private_key: privateKey,
+                firstName,
+                lastName,
+            });
+            return await this.userRepository.save(entrie);
+        }
 
         const entrie = this.userRepository.create({
             email,
