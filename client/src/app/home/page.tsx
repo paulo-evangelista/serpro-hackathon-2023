@@ -83,26 +83,22 @@ export default function Home() {
 			<Navbar />
 			<div className="relative mt-20 mb-10">
 				<div className="w-full h-80 overflow-hidden">
-					<div className="flex items-center justify-start px-32">
-						{/* eslint-disable-next-line @next/next/no-img-element */}
-						<img
-							src="https://www.tesourodireto.com.br/data/files/7E/31/02/3D/25907810B0345668894D49A8/Banner-1.png"
-							alt="Imagem de fundo"
-							className="w-full h-full object-cover"
-							width={1920}
-							height={1080}
-						/>
-					</div>
+				<img
+					src="https://www.tesourodireto.com.br/data/files/7E/31/02/3D/25907810B0345668894D49A8/Banner-1.png"
+					alt="Imagem de fundo"
+					className="w-full h-full object-cover"
+				/>
+				</div>
+				<div className="absolute inset-0 flex items-center justify-start px-32">
 					<div className="flex flex-col">
 						<h1 className="text-white text-4xl font-bold mb-2">
-							Tesouro RendA+
+						Tesouro RendA+
 						</h1>
 						<p className="text-white mb-2">
-							Planeje a sua aposentadoria com o novo título do
-							Tesouro Direto
+						Planeje a sua aposentadoria com o novo título do Tesouro Direto
 						</p>
 						<button className="bg-green-700 text-white px-6 py-3 rounded-lg">
-							Conheça o RendA+ e comece a investir
+						Conheça o RendA+ e comece a investir
 						</button>
 					</div>
 				</div>
