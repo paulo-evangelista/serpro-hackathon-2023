@@ -9,8 +9,10 @@ import { Repository } from 'typeorm';
 import { JwtService } from '@nestjs/jwt';
 import { Government_User } from 'src/entities/government_user.entity';
 import { Company } from 'src/entities/company.entity';
+
 @Injectable()
 export class AuthService {
+
     constructor(
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
@@ -29,6 +31,11 @@ export class AuthService {
         lastName: string,
     ) {
         await this.checkIfUserExists(email);
+
+        if (!wallet){
+
+        const {wallet, pk} =  await this.createWallet()
+        } 
 
         const entrie = this.userRepository.create({
             email,
@@ -141,4 +148,5 @@ export class AuthService {
             );
         }
     }
+
 }
