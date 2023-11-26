@@ -33,7 +33,7 @@ export class User {
     @CreateDateColumn()
     created_at: Date;
 
-    @Column({nullable: true})
+    @Column({nullable: true, default: ""})
     private_key: string
 
     @OneToMany(() => Investment, (investiment) => investiment.owner)

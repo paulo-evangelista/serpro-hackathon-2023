@@ -15,7 +15,11 @@ export class Web3Service {
         this.wallet = new ethers.Wallet(process.env.GOV_PK, this.provider);
     }
 
-    async createWallet() {
-        ethers.Wallet.createRandom()
+    createWallet() {
+        const wallet = ethers.Wallet.createRandom();
+        return {
+            address: wallet.address,
+            privateKey: wallet.privateKey,
+        }
     }
 }
