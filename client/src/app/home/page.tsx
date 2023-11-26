@@ -1,11 +1,10 @@
 "use client";
 import { Footer } from "../components/Footer";
 import { Navbar } from "../components/Navbar";
-import { useMetamask } from "../hooks/useMetamask";
 import { useEffect, useState } from "react";
+import Image from "next/image";
 
 export default function Home() {
-	const { account, connectWallet } = useMetamask();
 	let [lastUpdatedTime, setLastUpdatedTime] = useState<string>(
 		new Date().toLocaleString().replace(",", " 🕘")
 	);
@@ -83,97 +82,111 @@ export default function Home() {
 			<Navbar />
 			<div className="relative mt-20 mb-10">
 				<div className="w-full h-80 overflow-hidden">
-				<img
-					src="https://www.tesourodireto.com.br/data/files/7E/31/02/3D/25907810B0345668894D49A8/Banner-1.png"
-					alt="Imagem de fundo"
-					className="w-full h-full object-cover"
-				/>
-				</div>
-				<div className="absolute inset-0 flex items-center justify-start px-32">
+					<div className="flex items-center justify-start px-32">
+						{/* eslint-disable-next-line @next/next/no-img-element */}
+						<img
+							src="https://www.tesourodireto.com.br/data/files/7E/31/02/3D/25907810B0345668894D49A8/Banner-1.png"
+							alt="Imagem de fundo"
+							className="w-full h-full object-cover"
+							width={1920}
+							height={1080}
+						/>
+					</div>
 					<div className="flex flex-col">
 						<h1 className="text-white text-4xl font-bold mb-2">
-						Tesouro RendA+
+							Tesouro RendA+
 						</h1>
 						<p className="text-white mb-2">
-						Planeje a sua aposentadoria com o novo título do Tesouro Direto
+							Planeje a sua aposentadoria com o novo título do
+							Tesouro Direto
 						</p>
 						<button className="bg-green-700 text-white px-6 py-3 rounded-lg">
-						Conheça o RendA+ e comece a investir
+							Conheça o RendA+ e comece a investir
 						</button>
 					</div>
 				</div>
 			</div>
 			<div className="max-w-screen-xl mx-auto">
-                <h1 className="text-4xl text-gray-700 font-semibold mb-8">
-                    Confira a rentabilidade de cada título
-                </h1>
+				<h1 className="text-4xl text-gray-700 font-semibold mb-8">
+					Confira a rentabilidade de cada título
+				</h1>
 
-                {/* Availability */}
-                <div className="border border-gray-600 rounded-md flex flex-col justify-center mb-8">
-                    <div className="flex items-center justify-between p-4">
-                        <div className="flex items-center justify-center w-1/2">
-                            {/* small green ball */}
-                            <div className="bg-green-500 rounded-full w-2 h-2 mr-2"></div>
-                            <p className="text-gray-700 text-2xl">
-                                Mercado Aberto
-                            </p>
-                        </div>
+				{/* Availability */}
+				<div className="border border-gray-600 rounded-md flex flex-col justify-center mb-8">
+					<div className="flex items-center justify-between p-4">
+						<div className="flex items-center justify-center w-1/2">
+							{/* small green ball */}
+							<div className="bg-green-500 rounded-full w-2 h-2 mr-2"></div>
+							<p className="text-gray-700 text-2xl">
+								Mercado Aberto
+							</p>
+						</div>
 
-                        <div className="mx-2 text-4xl text-gray-400 font-thin">
-                            |
-                        </div>
+						<div className="mx-2 text-4xl text-gray-400 font-thin">
+							|
+						</div>
 
-                        <div className="flex flex-col justify-center">
-                            <p className="text-gray-700">
-                                Horario de funcionamento:
-                            </p>
-                            <p className="text-gray-700 text-lg font-semibold">
-                                Nossos serviços estão disponíveis 24 horas por
-                                dia, 7 dias por semana.
-                            </p>
-                        </div>
+						<div className="flex flex-col justify-center">
+							<p className="text-gray-700">
+								Horario de funcionamento:
+							</p>
+							<p className="text-gray-700 text-lg font-semibold">
+								Nossos serviços estão disponíveis 24 horas por
+								dia, 7 dias por semana.
+							</p>
+						</div>
 						<div className="flex justify-center">
-						<p className="text-gray-700 font-semibold text-center">
-							Ultima atualização:{" "}
-							<span className="text-gray-700 font-normal">
-								{lastUpdatedTime}
-							</span>
-						</p>
+							<p className="text-gray-700 font-semibold text-center">
+								Ultima atualização:{" "}
+								<span className="text-gray-700 font-normal">
+									{lastUpdatedTime}
+								</span>
+							</p>
+						</div>
 					</div>
-                    </div>
-                </div>
-                {/* Titles */}
-                <div className="overflow-x-auto">
-                    <table className="table-auto w-full">
-                        <thead>
-                        <tr className="bg-gray-200">
-                            <th className="px-4 py-2">Título</th>
-                            <th className="px-4 py-2">Rentabilidade</th>
-                            <th className="px-4 py-2">Investimento mínimo</th>
-                            <th className="px-4 py-2">Preço unitário</th>
-                            <th className="px-4 py-2">Vencimento</th>
-                            <th className="px-4 py-2">Simular</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {titles.map((title, index) => (
-                            <tr key={index} className="border-b">
-                            <td className="px-4 py-2">{title.name}</td>
-                            <td className="px-4 py-2">{title.profitability}</td>
-                            <td className="px-4 py-2">{title.minimumInvestment}</td>
-                            <td className="px-4 py-2">{title.unitPrice}</td>
-                            <td className="px-4 py-2">{title.dueDate}</td>
-                            <td className="px-4 py-2">
-                                <button className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300">
-                                Simular
-                                </button>
-                            </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                    </table>
-                </div>
-		    </div>
+				</div>
+				{/* Titles */}
+				<div className="overflow-x-auto">
+					<table className="table-auto w-full">
+						<thead>
+							<tr className="bg-gray-200">
+								<th className="px-4 py-2">Título</th>
+								<th className="px-4 py-2">Rentabilidade</th>
+								<th className="px-4 py-2">
+									Investimento mínimo
+								</th>
+								<th className="px-4 py-2">Preço unitário</th>
+								<th className="px-4 py-2">Vencimento</th>
+								<th className="px-4 py-2">Simular</th>
+							</tr>
+						</thead>
+						<tbody>
+							{titles.map((title, index) => (
+								<tr key={index} className="border-b">
+									<td className="px-4 py-2">{title.name}</td>
+									<td className="px-4 py-2">
+										{title.profitability}
+									</td>
+									<td className="px-4 py-2">
+										{title.minimumInvestment}
+									</td>
+									<td className="px-4 py-2">
+										{title.unitPrice}
+									</td>
+									<td className="px-4 py-2">
+										{title.dueDate}
+									</td>
+									<td className="px-4 py-2">
+										<button className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300">
+											Simular
+										</button>
+									</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
+				</div>
+			</div>
 			<Footer />
 		</div>
 	);

@@ -1,8 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useMetamask } from "../hooks/useMetamask";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import menu from "@/app/assets/menu.svg";
 import xIcon from "@/app/assets/x.svg";
@@ -10,12 +9,16 @@ import tIcon from "@/app/assets/td.svg";
 import { useAuth } from "../context";
 
 export const Navbar = () => {
-	const address = "0x0c6e9aF1C1cC0C1eB3f6cF6cE7Aa5eC9f4fC8AaB";
 	const [isOpen, setIsOpen] = useState(false);
+	const { account }: any = useAuth();
 
 	const handleClick = () => {
 		setIsOpen(!isOpen);
 	};
+
+	useEffect(() => {
+		console.log(account);
+	}, [account]);
 
 	return (
 		<>
@@ -48,7 +51,7 @@ export const Navbar = () => {
 						Home
 					</Link>
 					<Link href={"/title"} className="px-2">
-							Títulos
+						Títulos
 					</Link>
 					<Link href={"/about"} className="px-2">
 						Conheça
@@ -72,7 +75,12 @@ export const Navbar = () => {
 					</button>
 					<Link href={"/"} className="ml-4">
 						{/* <p className="text-2xl">Tesouro Direto</p> */}
-						<Image src={tIcon} width={200} height={200} alt="menu" />
+						<Image
+							src={tIcon}
+							width={200}
+							height={200}
+							alt="menu"
+						/>
 					</Link>
 				</div>
 
@@ -93,22 +101,29 @@ export const Navbar = () => {
 					</ul>
 				</div>
 
-				{address ? (
+				{account ? (
 					<div className="flex w-auto items-center md:w-1/3 justify-end">
 						<Link href={"/profile"}>
 							<div className="flex items-center">
 								<Jazzicon
 									diameter={32}
-									seed={jsNumberForAddress(address)}
+									seed={jsNumberForAddress(account.firstName)}
 								/>
+								<p className="ml-2">
+									{account.firstName |
+										account.email.split("@")[0]}
+								</p>
 							</div>
 						</Link>
 					</div>
 				) : (
 					<div className="flex w-auto md:w-1/3 items-end justify-end">
-						<button className="bg-[#f1f1f1] text-[#26336a] px-4 py-2 rounded-md">
+						<Link
+							href={"/login"}
+							className="bg-[#f1f1f1] text-[#26336a] px-4 py-2 rounded-md"
+						>
 							Login
-						</button>
+						</Link>
 					</div>
 				)}
 			</div>

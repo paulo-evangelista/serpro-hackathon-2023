@@ -1,9 +1,13 @@
 "use client";
 import { useAuth } from "@/app/hooks/useAuth";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 
 export default function GovernmentSignUp() {
-	const { signUp } = useAuth();
+	const { login }: any = useAuth();
+	const router = useRouter();
+
 	const {
 		register,
 		handleSubmit,
@@ -11,12 +15,15 @@ export default function GovernmentSignUp() {
 	} = useForm();
 
 	const onSubmit = async (data: any) => {
-		await signUp(data)
-			.then((res) => {
+		// wrap it all in a try catch, and in case of error, display an alert with the message that comes from the server
+		await login(data)
+			.then((res: any) => {
 				console.log(res);
+				router.push("/");
 			})
-			.catch((err) => {
+			.catch((err: any) => {
 				console.error(err);
+				alert(err.message);
 			});
 	};
 
@@ -71,6 +78,15 @@ export default function GovernmentSignUp() {
 					value="Enviar"
 					className="px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600"
 				/>
+
+				<hr className="my-4" />
+
+				<Link
+					href={"/signup"}
+					className="mt-4 text-blue-500 hover:underline text-end"
+				>
+					Precisa se registrar?
+				</Link>
 			</form>
 		</div>
 	);

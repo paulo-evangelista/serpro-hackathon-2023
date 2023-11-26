@@ -5,6 +5,18 @@ import { AxiosResponse } from "axios";
 
 export const AuthContext = createContext({});
 
+type LoginData = {
+	email: string;
+	password: string;
+};
+
+type LoginResponse = LoginData & {
+	id: number;
+	firstName: string;
+	lastName: string;
+	created_at: string;
+};
+
 type SignUpData = {
 	email: string;
 	password: string;
@@ -18,46 +30,56 @@ type SignUpResponse = SignUpData & {
 	id: number;
 };
 
+enum AccountType {
+	Government,
+	User,
+	Company,
+}
+
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [account, setAccount] = useState<SignUpData | null>(null);
 
-	const signUp = async (data: SignUpData): Promise<SignUpResponse> => {
-		let endpoint: string;
+	const signUp = async (
+		data: SignUpData,
+		type: AccountType
+	): Promise<SignUpResponse> => {
+		let endpoint = `/auth/signup${type}`;
 
-		if (data.wallet == null && data.name == null) {
-			endpoint = "/auth/signupGovernment";
-		} else if (data.name == null && data.wallet) {
-			endpoint = "/auth/signupUser";
-		} else if (data.name && data.wallet) {
-			endpoint = "/auth/signupCompany";
-		} else {
-			throw new Error("Invalid data, please check the fields");
+		try {
+			const response: AxiosResponse<SignUpResponse> = await axios.post(
+				endpoint,
+				data
+			);
+
+			setAccount(response.data);
+
+			return response.data;
+		} catch (error) {
+			console.error("Error during signup: ", error);
+			throw error;
 		}
-
-		const response: AxiosResponse<SignUpResponse> = await axios.post(
-			endpoint,
-			data
-		);
-
-		setAccount(response.data);
-
-		console.log(response);
-
-		return response.data;
 	};
 
-    const login = async (data: SignUpData): Promise<SignUpResponse> => {
-        // @Post('login')
-        // async login(@Body() body: any, @Res({ passthrough: true }) res: Response) {
-        //     const jwt = await this.authService.login(body.email, body.password);
-        //     res.cookie('jwt', jwt, { httpOnly: false });
-        //     return { jwt };
-        // }
-        let endpoint = "/auth/login";
-    }
+	const login = async (data: LoginData): Promise<LoginResponse> => {
+		try {
+			let endpoint = "/auth/login";
+
+			const response: AxiosResponse<LoginResponse> = await axios.post(
+				endpoint,
+				data
+			);
+
+			setAccount(response.data);
+
+			return response.data;
+		} catch (error) {
+			console.error("Error during login: ", error);
+			throw error;
+		}
+	};
 
 	return (
-		<AuthContext.Provider value={{ account, signUp }}>
+		<AuthContext.Provider value={{ account, signUp, login }}>
 			{children}
 		</AuthContext.Provider>
 	);

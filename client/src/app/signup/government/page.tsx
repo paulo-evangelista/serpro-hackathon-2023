@@ -3,7 +3,8 @@ import { useAuth } from "@/app/hooks/useAuth";
 import { useForm } from "react-hook-form";
 
 export default function GovernmentSignUp() {
-	const { signUp } = useAuth();
+	const { signUp }: any = useAuth();
+
 	const {
 		register,
 		handleSubmit,
@@ -11,11 +12,11 @@ export default function GovernmentSignUp() {
 	} = useForm();
 
 	const onSubmit = async (data: any) => {
-		await signUp(data)
-			.then((res) => {
+		await signUp(data, "government")
+			.then((res: any) => {
 				console.log(res);
 			})
-			.catch((err) => {
+			.catch((err: any) => {
 				console.error(err);
 			});
 	};
@@ -44,7 +45,7 @@ export default function GovernmentSignUp() {
 					{...register("password", { required: true })}
 					placeholder="Senha"
 					defaultValue="123456"
-                    type="password"
+					type="password"
 					className="px-4 py-2 border border-gray-300 rounded-md"
 				/>
 				{errors.password && (
