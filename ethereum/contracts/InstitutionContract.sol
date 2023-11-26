@@ -25,4 +25,8 @@ contract InstitutionContract is Ownable {
         minters[_minter] = false;
         emit MinterRemoved(_minter);
     }
+
+    function checkIfUserHavePermission(address _investor) external view returns (bool) {
+        return minters[_investor];
+    }
 }
