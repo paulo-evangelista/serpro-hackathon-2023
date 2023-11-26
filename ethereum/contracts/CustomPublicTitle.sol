@@ -38,8 +38,10 @@ contract CustomPublicTitle is ERC721, ERC721URIStorage, Ownable {
     uint256 public financialAmount;
     string public accountingOpening;
 
-    event Mint(address indexed minter, address indexed to, uint256 tokenId);
+
+    event mint(address indexed wallet, uint256 indexed tokenId);
     error noPermissionError(string message);
+    error soulbondError(string message);
 
     // Mostra quantos titulos um investidor comprou no total.
     mapping(address => uint256) public investorBalances;
@@ -115,7 +117,7 @@ contract CustomPublicTitle is ERC721, ERC721URIStorage, Ownable {
         baseURI = newURI;
     }
 
-    function mint(
+    function safeMint(
         address to,
         uint256 _amount,
         // endereço do contrato da corretora que autorizou o usuario
@@ -130,28 +132,27 @@ contract CustomPublicTitle is ERC721, ERC721URIStorage, Ownable {
         if (investorsPayables[to] == 0) {
             investors.push(to);
             investorsPayables[to] = _investorReturn;
+        } else {
+            investorsPayables[to] += _investorReturn;
         }
 
-        investorsPayables[to] += _investorReturn;
-
-        availableSupply -= amount;
-
-        // TODO:
-        // Mintar a nft e adicionar o uri do ipfs
+        availableSupply -= _amount;
+  
+        _safeMint(to, idCounter);
+        _setTokenURI(idCounter, ipfsURI);
+        emit mint(to, idCounter);
     }
 
-    // TODO:
-    // criar função para retornar TODOS as infos sobre o asset
 
     function liquidate() public payable expired onlyOwner {
         for (uint256 i = 0; i < investors.length; i++) {
             address userAddress = investors[i];
             uint256 payAmount = investorsPayables[userAddress];
 
-            require(amount > 0, "No balance to distribute");
-            require(address(this).balance >= amount, "Insufficient funds");
+            require(payAmount > 0, "No balance to distribute");
+            require(address(this).balance >= payAmount, "Insufficient funds");
 
-            (bool sent, ) = userAddress.call{value: amount}("");
+            (bool sent, ) = userAddress.call{value: payAmount}("");
             require(sent, "Failed to send Ether");
             investorsPayables[userAddress] = 0;
         }
@@ -159,25 +160,43 @@ contract CustomPublicTitle is ERC721, ERC721URIStorage, Ownable {
         wasLiquidated = true;
     }
 
+    // overrides para probir a transferência
+
+    function safeTransferFrom(
+        address from,
+        address to,
+        uint256 tokenId,
+        bytes memory data
+    ) public override(IERC721, ERC721) {
+        if  (from != address(0) && to != address(0)) {
+            revert soulbondError('This token cannot be tranfered');
+        }
+        return super.safeTransferFrom(from, to, tokenId, data);
+    }
+
+    function transferFrom(
+        address from,
+        address to,
+        uint256 tokenId
+    ) public override(IERC721, ERC721) {
+        if (from != address(0) && to != address(0)) {
+            revert soulbondError('This token cannot be tranfered');
+        }
+        return super.transferFrom(from, to, tokenId);
+    }
+
     // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
     // OVERRIDES ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
 
-
-    function supportsInterface(bytes4 interfaceId)
-        public
-        view
-        override(ERC721, ERC721URIStorage)
-        returns (bool)
-    {
+    function supportsInterface(
+        bytes4 interfaceId
+    ) public view override(ERC721, ERC721URIStorage) returns (bool) {
         return super.supportsInterface(interfaceId);
     }
 
-    function tokenURI(uint256 tokenId)
-        public
-        view
-        override(ERC721, ERC721URIStorage)
-        returns (string memory)
-    {
+    function tokenURI(
+        uint256 tokenId
+    ) public view override(ERC721, ERC721URIStorage) returns (string memory) {
         return super.tokenURI(tokenId);
     }
 }
