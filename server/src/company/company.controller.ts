@@ -1,17 +1,16 @@
-import { Controller, Get, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Param, Req, UseGuards } from '@nestjs/common';
 import { CompanyService } from './company.service';
-import { only } from 'node:test';
 import { IsCompany } from 'src/auth/auth.guard';
-
+import { Request } from 'express';
 @UseGuards(IsCompany)
 @Controller('company')
 export class CompanyController {
     constructor(private readonly companyService: CompanyService) {}
 
-    @Get('approveUser')
-    async approveUser() {
-        return await this.companyService.approveUser();
+    @Get('approveUser/:id')
+    async approveUser(@Param('id') id: any, @Req() req: Request) {
+        return await this.companyService.approveUser(id, req["user"].sub);
     }
 
-    
+
 }
