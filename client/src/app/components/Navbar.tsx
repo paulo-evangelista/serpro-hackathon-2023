@@ -9,31 +9,28 @@ import tIcon from "@/app/assets/td.svg";
 import { useAuth } from "../context";
 
 export const Navbar = () => {
+	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
 
-	const { account }: any = useAuth();
+	const { account, logout }: any = useAuth();
 
 	const handleClick = () => {
-		setIsOpen(!isOpen);
+		setIsSidebarOpen(!isSidebarOpen);
 	};
-
-	useEffect(() => {
-		console.log(account);
-	}, [account]);
 
 	return (
 		<>
 			{/* Overlay */}
 			<div
 				className={`fixed inset-0 bg-black transition-opacity ${
-					isOpen ? "opacity-50 z-10" : "opacity-0"
+					isSidebarOpen ? "opacity-50 z-10" : "opacity-0"
 				} duration-700 ease-in-out md:hidden`}
 			></div>
 
 			{/* Sidebar menu */}
 			<div
 				className={`bg-[#26336a] text-[#f1f1f1] flex flex-col absolute top-0 left-0 px-2 py-4 w-2/3  ${
-					isOpen ? "h-screen flex z-20" : "hidden"
+					isSidebarOpen ? "h-screen flex z-20" : "hidden"
 				} transition duration-1000 ease-in-out md:hidden`}
 			>
 				<div className="flex mb-4">
@@ -103,28 +100,47 @@ export const Navbar = () => {
 				</div>
 
 				{account ? (
-					<div className="flex w-auto items-center md:w-1/3 justify-end">
-						<Link href={"/profile"}>
-							<div className="flex items-center">
-								<Jazzicon
-									diameter={32}
-									seed={jsNumberForAddress(
-										account.wallet || account.email
-									)}
-								/>
-								<p className="ml-2">{account.email}</p>
+					<div className="relative flex justify-end w-1/3">
+						<button onClick={() => setIsOpen(!isOpen)}>
+							<Jazzicon
+								diameter={32}
+								seed={jsNumberForAddress(
+									account.wallet || account.email
+								)}
+							/>
+						</button>
+						{isOpen && (
+							<div className="absolute right-0 z-10 mt-8 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+								<div
+									className="py-1"
+									role="menu"
+									aria-orientation="vertical"
+									aria-labelledby="options-menu"
+								>
+									<Link
+										href={"/profile"}
+										className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+										role="menuitem"
+									>
+										Profile
+									</Link>
+									<button
+										onClick={logout}
+										className="block w-full text-left px-4 py-2 text-sm text-red-600 hover:bg-gray-100"
+										role="menuitem"
+									>
+										Logout
+									</button>
+								</div>
 							</div>
-						</Link>
+						)}
 					</div>
 				) : (
-					<div className="flex w-auto md:w-1/3 items-end justify-end">
-						<Link
-							href={"/login"}
-							className="bg-[#f1f1f1] text-[#26336a] px-4 py-2 rounded-md"
-						>
+					<Link href={"/login"}>
+						<button className="bg-green-700 text-white px-6 py-3 rounded-lg">
 							Login
-						</Link>
-					</div>
+						</button>
+					</Link>
 				)}
 			</div>
 		</>

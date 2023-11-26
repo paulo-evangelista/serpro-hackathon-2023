@@ -9,8 +9,11 @@ export class CompanyController {
 
     @Get('approveUser/:id')
     async approveUser(@Param('id') id: any, @Req() req: Request) {
-        return await this.companyService.approveUser(id, req["user"].sub);
+        return await this.companyService.approveUser(id, req['user'].sub);
     }
 
-
+    @Get('getAll')
+    async getAllAssets() {
+        return await this.companyService.getAllAssets();
+    }
 }

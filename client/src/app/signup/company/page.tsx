@@ -26,7 +26,6 @@ export default function CompanySignUp() {
 			})
 			.catch((err: any) => {
 				toast.error("Erro ao realizar cadastro!\nTente novamente.");
-				console.error(err);
 			});
 	};
 

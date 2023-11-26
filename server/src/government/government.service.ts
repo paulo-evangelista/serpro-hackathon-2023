@@ -18,7 +18,6 @@ export class GovernmentService {
     ) {}
 
     async aproveCompany(userId: number, govId: number) {
-
         // TODO: DEPLOYAR O CONTRATO DE EMPRESA.
 
         const companyEntrie = await this.companyRepository.findOne({ where: { id: userId } });
@@ -39,6 +38,7 @@ export class GovernmentService {
         return await this.companyRepository.save(companyEntrie);
     }
 
-    async getAllAssets(){
+    async getAllAssets() {
         return await this.assetPreIRepository.find();
-}}
+    }
+}

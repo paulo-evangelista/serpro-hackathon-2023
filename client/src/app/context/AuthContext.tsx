@@ -79,6 +79,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		}
 	};
 
+	const logout = (): void => {
+		localStorage.removeItem("account");
+		localStorage.removeItem("accountType");
+		localStorage.removeItem("isLoggedIn");
+		setAccount(null);
+	};
+
 	const setLoggedIn = (
 		data: LoginResponse | SignUpResponse,
 		type: string
@@ -91,7 +98,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	return (
-		<AuthContext.Provider value={{ account, signUp, login }}>
+		<AuthContext.Provider value={{ account, signUp, login, logout }}>
 			{children}
 		</AuthContext.Provider>
 	);

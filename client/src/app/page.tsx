@@ -107,7 +107,7 @@ export default function Home() {
 
 			<Graph />
 
-			<div className="max-w-screen-xl mx-auto">
+			<div className="max-w-screen-xl mx-auto mb-8">
 				<div className="flex mb-16 bt-16">
 					<InvestmentCard
 						title={"TESOURO PREFIXADO 2026"}
@@ -181,7 +181,7 @@ export default function Home() {
 								</th>
 								<th className="px-4 py-2">Preço unitário</th>
 								<th className="px-4 py-2">Vencimento</th>
-								<th className="px-4 py-2">Simular</th>
+								<th className="px-4 py-2"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -211,6 +211,7 @@ export default function Home() {
 					</table>
 				</div>
 			</div>
+
 			<Footer />
 		</div>
 	);
@@ -264,6 +265,7 @@ const Graph = () => {
 						className="form-input mt-1 block w-full border-2 border-gray-200 p-2"
 						type="text"
 						onChange={handleInvestmentChange}
+						maxLength={9}
 						value={investment.toLocaleString("pt-BR")}
 					/>
 					<label htmlFor="years">Para aplicar durante</label>
