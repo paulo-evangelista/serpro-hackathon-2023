@@ -3,6 +3,7 @@ import { useAuth } from "@/app/hooks/useAuth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "react-toastify";
 
 export default function GovernmentSignUp() {
 	const { login }: any = useAuth();
@@ -15,14 +16,13 @@ export default function GovernmentSignUp() {
 	} = useForm();
 
 	const onSubmit = async (data: any) => {
-		// wrap it all in a try catch, and in case of error, display an alert with the message that comes from the server
-		await login(data)
+		await login(data, data.userType)
 			.then((res: any) => {
-				console.log(res);
+                toast.success("Login realizado com sucesso! Redirecionando...");
 				router.push("/");
 			})
 			.catch((err: any) => {
-				console.error(err);
+                toast.error("Erro ao realizar login!\nTente novamente.");
 				alert(err.message);
 			});
 	};

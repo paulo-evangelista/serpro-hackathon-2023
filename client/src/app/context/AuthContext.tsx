@@ -51,8 +51,6 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				data
 			);
 
-			setAccount(response.data);
-
 			return response.data;
 		} catch (error) {
 			console.error("Error during signup: ", error);
@@ -60,7 +58,10 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		}
 	};
 
-	const login = async (data: LoginData): Promise<LoginResponse> => {
+	const login = async (
+		data: LoginData,
+		type: AccountType
+	): Promise<LoginResponse> => {
 		try {
 			let endpoint = "/auth/login";
 
@@ -69,13 +70,24 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 				data
 			);
 
-			setAccount(response.data);
+			setLoggedIn(response.data, type.toString());
 
 			return response.data;
 		} catch (error) {
 			console.error("Error during login: ", error);
 			throw error;
 		}
+	};
+
+	const setLoggedIn = (
+		data: LoginResponse | SignUpResponse,
+		type: string
+	): void => {
+		setAccount(data);
+
+		localStorage.setItem("account", JSON.stringify(data));
+		localStorage.setItem("accountType", type);
+		localStorage.setItem("isLoggedIn", "true");
 	};
 
 	return (
