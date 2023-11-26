@@ -82,7 +82,7 @@ export default function Home() {
 	return (
 		<div>
 			<Navbar />
-			<div className="relative mt-20 mb-10">
+			<div className="relative mt-20">
 				<div className="w-full h-80 overflow-hidden">
 					<img
 						src="https://www.tesourodireto.com.br/data/files/7E/31/02/3D/25907810B0345668894D49A8/Banner-1.png"
@@ -99,42 +99,43 @@ export default function Home() {
 							Planeje a sua aposentadoria com o novo título do
 							Tesouro Direto
 						</p>
-						<button className="bg-green-700 text-white px-6 py-3 rounded-full">
+						<button className="bg-green-700 text-md font-bold text-white px-6 py-3 rounded-full">
 							Conheça o RendA+ e comece a investir
 						</button>
 					</div>
 				</div>
 			</div>
-			<div>
+			<div className="bg-gray-100 pt-10 pb-10">
 				<Graph />
 			</div>
 			<div>
 				<InvestmentGoals/>
 			</div>
-			<div className="max-w-screen-xl mx-auto">
-				<div className="flex mb-16 bt-16 mt-8">
+			<div className="bg-indigo-900 ">
+				<div className="max-w-screen-xl mx-auto flex mb-16 bt-16 pt-20 pb-20">
 					<InvestmentCard
-						title={"TESOURO PREFIXADO 2026"}
-						yieldAnnual={"11%"}
-						dueDate={"01/01/2026"}
+					title={"TESOURO PREFIXADO 2026"}
+					yieldAnnual={"11%"}
+					dueDate={"01/01/2026"}
 					/>
 					<InvestmentCard
-						title={"TESOURO PREFIXADO 2026"}
-						yieldAnnual={"11%"}
-						dueDate={"01/01/2026"}
+					title={"TESOURO PREFIXADO 2026"}
+					yieldAnnual={"11%"}
+					dueDate={"01/01/2026"}
 					/>
 					<InvestmentCard
-						title={"TESOURO PREFIXADO 2026"}
-						yieldAnnual={"11%"}
-						dueDate={"01/01/2026"}
+					title={"TESOURO PREFIXADO 2026"}
+					yieldAnnual={"11%"}
+					dueDate={"01/01/2026"}
 					/>
 					<InvestmentCard
-						title={"TESOURO PREFIXADO 2026"}
-						yieldAnnual={"11%"}
-						dueDate={"01/01/2026"}
+					title={"TESOURO PREFIXADO 2026"}
+					yieldAnnual={"11%"}
+					dueDate={"01/01/2026"}
 					/>
 				</div>
-
+			</div>
+			<div className="max-w-screen-xl mx-auto">
 				<h1 className="text-4xl text-gray-700 font-semibold mb-8">
 					Confira a rentabilidade de cada título
 				</h1>
@@ -285,7 +286,7 @@ const Graph = () => {
 					anos
 				</div>
 
-				<button className="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600">
+				<button className="bg-green-700 text-lg font-bold px-12 py-4 text-white px-4 py-2 rounded-full hover:bg-green-600">
 					Simule mais opções
 				</button>
 				<p className="text-xs mt-4">
@@ -303,7 +304,7 @@ const Graph = () => {
 					<div className="text-center">
 						<div
 							className="bg-blue-500 w-24"
-							style={{ height: `${savingsOutcome / 15000}px` }}
+							style={{ height: `${savingsOutcome / 15000}px`, transform: 'scaleY(-1)' }}
 						></div>
 						<p className="mt-2">POUPANÇA</p>
 						<p className="font-bold">
@@ -316,7 +317,7 @@ const Graph = () => {
 					<div className="text-center">
 						<div
 							className="bg-teal-500 w-24"
-							style={{ height: `${treasuryOutcome / 15000}px` }}
+							style={{ height: `${treasuryOutcome / 15000}px`, transform: 'scaleY(-1)'  }}
 						></div>
 
 						<p className="mt-2">TESOURO IPCA+ 2045</p>

@@ -11,7 +11,10 @@ const InvestmentGoalCard = ({ goalName, backgroundImage }: { goalName: string, b
 		  width: '200px',
 		}}
 	  	>
-			<button className="text-xl font-bold text-white hover:underline bg-black bg-opacity-50 py-2 px-4 rounded-full">
+            <button 
+            className="text-md font-bold text-green-900 bg-white bg-opacity-90 py-2 px-8 rounded-full absolute bottom-4 border-2 border-green-900 hover:bg-green-800 hover:text-white transition duration-300"
+            style={{ boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)' }}
+            >
 			{goalName}
 			</button>
 	  	</div>
@@ -27,7 +30,7 @@ const InvestmentGoals = () => {
 	];
   
 	return (
-	  <div className="bg-gray-100 p-10">
+	  <div className="p-10">
 		<div className="container mx-auto text-center">
 		  <h2 className="text-3xl font-bold mb-6">ESCOLHA SEU OBJETIVO</h2>
 		  <div className="flex justify-center flex-wrap">
@@ -38,7 +41,7 @@ const InvestmentGoals = () => {
 		  <p className="my-6">
 			Aplique no Tesouro Direto e chegue mais perto dos seus sonhos.
 		  </p>
-		  <button className="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+		  <button className="bg-green-700 hover:bg-green-700 text-white font-bold py-4 px-14 rounded-full">
 			Descubra o título ideal
 		  </button>
 		  <p className="text-xs mt-4">*As simulações são baseadas em projeções de mercado. Isso não garante resultados futuros.</p>
