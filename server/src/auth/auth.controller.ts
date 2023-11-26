@@ -32,7 +32,7 @@ export class AuthController {
         console.log(jwt.jwt);
 
         res.cookie('jwt', jwt.jwt, { httpOnly: false });
-        return jwt;
+        return jwt.jwt;
     }
 
     @UseGuards(IsUser)

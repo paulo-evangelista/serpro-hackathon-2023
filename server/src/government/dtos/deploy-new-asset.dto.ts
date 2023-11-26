@@ -4,14 +4,12 @@ export class CreateAssetDto {
     @IsString()
     name: string;
 
-  @IsString()
-  description: string;
+    @IsString()
+    description: string;
 
-  @IsString()
-  ipfsImageURI: string;
+    @IsString()
+    ipfsImageURI: string;
 
-  @IsNumber()
-  PercentageReturnPerYear: number
-
-  @IsDate
+    @IsNumber()
+    PercentageReturnPerYear: number;
 }

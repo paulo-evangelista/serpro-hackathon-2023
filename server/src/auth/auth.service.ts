@@ -1,8 +1,4 @@
-import {
-    BadRequestException,
-    Injectable,
-    UnauthorizedException,
-} from '@nestjs/common';
+import { BadRequestException, Injectable, UnauthorizedException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
@@ -12,7 +8,6 @@ import { Company } from 'src/entities/company.entity';
 
 @Injectable()
 export class AuthService {
-
     constructor(
         @InjectRepository(User)
         private readonly userRepository: Repository<User>,
@@ -23,21 +18,10 @@ export class AuthService {
         private jwtService: JwtService,
     ) {}
 
-    async signupUser(
-        email: string,
-        password: string,
-        wallet: string,
-        firstName: string,
-        lastName: string,
-    ) {
+    async signupUser(email: string, password: string, wallet: string, firstName: string, lastName: string) {
         await this.checkIfUserExists(email);
 
-        if (!wallet){
-
-        const {wallet, pk} =  await this.createWallet()
-        } 
-
-        const entrie = this.userRepository.create({
+        let entrie = this.userRepository.create({
             email,
             password,
             wallet,
@@ -45,15 +29,24 @@ export class AuthService {
             lastName,
         });
 
+        if (!wallet) {
+            const { newWallet, pk } = await this.createWallet();
+
+            console.log('Generated wallet: ', newWallet, pk);
+
+            entrie = this.userRepository.create({
+                email,
+                password,
+                wallet: newWallet,
+                firstName,
+                lastName,
+            });
+        }
+
         return await this.userRepository.save(entrie);
     }
 
-    async signupCompany(
-        email: string,
-        password: string,
-        wallet: string,
-        name: string,
-    ) {
+    async signupCompany(email: string, password: string, wallet: string, name: string) {
         await this.checkIfUserExists(email);
 
         const entrie = this.companyRepository.create({
@@ -66,12 +59,7 @@ export class AuthService {
         return await this.companyRepository.save(entrie);
     }
 
-    async signupGovernment(
-        email: string,
-        password: string,
-        firstName: string,
-        lastName: string,
-    ) {
+    async signupGovernment(email: string, password: string, firstName: string, lastName: string) {
         await this.checkIfUserExists(email);
 
         const entrie = this.governmentRepository.create({
@@ -89,36 +77,33 @@ export class AuthService {
             where: { email: email },
         });
         if (user) {
-            if (user.password !== password)
-                throw new UnauthorizedException('Password is incorrect');
+            if (user.password !== password) throw new UnauthorizedException('Password is incorrect');
             const payload = { sub: user.id, email: user.email, role: 'user' };
-            return {jwt: await this.jwtService.signAsync(payload), ...user}
+            return { jwt: await this.jwtService.signAsync(payload), ...user };
         }
         const government = await this.governmentRepository.findOne({
             where: { email: email },
         });
         if (government) {
-            if (government.password !== password)
-                throw new UnauthorizedException('Password is incorrect');
+            if (government.password !== password) throw new UnauthorizedException('Password is incorrect');
             const payload = {
                 sub: government.id,
                 email: government.email,
                 role: 'government',
             };
-            return {jwt: await this.jwtService.signAsync(payload), ...government}
+            return { jwt: await this.jwtService.signAsync(payload), ...government };
         }
         const company = await this.companyRepository.findOne({
             where: { email: email },
         });
         if (company) {
-            if (company.password !== password)
-                throw new UnauthorizedException('Password is incorrect');
+            if (company.password !== password) throw new UnauthorizedException('Password is incorrect');
             const payload = {
                 sub: company.id,
                 email: company.email,
                 role: 'company',
             };
-            return {jwt: await this.jwtService.signAsync(payload), ...company}
+            return { jwt: await this.jwtService.signAsync(payload), ...company };
         }
 
         throw new UnauthorizedException('User not found');
@@ -135,18 +120,13 @@ export class AuthService {
             where: { email: email },
         });
         if (governmentExists) {
-            throw new BadRequestException(
-                'email already exists on table government_user',
-            );
+            throw new BadRequestException('email already exists on table government_user');
         }
         const companyExists = await this.companyRepository.findOne({
             where: { email: email },
         });
         if (companyExists) {
-            throw new BadRequestException(
-                'email already exists on table company',
-            );
+            throw new BadRequestException('email already exists on table company');
         }
     }
-
 }
