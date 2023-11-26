@@ -18,8 +18,8 @@ export class GovernmentController {
     }
 
     @Get('getAllAssets')
-    async getAssets() {
-        // return await this.governmentService.getAssets();
+    async getAllAssets() {
+        return await this.governmentService.getAllAssets();
     }
 
     // pagar todos os investimentos no fim de um contrato

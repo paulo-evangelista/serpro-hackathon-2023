@@ -12,4 +12,6 @@ export class CompanyController {
     async approveUser() {
         return await this.companyService.approveUser();
     }
+
+    
 }
