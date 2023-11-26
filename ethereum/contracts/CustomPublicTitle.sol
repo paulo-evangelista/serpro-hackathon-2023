@@ -1,160 +1,183 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.18;
+pragma solidity ^0.8.20;
 
-import '../node_modules/@openzeppelin/contracts/token/ERC721/ERC721.sol';
-import '../node_modules/@openzeppelin/contracts/access/Ownable.sol';
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/access/Ownable.sol";
 
+// interface para falar com o contrato da empresa (checar se o usuario foi autorizado)
 interface IInstitutionContract {
-    function minters(address) external view returns (bool);
+    function checkIfUserHavePermission(address) external view returns (bool);
 }
 
-contract CustomPublicTitle is ERC721, Ownable {
+contract CustomPublicTitle is ERC721, ERC721URIStorage, Ownable {
+    // counter para os ids das nfts emitidas
     uint256 private idCounter;
+
+    // uri base para as nfts (e.g. https://ipfs.io/ipfs/)
     string public baseURI;
+
+    // Quantos titulos ainda podem ser vendidos (SupplyMáximo - QuantidadeVendida)
+    uint256 public availableSupply;
+
+    // Define se o contrato já foi liquidado, ou seja, o vencimento já chegou e o governo já pagou todo mundo
+    bool public wasLiquidated;
+
+    // infos do asset em si (STN flow)
     string public titleName;
     string public titleSymbol;
     uint256 public annualProfitability;
     uint256 public unitPrice;
     uint256 public maturityDate;
-
-    address public institutionContractAddress;
-    IInstitutionContract public institutionContract;
-    bool public institutionConfigured;
+    string public program;
+    string public lobby;
+    uint256 public launchDate;
+    uint256 public expirationDate;
+    uint256 public amount;
+    uint256 public price;
+    uint256 public financialAmount;
+    string public accountingOpening;
 
     event Mint(address indexed minter, address indexed to, uint256 tokenId);
-    event NewInstitutionContractCreated(address indexed institutionContract, address indexed owner);
+    error noPermissionError(string message);
 
-    struct STNFlowData {
-        string program;
-        string lobby;
-        string titleName;
-        uint256 launchDate;
-        uint256 expirationDate;
-        uint256 amount;
-        uint256 price;
-        uint256 financialAmount;
-        string accountingOpening;
-    }
+    // Mostra quantos titulos um investidor comprou no total.
+    mapping(address => uint256) public investorBalances;
+    // Mostra quanto deve ser pago para cada investidor no vencimento do titulo.
+    // O valor que deve ser pago é calculado previamente pelo servidor e passado como argumento na função de mint.
+    mapping(address => uint256) public investorsPayables;
+    // array com o endereço de todos que já compraram um titulo
+    address[] public investors;
 
-    mapping(uint256 => STNFlowData) public stnFlows;
-    mapping(address => bool) public institutions;
-    mapping(uint256 => mapping(address => uint256)) public investorBalances;
-    mapping(uint256 => address[]) public investors;
-    mapping(uint256 => uint256) public govAmounts;
-
-    modifier onlyInstitution() {
-        require(institutions[msg.sender], "You don't have permission to transfer tokens");
+    // permite apenas se o titulo não venceu
+    modifier notExpired() {
+        require(block.timestamp < expirationDate, "Contract expired!");
         _;
     }
 
-    modifier notExpired(uint256 tokenId) {
-        require(block.timestamp < stnFlows[tokenId].expirationDate, "Contract expired!");
+    // permite apenas se o titulo venceu
+    modifier expired() {
+        require(block.timestamp >= expirationDate, "Contract not expired yet!");
         _;
     }
 
-    modifier expired(uint256 tokenId) {
-        require(block.timestamp >= stnFlows[tokenId].expirationDate, "Contract not expired yet!");
+    // checa se a corretora informada pelo usuario concedeu permissão a ele
+    modifier userHasPermission(address InstitutionContractAddress) {
+        IInstitutionContract externalContract = IInstitutionContract(
+            InstitutionContractAddress
+        );
+        if (!externalContract.checkIfUserHavePermission(msg.sender)) {
+            revert noPermissionError(
+                "The informed institution did not authorize the msg.sender"
+            );
+        }
         _;
     }
 
     constructor(
-        string memory _name,
-        string memory _symbol,
+        string memory _titleName,
+        string memory _titleSymbol,
         uint256 _annualProfitability,
         uint256 _unitPrice,
-        uint256 _maturityDate
-    ) ERC721(_name, _symbol) Ownable(msg.sender){
+        uint256 _maturityDate,
+        string memory _program,
+        string memory _lobby,
+        uint256 _launchDate,
+        uint256 _expirationDate,
+        uint256 _amount,
+        uint256 _price,
+        uint256 _financialAmount,
+        string memory _accountingOpening
+    ) ERC721(_titleName, _titleSymbol) Ownable(msg.sender) {
+        // Dados estáticos do contrato em si
+        titleName = _titleName;
+        titleSymbol = _titleSymbol;
+        annualProfitability = _annualProfitability;
+        unitPrice = _unitPrice;
+        maturityDate = _maturityDate;
+        program = _program;
+        lobby = _lobby;
+        launchDate = _launchDate;
+        expirationDate = _expirationDate;
+        amount = _amount;
+        price = _price;
+        financialAmount = _financialAmount;
+        accountingOpening = _accountingOpening;
+
+        // dados dinamicos para emissão e permissão
         idCounter = 0;
-        titleName = _name;
-        titleSymbol = _symbol;
-        _annualProfitability = annualProfitability;
-        _unitPrice = unitPrice;
-        _maturityDate = maturityDate;
+        baseURI = "https://ipfs.io/ipfs/";
+        availableSupply = amount;
+        wasLiquidated = false;
     }
 
     function setBaseURI(string memory newURI) public onlyOwner {
         baseURI = newURI;
     }
 
-    function mint(address to, uint256 _amount, uint256 tokenId) external notExpired(tokenId)  {
+    function mint(
+        address to,
+        uint256 _amount,
+        // endereço do contrato da corretora que autorizou o usuario
+        address institution,
+        // valor que deve ser pago ao investidor quando o contrato vencer
+        uint256 _investorReturn,
+        // uri do IPFS para a NFT
+        string memory ipfsURI
+    ) external notExpired userHasPermission(institution) {
         idCounter++;
-        to = owner();
-        _safeMint(to, idCounter);
-        investors[idCounter].push(to);
-        if (_amount > 0) {
-            investorBalances[idCounter][owner()] += _amount; 
-            govAmounts[idCounter] = _amount; 
-        }
-        investorBalances[idCounter][to] += _amount;
-        emit Mint(msg.sender, to, idCounter);
-    }
 
-    function registerSTNFlow(
-        uint256 tokenId,
-        string memory _program,
-        string memory _lobby,
-        uint256 _financialAmount,
-        string memory _accountingOpening,
-        uint256 _amount
-    ) external onlyOwner {
-        stnFlows[tokenId] = STNFlowData({
-            program: _program,
-            lobby: _lobby,
-            titleName: titleName,
-            launchDate: block.timestamp,
-            expirationDate: maturityDate, 
-            amount: _amount,
-            price: unitPrice,
-            financialAmount: _financialAmount,
-            accountingOpening: _accountingOpening
-        });
-    }
-
-    function getSTNFlowData(uint256 tokenId) external view onlyOwner returns (STNFlowData memory) {
-        return stnFlows[tokenId];
-    }
-
-    function removeInstitution(address account) external onlyOwner {
-        institutions[account] = false;
-    }
-
-    function transferToken(address from, address to, uint256 tokenId) external onlyInstitution onlyOwner {
-        _safeTransfer(from, to, tokenId, "");
-    }
-
-    function addInstitution(address _institutionAddress) external onlyOwner returns (address) {
-        require(!institutionConfigured, "Institution contract address already configured");
-        institutions[_institutionAddress] = true;
-        InstitutionContract newInstitution = new InstitutionContract(_institutionAddress);
-        institutionContractAddress = address(newInstitution);
-        institutionContract = IInstitutionContract(institutionContractAddress);
-        institutionConfigured = true;
-        return address(newInstitution);
-    }
-
-    function getMinter(address _minter) external view returns (bool) {
-        require(institutionConfigured, "Institution contract address not configured yet");
-        return institutionContract.minters(_minter);
-    }
-
-    function liquidate(uint256 tokenId) external payable onlyOwner expired(tokenId) {
-        uint256 amountToPay = stnFlows[tokenId].financialAmount;
-        require(msg.value == amountToPay, "Incorrect payment amount");
-
-        address[] memory investorsList = investors[tokenId];
-        for (uint256 i = 0; i < investorsList.length; i++) {
-            address investor = investorsList[i];
-            uint256 userInvestment = investorBalances[tokenId][investor];
-            uint256 userPayment = (userInvestment * (annualProfitability / 12)) / 100; 
-            if (userPayment > 0) {
-                investorBalances[tokenId][investor] = 0;
-                payable(investor).transfer(userPayment);
-            }
+        if (investorsPayables[to] == 0) {
+            investors.push(to);
+            investorsPayables[to] = _investorReturn;
         }
 
-        uint256 govAmount = govAmounts[tokenId];
-        if (govAmount > 0) {
-            payable(owner()).transfer(govAmount);
+        investorsPayables[to] += _investorReturn;
+
+        availableSupply -= amount;
+
+        // TODO:
+        // Mintar a nft e adicionar o uri do ipfs
+    }
+
+    // TODO:
+    // criar função para retornar TODOS as infos sobre o asset
+
+    function liquidate() public payable expired onlyOwner {
+        for (uint256 i = 0; i < investors.length; i++) {
+            address userAddress = investors[i];
+            uint256 payAmount = investorsPayables[userAddress];
+
+            require(amount > 0, "No balance to distribute");
+            require(address(this).balance >= amount, "Insufficient funds");
+
+            (bool sent, ) = userAddress.call{value: amount}("");
+            require(sent, "Failed to send Ether");
+            investorsPayables[userAddress] = 0;
         }
+
+        wasLiquidated = true;
+    }
+
+    // ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+    // OVERRIDES ↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓↓
+
+
+    function supportsInterface(bytes4 interfaceId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (bool)
+    {
+        return super.supportsInterface(interfaceId);
+    }
+
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        override(ERC721, ERC721URIStorage)
+        returns (string memory)
+    {
+        return super.tokenURI(tokenId);
     }
 }
