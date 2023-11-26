@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Footer } from "./components/Footer";
 import InvestmentCard from "./components/InvestmentCard";
 import { Navbar } from "./components/Navbar";
+import InvestmentGoals from "./components/InvesmentGoals";
 
 export default function Home() {
 	let [lastUpdatedTime, setLastUpdatedTime] = useState<string>(
@@ -98,17 +99,20 @@ export default function Home() {
 							Planeje a sua aposentadoria com o novo título do
 							Tesouro Direto
 						</p>
-						<button className="bg-green-700 text-white px-6 py-3 rounded-lg">
+						<button className="bg-green-700 text-white px-6 py-3 rounded-full">
 							Conheça o RendA+ e comece a investir
 						</button>
 					</div>
 				</div>
 			</div>
-
-			<Graph />
-
+			<div>
+				<Graph />
+			</div>
+			<div>
+				<InvestmentGoals/>
+			</div>
 			<div className="max-w-screen-xl mx-auto">
-				<div className="flex mb-16 bt-16">
+				<div className="flex mb-16 bt-16 mt-8">
 					<InvestmentCard
 						title={"TESOURO PREFIXADO 2026"}
 						yieldAnnual={"11%"}
@@ -201,7 +205,7 @@ export default function Home() {
 										{title.dueDate}
 									</td>
 									<td className="px-4 py-2">
-										<button className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300">
+										<button className="bg-white border border-green-700 px-3 py-1 rounded-full text-green-700 hover:bg-green-700 hover:text-white transition duration-300">
 											Simular
 										</button>
 									</td>
@@ -247,8 +251,8 @@ const Graph = () => {
 	};
 
 	return (
-		<div className="p-10">
-			<div className="max-w-2xl mx-auto">
+		<div className="p-10 flex flex-col lg:flex-row">
+			<div className="max-w-2xl mx-auto lg:mr-10 lg:w-1/2">
 				<h1 className="text-2xl font-bold mb-6">
 					SIMULE SEU INVESTIMENTO
 				</h1>
@@ -279,6 +283,20 @@ const Graph = () => {
 					anos
 				</div>
 
+				<button className="bg-green-500 text-white px-4 py-2 rounded-full hover:bg-green-600">
+					Simule mais opções
+				</button>
+				<p className="text-xs mt-4">
+					*Projeção do valor líquido de resgate (após taxas e
+					impostos).
+				</p>
+				<p className="text-xs">
+					*As simulações são baseadas em projeções de mercado. Isso
+					não garante resultados futuros.
+				</p>
+			</div>
+	
+			<div className="max-w-2xl mx-auto lg:w-1/2">
 				<div className="flex justify-around mb-4">
 					<div className="text-center">
 						<div
@@ -308,18 +326,6 @@ const Graph = () => {
 						</p>
 					</div>
 				</div>
-
-				<button className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600">
-					Simule mais opções
-				</button>
-				<p className="text-xs mt-4">
-					*Projeção do valor líquido de resgate (após taxas e
-					impostos).
-				</p>
-				<p className="text-xs">
-					*As simulações são baseadas em projeções de mercado. Isso
-					não garante resultados futuros.
-				</p>
 			</div>
 		</div>
 	);
