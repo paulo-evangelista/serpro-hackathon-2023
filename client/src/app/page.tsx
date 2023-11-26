@@ -9,7 +9,7 @@ export default function Home() {
 	let [lastUpdatedTime, setLastUpdatedTime] = useState<string>(
 		new Date().toLocaleString().replace(",", " 🕘")
 	);
-
+ 
 	const [titles, setTitles] = useState([
 		{
 			name: "TESOURO PREFIXADO 2026",

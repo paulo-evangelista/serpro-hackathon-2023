@@ -8,10 +8,11 @@ import { useAuth } from "../hooks/useAuth";
 
 const AdmHome = () => {
 	const { register, handleSubmit } = useForm();
-	const { account } = useAuth();
 
-	const grantPermission = async (data: any) => {
-		const path = `/company/approveUser/${data.companyId}`;
+	const governmentGrantCompanyPermission = async (data: any) => {};
+
+	const companyGrantUserPermission = async (data: any) => {
+		const path = `/company/approveUser/${data.userId}`;
 
 		const account = localStorage.getItem("account");
 		let jwt = "";
@@ -24,7 +25,7 @@ const AdmHome = () => {
 				.get(path, {
 					headers: {
 						"Content-Type": "application/json",
-						token: `Bearer ${jwt}`,
+						Authorization: `Bearer ${jwt}`,
 					},
 				})
 				.then((res: { data: any }) => {
@@ -84,10 +85,10 @@ const AdmHome = () => {
 		},
 	];
 
-	const [companies, setCompanies] = useState([]);
+	const [users, setUsers] = useState([]);
 
-	const getCompanies = async () => {
-		toast.info("Buscando empresas...");
+	const getUsers = async () => {
+		toast.info("Buscando usuários...");
 
 		const account = localStorage.getItem("account");
 
@@ -97,32 +98,40 @@ const AdmHome = () => {
 		}
 
 		const response = await axios
-			.get("/company/getAll", {
+			.get("/user/getall", {
 				headers: {
 					"Content-Type": "application/json",
 					Authorization: `Bearer ${jwt}`,
 				},
 			})
 			.then((res: { data: any }) => {
-				toast.success("Empresas buscadas com sucesso!");
+				toast.success("Usuários buscados com sucesso!");
 				return res.data;
 			})
 			.catch((err: any) => {
-				toast.error("Erro ao buscar empresas!");
+				toast.error("Erro ao buscar usuários!");
 				return err;
 			});
 
-		setCompanies(response);
+		setUsers(response);
 	};
 
+	const getCompanies = async () => {};
+
+	const [account, setAccount] = useState(null);
+
 	useEffect(() => {
-		getCompanies();
+		let account = localStorage.getItem("account");
+		if (account) {
+			account = JSON.parse(account);
+		}
+
+		getUsers();
 	}, []);
 
 	return (
 		<div className="container mx-auto p-8">
-			<Navbar />
-
+            <Navbar/>
 			<div className="flex flex-col w-2/3 mt-20">
 				<h1 className="text-4xl font-bold mb-8">
 					Secretaria do Tesouro Nacional
@@ -133,23 +142,23 @@ const AdmHome = () => {
 						Conceder Permissão a usuário
 					</h2>
 
-					<form onSubmit={handleSubmit(grantPermission)}>
+					<form onSubmit={handleSubmit(companyGrantUserPermission)}>
 						<select
-							{...register("companyId")}
+							{...register("userId")}
 							defaultValue={""}
 							className="border border-gray-300 rounded-md px-4 py-2 mb-2 mr-5"
 						>
 							<option value="" disabled>
-								Selecione uma empresa
+								Selecione um usuário
 							</option>
-							{companies.length > 0 &&
-								companies.map(
+							{users.length > 0 &&
+								users.map(
 									(
-										company: { id: number; name: string },
+										user: { id: number; email: string },
 										index: number
 									) => (
-										<option key={index} value={company.id}>
-											{company.name}
+										<option key={index} value={user.id}>
+											{user.email}
 										</option>
 									)
 								)}
@@ -253,7 +262,7 @@ const AdmHome = () => {
 					</table>
 				</div>
 
-				<div>
+				{/* <div>
 					<form onSubmit={handleSubmit(grantPermission)}>
 						<input
 							type="text"
@@ -268,7 +277,7 @@ const AdmHome = () => {
 							Liquidar no Vencimento
 						</button>
 					</form>
-				</div>
+				</div> */}
 			</div>
 		</div>
 	);

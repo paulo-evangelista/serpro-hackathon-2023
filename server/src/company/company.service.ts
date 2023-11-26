@@ -15,7 +15,9 @@ export class CompanyService {
     async approveUser(userId: number, govId: number) {
         // TODO: CHAMAR O CONTRATO  PARA APROVAR USUARIO.
 
-        const companyEntrie = await this.companyRepository.findOne({ where: { id: govId } });
+        const companyEntrie = await this.companyRepository.findOne({ where: { id: govId }, relations: ['approved_users'] });
+
+        console.log(companyEntrie);
 
         if (!companyEntrie) {
             throw new Error('usuario do governo não encontrado');
@@ -27,7 +29,12 @@ export class CompanyService {
             throw new Error('Usuário do governo não encontrado');
         }
 
+        if (!companyEntrie.approved_users) {
+            companyEntrie.approved_users = [];
+        }
+
         companyEntrie.approved_users.push(userEntrie);
+
         return await this.companyRepository.save(companyEntrie);
     }
 
