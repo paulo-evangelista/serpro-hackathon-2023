@@ -47,4 +47,12 @@ export class GovernmentService {
         const newAsset = this.assetPreIRepository.create(assetData);
         return await this.assetPreIRepository.save(newAsset);
     }
+    
+    async getAllCompanies() {
+        return await this.companyRepository.find();
+    }
+
+    async getAllApprovedCompanies() {
+        return await this.companyRepository.find({ where: { is_aproved: true } });
+    }
 }

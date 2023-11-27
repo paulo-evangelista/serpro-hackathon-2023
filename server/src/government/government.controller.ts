@@ -13,6 +13,16 @@ export class GovernmentController {
         return await this.governmentService.aproveCompany(id, req['user'].id);
     }
 
+    @Get('getAllCompanies')
+    async getAllCompanies() {
+        return await this.governmentService.getAllCompanies();
+    }
+
+    @Get('getAllApprovedCompanies')
+    async getAllApprovedCompanies() {
+        return await this.governmentService.getAllApprovedCompanies();
+    }
+
     @Post('deployNewAsset')
     async deployNewAsset(@Body() assetData: CreateAssetDto) {
         try {

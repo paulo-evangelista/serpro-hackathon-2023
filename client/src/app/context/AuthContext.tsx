@@ -20,7 +20,6 @@ type LoginResponse = LoginData & {
 type SignUpData = {
 	email: string;
 	password: string;
-	type: string;
 	wallet?: string;
 	name?: string;
 	firstName?: string;
@@ -29,7 +28,20 @@ type SignUpData = {
 
 type SignUpResponse = SignUpData & {
 	id: number;
+	created_at: string;
 };
+
+export interface Account {
+	id: number;
+	email: string;
+	password: string;
+	wallet?: string;
+	name?: string;
+	firstName?: string;
+	lastName?: string;
+	created_at: string;
+	type: string;
+}
 
 enum AccountType {
 	Government,
@@ -38,7 +50,7 @@ enum AccountType {
 }
 
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
-	const [account, setAccount] = useState<SignUpData | null>(null);
+	const [account, setAccount] = useState<Account | null>(null);
 
 	const signUp = async (
 		data: SignUpData,
@@ -91,9 +103,14 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		data: LoginResponse | SignUpResponse,
 		type: string
 	): void => {
-		setAccount({ ...data, type });
+		const accountData = {
+			...data,
+			type,
+		};
 
-		localStorage.setItem("account", JSON.stringify(data));
+		setAccount(accountData);
+
+		localStorage.setItem("account", JSON.stringify(accountData));
 		localStorage.setItem("accountType", type);
 		localStorage.setItem("isLoggedIn", "true");
 	};
