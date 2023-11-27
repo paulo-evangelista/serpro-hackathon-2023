@@ -18,6 +18,10 @@ export const Navbar = () => {
 		setIsSidebarOpen(!isSidebarOpen);
 	};
 
+	useEffect(() => {
+		console.log(account);
+	}, [account]);
+
 	return (
 		<>
 			{/* Overlay */}
@@ -117,6 +121,22 @@ export const Navbar = () => {
 									aria-orientation="vertical"
 									aria-labelledby="options-menu"
 								>
+									{account.wallet && (
+										<div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+											<p className="text-sm text-gray-700">
+												{account.wallet.substring(
+													0,
+													6
+												) +
+													"..." +
+													account.wallet.substring(
+														account.wallet.length -
+															4
+													) || account.email}
+											</p>
+										</div>
+									)}
+
 									<Link
 										href={"/profile"}
 										className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"

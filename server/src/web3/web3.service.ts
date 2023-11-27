@@ -82,33 +82,36 @@ export class Web3Service {
         amount: number,
         price: number,
         financialAmount: number,
-        accountingOpening: string
+        accountingOpening: string,
     ) => {
-            try {          
-                const provider = new ethers.InfuraProvider('sepolia', process.env.INFURA_APIKEY)
-                const wallet = new ethers.Wallet(process.env.GOV_PK, provider);
-            
-                const factory = new ethers.ContractFactory(abi, bytecode.bytecode, wallet);  // Pegar bytecode e abi!!!
-                const contract = await factory.deploy(
-                    titleName,
-                    titleSymbol,
-                    annualProfitability,
-                    unitPrice,
-                    program,
-                    lobby,
-                    launchDate,
-                    expirationDate,
-                    amount,
-                    price,
-                    financialAmount,
-                    accountingOpening
-                );
-    
-                console.log('Contrato:', contract);
-                console.log('Endereço contrato deployado:', contract.target);
-                return contract.target;
-            } catch (error) {
-                console.error('Erro ao fazer o deploy do contrato:', error);
-            }
-        };
+        try {
+            const provider = new ethers.InfuraProvider('sepolia', process.env.INFURA_APIKEY);
+            const wallet = new ethers.Wallet(process.env.GOV_PK, provider);
+
+            const abi = [];
+            const bytecode = { bytecode: '' };
+
+            const factory = new ethers.ContractFactory(abi, bytecode.bytecode, wallet); // Pegar bytecode e abi!!!
+            const contract = await factory.deploy(
+                titleName,
+                titleSymbol,
+                annualProfitability,
+                unitPrice,
+                program,
+                lobby,
+                launchDate,
+                expirationDate,
+                amount,
+                price,
+                financialAmount,
+                accountingOpening,
+            );
+
+            console.log('Contrato:', contract);
+            console.log('Endereço contrato deployado:', contract.target);
+            return contract.target;
+        } catch (error) {
+            console.error('Erro ao fazer o deploy do contrato:', error);
+        }
+    };
 }

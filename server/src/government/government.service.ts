@@ -41,4 +41,12 @@ export class GovernmentService {
     async getAllAssets() {
         return await this.assetPreIRepository.find();
     }
+
+    async getAllCompanies() {
+        return await this.companyRepository.find();
+    }
+
+    async getAllApprovedCompanies() {
+        return await this.companyRepository.find({ where: { is_aproved: true } });
+    }
 }

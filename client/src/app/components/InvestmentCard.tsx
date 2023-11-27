@@ -11,14 +11,16 @@ const InvestmentCard = ({
 }) => {
 	return (
 		<div className="max-w-xm rounded overflow-hidden shadow-lg bg-white px-6 py-16 m-4">
-			<div className="font-bold text-xl mb-2">{title}</div>
+			<div className="font-bold text-3xl mb-2">{title}</div>
 			<p className="text-gray-700 text-base mb-4">
-				Rentabilidade anual: {yieldAnnual}
+				Rentabilidade anual:{" "}
+				<span className="text-xl font-semibold">{yieldAnnual}</span>
 			</p>
 			<p className="text-gray-700 text-base mb-6">
-				Vencimento: {dueDate}
+				Vencimento:{" "}
+				<span className="text-xl font-semibold">{dueDate}</span>
 			</p>
-			<button className="bg-green-700 hover:bg-green-700 text-white font-bold py-3 px-8 rounded-full">
+			<button className="bg-green-700 hover:bg-green-700 text-white text-xl font-bold py-3 px-8 rounded-full">
 				Simule o investimento
 			</button>
 		</div>
