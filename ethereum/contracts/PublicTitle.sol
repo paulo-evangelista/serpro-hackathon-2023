@@ -2,7 +2,7 @@
 pragma solidity ^0.8.20;
 
 import "@openzeppelin/contracts/token/ERC721/extensions/ERC721URIStorage.sol";
-import '@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol';
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
@@ -11,7 +11,7 @@ interface IInstitutionContract {
     function checkIfUserHavePermission(address) external view returns (bool);
 }
 
-contract CustomPublicTitle is ERC721,ERC721Enumerable, ERC721URIStorage, Ownable {
+contract PublicTitle is ERC721,ERC721Enumerable, ERC721URIStorage, Ownable {
     // counter para os ids das nfts emitidas
     uint256 private idCounter;
 
@@ -27,13 +27,12 @@ contract CustomPublicTitle is ERC721,ERC721Enumerable, ERC721URIStorage, Ownable
     // infos do asset em si (STN flow)
     string public titleName;
     string public titleSymbol;
-    uint256 public annualProfitability;
+    uint16 public annualProfitability;
     uint256 public unitPrice;
-    uint256 public maturityDate;
     string public program;
     string public lobby;
-    uint256 public launchDate;
-    uint256 public expirationDate;
+    uint64 public launchDate;
+    uint64 public expirationDate;
     uint256 public amount;
     uint256 public price;
     uint256 public financialAmount;
@@ -80,13 +79,12 @@ contract CustomPublicTitle is ERC721,ERC721Enumerable, ERC721URIStorage, Ownable
     constructor(
         string memory _titleName,
         string memory _titleSymbol,
-        uint256 _annualProfitability,
+        uint16 _annualProfitability,
         uint256 _unitPrice,
-        uint256 _maturityDate,
         string memory _program,
         string memory _lobby,
-        uint256 _launchDate,
-        uint256 _expirationDate,
+        uint64 _launchDate,
+        uint64 _expirationDate,
         uint256 _amount,
         uint256 _price,
         uint256 _financialAmount,
@@ -97,7 +95,6 @@ contract CustomPublicTitle is ERC721,ERC721Enumerable, ERC721URIStorage, Ownable
         titleSymbol = _titleSymbol;
         annualProfitability = _annualProfitability;
         unitPrice = _unitPrice;
-        maturityDate = _maturityDate;
         program = _program;
         lobby = _lobby;
         launchDate = _launchDate;
@@ -201,14 +198,22 @@ contract CustomPublicTitle is ERC721,ERC721Enumerable, ERC721URIStorage, Ownable
 
     function _increaseBalance(
         address account,
-        uint128 amount
+        uint128 __amount
     ) internal override(ERC721, ERC721Enumerable) {
-        return super._increaseBalance(account, amount);
+        return super._increaseBalance(account, __amount);
     }
 
     function tokenURI(
         uint256 tokenId
-    ) public view override(ERC721, ERC721URIStorage, ERC721Enumerable) returns (string memory) {
+    ) public view override(ERC721, ERC721URIStorage) returns (string memory) {
         return super.tokenURI(tokenId);
+    }
+
+    function _update(
+        address to,
+        uint256 tokenId,
+        address auth
+    ) internal override(ERC721, ERC721Enumerable) returns (address) {
+        return super._update(to, tokenId, auth);
     }
 }
