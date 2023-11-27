@@ -14,44 +14,54 @@ export default function Title({ params }: { params: { id: string } }) {
 	const [loading, setLoading] = useState(true);
 
 	useEffect(() => {
-		setLoading(false);
+		setLoading(true);
 
 		setTimeout(() => {
 			if (params.id) {
 				setProduct({
 					title: "Blocos de montar LegoTechnic 42083 Bugatti chiron 3599 peças em caixa",
 					price: 4497,
-					image: "https://www.tesourodireto.com.br/data/files/8A/A5/73/12/83D4D710C0F1C0D7894D49A8/tesouro-direto-tesouro-selic-2026.png",
+					image: "https://www.tesourodireto.com.br/data/files/8A/A5/73/12/83D4D710C0F1C0D7894D49A8/tesouro-direto-carro-novo.png",
 					description: "Construção recomendada: carro.",
 				});
+				setLoading(false);
 			}
 		}, 1000);
-
-		setLoading(false);
 	}, [params.id]);
 
 	return (
-		<div className="container mx-auto mt-4 p-4">
+		<div className="container mx-auto mt-4 p-4 flex flex-col w-full">
 			<Navbar />
 
-			<div className="flex flex-col lg:flex-row mt-16 border-2 border-red-500">
-				{/* Galeria de Imagens */}
-				<div className="flex-1">
+			<div className="flex md:flex-row flex-col lg:flex-row mt-16 w-full md:w-3/4 mx-auto border justify-center md:justify-between shadow-lg rounded-lg p-4">
+				<div className="flex-1 w-full md:mr-4">
 					<div className="mb-4">
-						<Image
-							src={product?.image}
-							alt="Imagem do produto"
-							className="w-full h-64 object-contain mb-2"
-						/>
+						{loading ? (
+							<div className="spinner" />
+						) : (
+							<Image
+								src={product?.image || ""}
+								alt="Imagem do produto"
+								width={350}
+								height={350}
+								className="w-full"
+								placeholder="blur"
+							/>
+						)}
 					</div>
 				</div>
+
 				{/* Informações do Produto */}
-				<div className="flex-1">
+				<div className="flex-1 w-full">
 					<h1 className="text-2xl font-bold mb-2">
-						{loading ? "Carregando..." : product?.title}
+						{loading
+							? "Carregando..."
+							: product?.title || "Carregando..."}
 					</h1>
 					<p className="text-xl font-semibold mb-2">
-						{loading ? "Carregando..." : `R$ ${product?.price}`}
+						{loading
+							? "Carregando..."
+							: `R$ ${product?.price || 0}`}
 					</p>
 					<ul className="mb-4">
 						{loading ? (
