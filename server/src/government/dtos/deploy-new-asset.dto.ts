@@ -11,7 +11,7 @@ export class CreateAssetDto {
     ipfsImageURI: string;
 
     @IsNumber()
-    PercentageReturnPerYear: number;
+    percentageReturnPerYear: number;
 
     @IsNumber()
     total_supply: number;

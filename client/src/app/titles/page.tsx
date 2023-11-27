@@ -1,4 +1,5 @@
 "use client";
+import axios from "axios";
 import React from "react";
 import { Navbar } from "../components/Navbar";
 import { useState, useEffect } from "react";
@@ -6,72 +7,45 @@ import { Footer } from "../components/Footer";
 import Link from "next/link";
 
 const Title = () => {
-	const [titles, setTitles] = useState([
-		{
-			id: 1,
-			name: "TESOURO PREFIXADO 2026",
-			profitability: "10,24%",
-			minimumInvestment: "R$ 32,57",
-			unitPrice: "R$ 814,30",
-			dueDate: "01/01/2026",
-		},
-		{
-			id: 2,
-			name: "TESOURO PREFIXADO 2029",
-			profitability: "10,86%",
-			minimumInvestment: "R$ 35,52",
-			unitPrice: "R$ 592,09",
-			dueDate: "01/01/2029",
-		},
-		{
-			id: 3,
-			name: "TESOURO PREFIXADO com juros semestrais 2033",
-			profitability: "11,06%",
-			minimumInvestment: "R$ 39,30",
-			unitPrice: "R$ 982,70",
-			dueDate: "01/01/2033",
-		},
-		{
-			id: 4,
-			name: "TESOURO SELIC 2026",
-			profitability: "SELIC + 0,0431%",
-			minimumInvestment: "R$ 141,09",
-			unitPrice: "R$ 14.109,77",
-			dueDate: "01/03/2026",
-		},
-		{
-			id: 5,
-			name: "TESOURO SELIC 2029",
-			profitability: "SELIC + 0,1707%",
-			minimumInvestment: "R$ 139,97",
-			unitPrice: "R$ 13.997,82",
-			dueDate: "01/03/2029",
-		},
-		{
-			id: 6,
-			name: "TESOURO IPCA+ 2029",
-			profitability: "IPCA + 5,50%",
-			minimumInvestment: "R$ 31,11",
-			unitPrice: "R$ 3.111,67",
-			dueDate: "15/05/2029",
-		},
-		{
-			id: 7,
-			name: "TESOURO IPCA+ 2035",
-			profitability: "IPCA + 5,64%",
-			minimumInvestment: "R$ 44,49",
-			unitPrice: "R$ 2.224,67",
-			dueDate: "15/05/2035",
-		},
-		{
-			id: 8,
-			name: "TESOURO IPCA+ 2045",
-			profitability: "IPCA + 5,77%",
-			minimumInvestment: "R$ 37,61",
-			unitPrice: "R$ 1.253,75",
-			dueDate: "15/05/2045",
-		},
-	]);
+	const [titles, setTitles] = useState<any>([]);
+
+	const getTitles = async () => {
+		const account = localStorage.getItem("account");
+		let jwt = "";
+		if (account) {
+			jwt = JSON.parse(account).jwt;
+		}
+
+		const path = "http://localhost:3050/government/getAllAssets";
+
+		try {
+			await axios
+				.get(path, {
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: `Bearer ${jwt}`,
+					},
+				})
+				.then((res: { data: any }) => {
+					console.log(res.data);
+					setTitles(res.data);
+					return res.data;
+				})
+				.catch((err: any) => {
+					return err;
+				});
+		} catch (error) {
+			console.error("Error during signup: ", error);
+			throw error;
+		}
+	}
+
+    useEffect(() => {
+		getTitles().then((res: any) => {
+			setTitles(res.data);
+		}
+	)}, []);
+
 
 	return (
 		<div>
@@ -128,31 +102,25 @@ const Title = () => {
 							<tr className="bg-gray-200">
 								<th className="px-4 py-2">Título</th>
 								<th className="px-4 py-2">Rentabilidade</th>
-								<th className="px-4 py-2">
-									Investimento mínimo
-								</th>
 								<th className="px-4 py-2">Preço unitário</th>
 								<th className="px-4 py-2">Vencimento</th>
 								<th className="px-4 py-2">Investir</th>
 							</tr>
 						</thead>
 						<tbody>
-							{titles.map((title, index) => (
+							{titles && titles.map((title: any, index: number) => (
 								<tr key={index} className="border-b">
-									<td className="px-4 py-2">{title.name}</td>
-									<td className="px-4 py-2">
-										{title.profitability}
+									<td className="px-4 py-2 text-center">{title.name}</td>
+									<td className="px-4 py-2 text-center">
+										{title.percentageReturnPerYear}
 									</td>
-									<td className="px-4 py-2">
-										{title.minimumInvestment}
+									<td className="px-4 py-2 text-center">
+										{title.price}
 									</td>
-									<td className="px-4 py-2">
-										{title.unitPrice}
+									<td className="px-4 py-2 text-center">
+										{title.deadline}
 									</td>
-									<td className="px-4 py-2">
-										{title.dueDate}
-									</td>
-									<td className="px-4 py-2">
+									<td className="px-4 py-2 text-center">
 										<Link
 											href={`/title/${title.id}`}
 											className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
