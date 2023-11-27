@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, InternalServerErrorException } from '@nestjs/common';
 import { ethers } from 'ethers';
-import axios from 'axios';
+import axios, { AxiosHeaders, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
+import { randomBytes } from 'crypto';
 
 @Injectable()
 export class Web3Service {
@@ -22,40 +23,51 @@ export class Web3Service {
         };
     }
 
-    sendFileToIPFS = async (file, counter) => {
-        counter++;
-    
-        if (file) {
-            const formData = new FormData();
-            formData.append("file", file);
-    
-            const resFile = await axios({
-                method: "post",
-                url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
-                data: formData,
-                headers: {
-                    pinata_api_key: "bf67cf4376213d9d9cb0", // `${process.env.REACT_APP_PINATA_API_KEY}`,
-                    pinata_secret_api_key:
-                        "5250eddb652c2e750bdf57d8ed79ee762564fed74c4ebfd78bb35dd4dbbe5a17", // `${process.env.REACT_APP_PINATA_API_SECRET}`,
-                    "Content-Type": "multipart/form-data",
+    pinToIPFS = async (title: string, description: string, boughtTimestamp: number, endTimestamp: number, amount: number) => {
+        const options: AxiosRequestConfig = {
+            method: 'GET',
+            url: 'https://api.pinata.cloud/data/testAuthentication',
+            headers: {
+                'content-type': 'application/json',
+                accept: 'application/json',
+                authorization: `Bearer  ${process.env.PINATA_JWT}`,
+            },
+            data: {
+                pinataOptions: { cidVersion: 1 },
+                pinataContent: {
+                    image: 'https://ipfs.io/ipfs/bafybeidnoqa5xsxhwdaukibevsgvpz3vear6lk724ol5e3w7nkryz3gzc4',
+                    name: title,
+                    description: description,
+                    attributes: [
+                        {
+                            display_type: 'date',
+                            trait_type: 'Vencimento',
+                            value: endTimestamp,
+                        },
+                        {
+                            display_type: 'date',
+                            trait_type: 'Adquirido em',
+                            value: boughtTimestamp,
+                        },
+                        {
+                            trait_type: 'Quantidade',
+                            value: amount.toString(),
+                        },
+                    ],
                 },
+                pinataMetadata: { name: `serpro-hackas-${randomBytes(10).toString()}.json` },
+            },
+        };
+
+        axios
+            .request(options)
+            .then(function (response) {
+                return response.data.IpfsHash;
+            })
+            .catch(function (error) {
+                console.log(error);
+                throw new InternalServerErrorException('pinata upload error');
             });
-    
-            const fileHash = `https://ipfs.io/ipfs/${resFile.data.IpfsHash}`;
-    
-            const json = {
-                name: "Profile Image" + counter.toString(),
-                image: fileHash,
-                attributes: [
-                    {
-                        "trait-type": "Stage" + counter.toString(),
-                        value: counter.toString(),
-                    },
-                ],
-            };
-    
-            return json, fileHash;
-        }
     };
 
     deployContract = async (
