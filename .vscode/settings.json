@@ -1,6 +1,7 @@
 {
 	"solidity.compileUsingRemoteVersion": "latest",
 	"conventionalCommits.scopes": [
-		"client"
+		"client",
+		"server"
 	]
 }
