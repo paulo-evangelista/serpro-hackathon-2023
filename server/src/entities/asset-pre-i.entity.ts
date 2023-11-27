@@ -27,8 +27,8 @@ export class Asset_Pre_I {
     @Column()
     interest: number;
 
-    @Column('date')
-    deadline: Date;
+    @Column()
+    deadline: number;
 
     @Column()
     address: string;
