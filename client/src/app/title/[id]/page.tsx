@@ -39,8 +39,11 @@ export default function Title({ params }: { params: { id: string } }) {
 				<div className="flex-1">
 					<div className="mb-4">
 						<Image
+							loader={() => product?.image}
 							src={product?.image}
 							alt="Imagem do produto"
+							width={300}
+							height={300}
 							className="w-full h-64 object-contain mb-2"
 						/>
 					</div>
