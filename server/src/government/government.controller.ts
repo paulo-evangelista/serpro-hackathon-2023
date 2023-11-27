@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Param, Post, Req, UseGuards } from '@nestjs/common';
 import { GovernmentService } from './government.service';
 import { IsGovernment } from 'src/auth/auth.guard';
+import { CreateAssetDto } from './dtos/deploy-new-asset.dto';
 
 @UseGuards(IsGovernment)
 @Controller('government')
@@ -13,8 +14,13 @@ export class GovernmentController {
     }
 
     @Post('deployNewAsset')
-    async deployNewAsset(@Body() body: any) {
-        // return await this.governmentService.deployNewAsset();
+    async deployNewAsset(@Body() assetData: CreateAssetDto) {
+        try {
+            const newAsset = await this.governmentService.deployNewAsset(assetData);
+            return newAsset;
+        } catch (error) {
+            return { success: false, message: error.message };
+        }
     }
 
     @Get('getAllAssets')

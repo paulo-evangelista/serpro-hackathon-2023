@@ -12,4 +12,22 @@ export class CreateAssetDto {
 
     @IsNumber()
     PercentageReturnPerYear: number;
+
+    @IsNumber()
+    total_supply: number;
+
+    @IsNumber()
+    available_supply: number;
+
+    @IsNumber()
+    price: number;
+
+    @IsNumber()
+    interest: number;
+
+    @IsNumber()
+    deadline: number;
+
+    @IsString()
+    address: string;
 }

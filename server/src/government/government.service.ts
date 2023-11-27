@@ -5,6 +5,7 @@ import { Company } from 'src/entities/company.entity';
 import { Government_User } from 'src/entities/government_user.entity';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
+import { CreateAssetDto } from './dtos/deploy-new-asset.dto';
 
 @Injectable()
 export class GovernmentService {
@@ -40,5 +41,10 @@ export class GovernmentService {
 
     async getAllAssets() {
         return await this.assetPreIRepository.find();
+    }
+
+    async deployNewAsset(assetData: CreateAssetDto): Promise<Asset_Pre_I> {
+        const newAsset = this.assetPreIRepository.create(assetData);
+        return await this.assetPreIRepository.save(newAsset);
     }
 }
