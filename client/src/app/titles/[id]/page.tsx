@@ -45,7 +45,6 @@ export default function Title({ params }: { params: { id: string } }) {
 								width={350}
 								height={350}
 								className="w-full"
-								placeholder="blur"
 							/>
 						)}
 					</div>

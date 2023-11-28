@@ -2,7 +2,18 @@
 ## Problema
 Desafio 1: Desenvolvimento de tecnologias para casos de uso utilizando títulos públicos tokenizados para aplicações em: Tesouro Direto e Mercado Secundário. Com a finalidade de incentivar a massificação, adoção e uso dos títulos, por investidores no Brasil e/ou no Exterior, prestigiando fácil acesso e a usabilidade das ferramentas.
 
+Desafio 4: Desenvolvimento de tecnologias para casos de uso de automação de monitoramento, controle e precificação online de títulos públicos (e.g. oráculos).
+
 ## Solução
+#### Account Abstraction
+falar do cadastro mais simples e rapido
+
+#### Oráculos
+
+#### Facilidade em trazer investidores do exterior
+
+#### Sem restrição de idade
+
 
 ## Problem-Solution Fit
 
@@ -26,6 +37,7 @@ Desafio 1: Desenvolvimento de tecnologias para casos de uso utilizando títulos 
     -   Hardhat
     -   Ethers.js
     -   Chainlink Services (Data Feed)
+    -   IPFS(Interplanetary File System)
 -   Infraestrutura
     -   Docker
 
@@ -33,27 +45,36 @@ Desafio 1: Desenvolvimento de tecnologias para casos de uso utilizando títulos 
 
 ```
 ├── client
-│    ├── animations
-│    ├── assets
-│    ├── components
-│    ├── pages
-│    ├── services
-│    ├── styles
-│    ├── utils
+│    ├── src/app
+│       ├── about
+│       ├── adm
+│       ├── api
+│       ├── assets
+│       ├── components
+│       ├── contact
+│       ├── context
+│       ├── hooks
+│       ├── ...
+│
 │
 ├── ethereum
-│    ├── build
 │    ├── contracts
-│    ├── migrations
+│    ├── contracts_development
+│    ├── scripts
+│    ├── test
 │
 │
 ├── server
-│    ├── controllers
-│    ├── database
-│    ├── middlewares
-│    ├── prisma
-│    ├── routes
-│    ├── services
+│    ├── src
+│       ├── ABIs
+│       ├── auth
+│       ├── company
+│       ├── entities
+│       ├── government
+│       ├── middleware
+│       ├── platform
+│       ├── user
+│       ├── web3
 │
 ```
 
@@ -62,6 +83,14 @@ Desafio 1: Desenvolvimento de tecnologias para casos de uso utilizando títulos 
 Para rodar a aplicação existem algumas dependências que precisam ser instaladas devido às tecnologias utilizadas, são elas:
 
 -   Node Js
+-   Docker
+
+### Executar containers
+
+Para executar os containers docker, é necessário entrar no repositório raiz do projeto chamado `serpro-hackathon-2023` e executar o seguinte comando:
+```
+  $ docker-compose up -d
+```
 
 ### Executar cliente
 
@@ -76,9 +105,8 @@ Para executar o cliente frontend é necessário entrar no repositório frontend 
 Para rodar o servidor backend é necessário entrar no repositório backend chamado `server` e executar os seguintes comandos para instalar as dependências do projeto e então executar o servidor:
 
 ```
-  $ npx prisma migrate dev
   $ npm i
-  $ npm run dev
+  $ npm run start:dev
 ```
 
 ## Desenvolvido por:
