@@ -19,7 +19,7 @@ import { NextIntlClientProvider } from "next-intl";
 import Error from "./[locale]/500";
 
 // Can be imported from a shared config
-const locales = ["en", "de"];
+const locales = ["en", "pt_br"];
 
 export default function RootLayout({
 	children,
