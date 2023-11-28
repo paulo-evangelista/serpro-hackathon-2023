@@ -174,7 +174,7 @@ export default function Home() {
 					{/* Titles */}
 					{authenticated ? (
 						<div className="overflow-x-auto">
-							<table className="table-auto w-full">
+							<table className="table-auto w-full mb-16">
 								<thead>
 									<tr className="bg-gray-200">
 										<th className="px-4 py-2">Título</th>
@@ -211,7 +211,7 @@ export default function Home() {
 							</table>
 						</div>
 					) : (
-						<p className="text-center text-red-500">
+						<p className="text-center text-red-500 mb-16">
 							Efetue login para ver a rentabilidade dos títulos
 						</p>
 					)}

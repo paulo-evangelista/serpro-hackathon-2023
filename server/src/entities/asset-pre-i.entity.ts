@@ -14,6 +14,12 @@ export class Asset_Pre_I {
     @Column()
     description: string;
 
+    @Column({ nullable: true })
+    ipfsImageURI: string;
+
+    @Column({ nullable: true })
+    percentageReturnPerYear: number;
+
     @Column()
     total_supply: number;
 

@@ -56,7 +56,7 @@ const Title = () => {
 		<div>
 			<Navbar />
 			<div className="flex flex-1 flex-col min-h-screen mt-16">
-				<div className="relative mt-4 mb-10">
+				<div className="relative mt-1 mb-10">
 					<div className="w-full h-80 overflow-hidden">
 						<img
 							src="https://www.tesourodireto.com.br/data/files/8B/75/DD/0C/63D4D710C0F1C0D7894D49A8/banner-acessibilidade-precos-taxas.png"
