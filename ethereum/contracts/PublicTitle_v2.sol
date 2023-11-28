@@ -70,7 +70,6 @@ contract PublicTitle is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         uint64 _launchDate,
         uint64 _expirationDate,
         uint256 _amount,
-        uint256 _price,
         uint256 _financialAmount,
         string memory _accountingOpening,
         address _drexAddress
@@ -85,7 +84,6 @@ contract PublicTitle is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         launchDate = _launchDate;
         expirationDate = _expirationDate;
         amount = _amount;
-        price = _price;
         financialAmount = _financialAmount;
         accountingOpening = _accountingOpening;
 
@@ -155,6 +153,10 @@ contract PublicTitle is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
         }
 
         wasLiquidated = true;
+    }
+
+    function changeDrexAddress(address _newDrexAddress) public onlyOwner {
+        drex = IERC20(_newDrexAddress);
     }
 
     // overrides para proibir a transferência
