@@ -52,7 +52,7 @@ export const Navbar = () => {
 					<Link href={"/"} className="px-2">
 						Home
 					</Link>
-					<Link href={"/title"} className="px-2">
+					<Link href={"/titles"} className="px-2">
 						Títulos
 					</Link>
 					<Link href={"/about"} className="px-2">
