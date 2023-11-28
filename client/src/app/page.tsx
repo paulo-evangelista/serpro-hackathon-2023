@@ -14,27 +14,15 @@ export default function Home() {
 	);
 
 	const [titles, setTitles] = useState<any>([]);
-	const [authenticated, setAuthenticated] = useState<boolean>(false);
 
 	const getTitles = async () => {
-		const account = localStorage.getItem("account");
-		let jwt = "";
-		if (account) {
-			jwt = JSON.parse(account).jwt;
-			setAuthenticated(true);
-		} else {
-			setAuthenticated(false);
-			return;
-		}
-
-		const path = "http://localhost:3050/government/getAllAssets";
+		const path = "http://localhost:3050/platform/getAllAssets";
 
 		try {
 			await axios
 				.get(path, {
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${jwt}`,
 					},
 				})
 				.then((res: { data: any }) => {
@@ -172,49 +160,43 @@ export default function Home() {
 						</div>
 					</div>
 					{/* Titles */}
-					{authenticated ? (
-						<div className="overflow-x-auto">
-							<table className="table-auto w-full mb-16">
-								<thead>
-									<tr className="bg-gray-200">
-										<th className="px-4 py-2">Título</th>
-										<th className="px-4 py-2">Rentabilidade</th>
-										<th className="px-4 py-2">Preço unitário</th>
-										<th className="px-4 py-2">Vencimento</th>
-										<th className="px-4 py-2">Investir</th>
+					<div className="overflow-x-auto">
+						<table className="table-auto w-full mb-16">
+							<thead>
+								<tr className="bg-gray-200">
+									<th className="px-4 py-2">Título</th>
+									<th className="px-4 py-2">Rentabilidade</th>
+									<th className="px-4 py-2">Preço unitário</th>
+									<th className="px-4 py-2">Vencimento</th>
+									<th className="px-4 py-2">Investir</th>
+								</tr>
+							</thead>
+							<tbody>
+								{titles && titles.map((title: any, index: number) => (
+									<tr key={index} className="border-b">
+										<td className="px-4 py-2 text-center">{title.name}</td>
+										<td className="px-4 py-2 text-center">
+											{title.percentageReturnPerYear}
+										</td>
+										<td className="px-4 py-2 text-center">
+											{title.price}
+										</td>
+										<td className="px-4 py-2 text-center">
+											{title.deadline}
+										</td>
+										<td className="px-4 py-2 text-center">
+											<Link
+												href={`/titles/${title.id}`}
+												className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
+											>
+												Investir
+											</Link>
+										</td>
 									</tr>
-								</thead>
-								<tbody>
-									{titles && titles.map((title: any, index: number) => (
-										<tr key={index} className="border-b">
-											<td className="px-4 py-2 text-center">{title.name}</td>
-											<td className="px-4 py-2 text-center">
-												{title.percentageReturnPerYear}
-											</td>
-											<td className="px-4 py-2 text-center">
-												{title.price}
-											</td>
-											<td className="px-4 py-2 text-center">
-												{title.deadline}
-											</td>
-											<td className="px-4 py-2 text-center">
-												<Link
-													href={`/titles/${title.id}`}
-													className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
-												>
-													Investir
-												</Link>
-											</td>
-										</tr>
-									))}
-								</tbody>
-							</table>
-						</div>
-					) : (
-						<p className="text-center text-red-500 mb-16">
-							Efetue login para ver a rentabilidade dos títulos
-						</p>
-					)}
+								))}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			</div>
 			<Footer />

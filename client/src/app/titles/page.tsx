@@ -8,27 +8,15 @@ import Link from "next/link";
 
 const Title = () => {
 	const [titles, setTitles] = useState<any>([]);
-	const [authenticated, setAuthenticated] = useState<boolean>(false);
 
 	const getTitles = async () => {
-		const account = localStorage.getItem("account");
-		let jwt = "";
-		if (account) {
-			jwt = JSON.parse(account).jwt;
-			setAuthenticated(true); 
-		} else {
-			setAuthenticated(false);
-			return;
-		}
-
-		const path = "http://localhost:3050/government/getAllAssets";
+		const path = "http://localhost:3050/platform/getAllAssets";
 
 		try {
 			await axios
 				.get(path, {
 					headers: {
 						"Content-Type": "application/json",
-						Authorization: `Bearer ${jwt}`,
 					},
 				})
 				.then((res: { data: any }) => {
@@ -102,7 +90,6 @@ const Title = () => {
 						</div>
 					</div>
 					{/* Titles */}
-					{authenticated ? (
 					<div className="overflow-x-auto">
 						<table className="table-auto w-full">
 							<thead>
@@ -140,11 +127,6 @@ const Title = () => {
 							</tbody>
 						</table>
 					</div>
-					) : (
-						<p className="text-center text-red-500">
-							Efetue login para ver a rentabilidade dos títulos
-						</p>
-					)}
 				</div>
 			</div>
 			<Footer />

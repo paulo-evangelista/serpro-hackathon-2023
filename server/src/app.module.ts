@@ -10,6 +10,7 @@ import { jwtConstants } from './auth/jwtConstants';
 import { GovernmentModule } from './government/government.module';
 import { UserModule } from './user/user.module';
 import { CompanyModule } from './company/company.module';
+import { PlatformModule } from './platform/platform.module';
 
 @Module({
     imports: [
@@ -36,6 +37,7 @@ import { CompanyModule } from './company/company.module';
         GovernmentModule,
         UserModule,
         CompanyModule,
+        PlatformModule,
     ],
     controllers: [AppController],
     providers: [AppService],
