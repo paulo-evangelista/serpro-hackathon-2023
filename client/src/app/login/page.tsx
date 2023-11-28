@@ -31,7 +31,6 @@ export default function GovernmentSignUp() {
 	return (
 		<div>
 			<Navbar/>
-			{/* <div className="flex flex-col flex-1 items-center justify-center p-2"> */}
 			<div className="flex flex-row h-screen">
 				<div className="w-2/3 bg-cover bg-left flex items-center justify-center" style={{backgroundImage: "url(https://portalinvestidor.tesourodireto.com.br/Content/img/background-login-page.jpg)"}}>
 					<div className="flex flex-col items-center justify-center w-2/3">
