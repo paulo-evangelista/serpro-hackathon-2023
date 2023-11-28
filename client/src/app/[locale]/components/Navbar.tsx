@@ -3,9 +3,9 @@ import Link from "next/link";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import menu from "@/app/assets/menu.svg";
-import xIcon from "@/app/assets/x.svg";
-import tIcon from "@/app/assets/td.svg";
+import menu from "@/app/[locale]/assets/menu.svg";
+import xIcon from "@/app/[locale]/assets/x.svg";
+import tIcon from "@/app/[locale]/assets/td.svg";
 import { useAuth } from "../context";
 
 export const Navbar = () => {

@@ -1,5 +1,5 @@
 "use client";
-import { useAuth } from "@/app/hooks/useAuth";
+import { useAuth } from "@/app/[locale]/[locale]/hooks/useAuth";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -19,25 +19,37 @@ export default function GovernmentSignUp() {
 	const onSubmit = async (data: any) => {
 		await login(data, data.userType)
 			.then((res: any) => {
-                toast.success("Login realizado com sucesso! Redirecionando...");
+				toast.success("Login realizado com sucesso! Redirecionando...");
 				router.push("/");
 			})
 			.catch((err: any) => {
-                toast.error("Erro ao realizar login!\nTente novamente.");
+				toast.error("Erro ao realizar login!\nTente novamente.");
 				alert(err.message);
 			});
 	};
 
 	return (
 		<div>
-			<Navbar/>
+			<Navbar />
 			<div className="flex flex-row h-screen">
-				<div className="w-2/3 bg-cover bg-left flex items-center justify-center" style={{backgroundImage: "url(https://portalinvestidor.tesourodireto.com.br/Content/img/background-login-page.jpg)"}}>
+				<div
+					className="w-2/3 bg-cover bg-left flex items-center justify-center"
+					style={{
+						backgroundImage:
+							"url(https://portalinvestidor.tesourodireto.com.br/Content/img/background-login-page.jpg)",
+					}}
+				>
 					<div className="flex flex-col items-center justify-center w-2/3">
 						<div className="flex flex-col mb-8 items-start justify-center">
-							<h1 className="text-2xl font-bold text-white">Já tem um conta no Direto</h1>
-							<h1 className="text-2xl font-bold text-white">Direto?</h1>
-							<h1 className="text-2xl font-bold text-white">Faça login agora.</h1>
+							<h1 className="text-2xl font-bold text-white">
+								Já tem um conta no Direto
+							</h1>
+							<h1 className="text-2xl font-bold text-white">
+								Direto?
+							</h1>
+							<h1 className="text-2xl font-bold text-white">
+								Faça login agora.
+							</h1>
 						</div>
 						<form
 							onSubmit={handleSubmit(onSubmit)}
@@ -47,7 +59,9 @@ export default function GovernmentSignUp() {
 								{...register("userType", { required: true })}
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							>
-								<option value="">Selecione o tipo de usuário</option>
+								<option value="">
+									Selecione o tipo de usuário
+								</option>
 								<option value="government">Governo</option>
 								<option value="user">Usuário</option>
 								<option value="company">Empresa</option>
@@ -101,18 +115,31 @@ export default function GovernmentSignUp() {
 
 				<div className="w-1/3 bg-[#002c63] flex items-center justify-center p-2">
 					<div className="flex flex-col items-start justify-center w-2/3">
-						<h1 className="text-2xl font-bold text-white mb-8">Quero abrir uma conta</h1>
-						<h1 className="text-md text-white mb-8">Abra uma conta no Tesouro Direto e comece agora a investir. É rápido e prático.</h1>
-						<h1 className="text-md font-bold text-white mb-2">Agora o cadastro é mais fácil para todos!</h1>
-						<h1 className="text-md font-bold text-white mb-8">Para quem deseja abrir uma conta?</h1>
+						<h1 className="text-2xl font-bold text-white mb-8">
+							Quero abrir uma conta
+						</h1>
+						<h1 className="text-md text-white mb-8">
+							Abra uma conta no Tesouro Direto e comece agora a
+							investir. É rápido e prático.
+						</h1>
+						<h1 className="text-md font-bold text-white mb-2">
+							Agora o cadastro é mais fácil para todos!
+						</h1>
+						<h1 className="text-md font-bold text-white mb-8">
+							Para quem deseja abrir uma conta?
+						</h1>
 						<button className="bg-blue-800 text-md mb-8 font-bold text-white px-36 py-3 rounded-full cursor-pointer hover:bg-blue-600">
 							<Link href={"/signup"}>
-								<p className="text-md font-bold text-white">Para você</p>
+								<p className="text-md font-bold text-white">
+									Para você
+								</p>
 							</Link>
 						</button>
 						<button className="bg-white text-md font-bold text-white px-24 py-3 rounded-full cursor-pointer hover:bg-gray-200">
 							<Link href={"/signup"}>
-								<p className="text-md font-bold text-blue-800">Para o menor de idade</p>
+								<p className="text-md font-bold text-blue-800">
+									Para o menor de idade
+								</p>
 							</Link>
 						</button>
 					</div>
