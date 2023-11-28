@@ -199,7 +199,7 @@ export default function Home() {
 											</td>
 											<td className="px-4 py-2 text-center">
 												<Link
-													href={`/title/${title.id}`}
+													href={`/titles/${title.id}`}
 													className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
 												>
 													Investir
