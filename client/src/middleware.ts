@@ -6,6 +6,11 @@ export default createMiddleware({
 
 	// Used when no locale matches
 	defaultLocale: "pt-br",
+	localeDetection: false,
+	pathnames: {
+		en: "en",
+		"pt-br": "pt-br",
+	},
 });
 
 export const config = {

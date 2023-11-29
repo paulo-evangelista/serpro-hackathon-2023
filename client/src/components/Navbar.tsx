@@ -130,7 +130,7 @@ export const Navbar = () => {
 						<span className="text-xl md:text-2xl">🌎</span>
 					</button>
 					{isIdiomOpen && (
-						<div className="absolute right-24 top-2 z-10 mt-8 w-24 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+						<div className="absolute right-0 top-2 z-10 mt-8 w-24 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
 							<div
 								className="py-1"
 								role="menu"
@@ -139,14 +139,21 @@ export const Navbar = () => {
 							>
 								{locales.map(
 									(locale: string, index: number) => (
-										<Link
+										<button
 											key={index}
-											href={"/"}
-											// locale={locale}
+											onClick={() =>
+												router.push(pathname, pathname)
+											}
 											className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center"
 										>
+											{/* <Link
+										 	key={index}
+										 	href={"/"}
+										 	className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center"
+										 > */}
 											{locale.toUpperCase()}
-										</Link>
+											{/* </Link> */}
+										</button>
 									)
 								)}
 							</div>

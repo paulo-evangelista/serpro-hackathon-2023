@@ -1,4 +1,3 @@
-
 import { Inter } from "next/font/google";
 import { AuthProvider } from "./[locale]/context";
 import "./globals.css";
