@@ -1,22 +1,22 @@
 {
     "Home": {
         "tr+": {
-            "title": "Treasury RendA+",
-            "description": "Plan your retirement with the new Treasury Direct title",
+            "title": "Tesouro RendA+",
+            "description": "Plan your retirement with the new Tesouro Direto title",
             "button": "Discover RendA+ and start investing",
-            "bannerAlt": "Description of the banner image",
-            "yieldTitle": "Yield Title",
+            "bannerAlt": "Banner image description",
+            "yieldTitle": "Title about profitability",
             "marketStatus": "Market Status",
             "operationHours": "Operating Hours",
             "serviceAvailability": "Service Availability",
             "lastUpdate": "Last Update",
             "tableTitle": "Title",
-            "tableYield": "Yield",
+            "tableYield": "Profitability",
             "tablePrice": "Unit Price",
             "tableMaturity": "Maturity",
             "tableInvest": "Invest",
             "simulateInvestment": "SIMULATE YOUR INVESTMENT",
-            "investmentAdvantages": "Compare and check the advantages of investing your money in Treasury Direct.",
+            "investmentAdvantages": "Compare and see the advantages of investing your money in Tesouro Direto.",
             "iHave": "I have R$",
             "toApplyFor": "To apply for",
             "years": "years",
@@ -24,12 +24,12 @@
             "projectionDisclaimer": "*Projection of the net redemption value (after fees and taxes).",
             "simulationDisclaimer": "*Simulations are based on market projections. This does not guarantee future results.",
             "savings": "SAVINGS",
-            "treasuryIPCA": "TREASURY IPCA+ 2045",
+            "treasuryIPCA": "TESOURO IPCA+ 2045",
             "noTitles": "No titles..."
         },
         "goals": {
             "chooseYourGoal": "CHOOSE YOUR GOAL",
-            "investInTreasury": "Invest in Treasury Direct and get closer to your dreams.",
+            "investInTreasury": "Invest in Tesouro Direto and get closer to your dreams.",
             "discoverTheIdealTitle": "Discover the Ideal Title",
             "simulationDisclaimer": "*Simulations are based on market projections. This does not guarantee future results.",
             "travel": "Travel",
@@ -40,8 +40,8 @@
         }
     },
     "Login": {
-        "titlePart1": "Already have an account at Direct",
-        "titlePart2": "Treasury?",
+        "titlePart1": "Already have an account at Tesouro",
+        "titlePart2": "Direto?",
         "titlePart3": "Log in now.",
         "selectUserType": "Select user type",
         "userTypeGovernment": "Government",
@@ -53,7 +53,7 @@
         "submitButton": "Enter",
         "needToRegister": "Need to register?",
         "wantToOpenAccount": "I want to open an account",
-        "openAccountDescription": "Open an account in Treasury Direct and start investing now. It's fast and practical.",
+        "openAccountDescription": "Open an account at Tesouro Direto and start investing now. It's quick and practical.",
         "registrationIsEasier": "Now registration is easier for everyone!",
         "whoWantsToOpenAccount": "Who wants to open an account?",
         "forYouButton": "For you",
@@ -61,17 +61,121 @@
     },
     "Navbar": {
         "closeIconAlt": "Close",
-        "directTreasury": "Direct Treasury",
+        "directTreasury": "Tesouro Direto",
         "home": "Home",
         "titles": "Titles",
         "learnMore": "Learn More",
         "contact": "Contact",
         "menuIconAlt": "Menu",
-        "logoAlt": "Direct Treasury Logo",
+        "logoAlt": "Tesouro Direto Logo",
         "login": "Login",
         "profile": "Profile",
         "logout": "Logout",
         "administration": "Administration",
         "yourCompany": "Your Company"
+    },
+    "Profile": {
+        "yourProfile": "Your Profile",
+        "name": "Name",
+        "email": "Email",
+        "notProvided": "Not provided",
+        "currentAddress": "Current Address",
+        "balance": "Balance in Real/DREX",
+        "easyToInvest": "Now it's easier to invest in public titles!",
+        "reloadWithPix": "Reload your account with PIX",
+        "easyFastReliable": "Easy, fast, and reliable",
+        "enterAmount": "Enter the amount to be reloaded",
+        "reload": "Reload"
+    },
+    "Title": {
+        "backgroundImageAlt": "Title image description",
+        "chooseAndInvest": "Choose and invest in public titles",
+        "checkProfitability": "Check the profitability of each title",
+        "marketOpen": "Market open",
+        "operatingHours": "Operating hours",
+        "serviceAvailability": "Our services are available 24 hours a day, 7 days a week.",
+        "invest": "Invest",
+        "noTitles": "No titles..."
+    },
+    "About": {
+        "backgroundImageAlt": "Background image",
+        "mainTitleLine1": "Your money earning",
+        "mainTitleLine2": "with safety!",
+        "whatIsIt": "WHAT IS IT?",
+        "description1": "Tesouro Direto is a program of the National Treasury developed in partnership with B3 for the sale of federal public titles to individuals, 100% online.",
+        "description2": "Launched in 2002, the Program emerged with the objective of democratizing access to public titles, allowing applications from R$ 30,00.",
+        "description3": "Tesouro Direto is an excellent investment alternative as it offers titles with different types of profitability (fixed, linked to inflation variation or the variation of the basic interest rate of the economy - Selic), different maturity terms, and also different remuneration flows. With so many options, it is easy to find the right title to achieve your goals!",
+        "description4": "In addition to being accessible and offering many investment options, Tesouro Direto provides good profitability and daily liquidity, even being the lowest risk application in the market."
+    },
+    "Contact": {
+        "title": "Contato",
+        "links": {
+            "marcelo": {
+                "link": "https://www.linkedin.com/in/marcelofeitoza7/",
+                "imageUrl": "https://avatars.githubusercontent.com/u/71825192?v=4",
+                "alt": "Marcelo Gomes Feitoza profile picture",
+                "name": "Marcelo Gomes Feitoza"
+            },
+            "paulo": {
+                "link": "https://www.linkedin.com/in/victor-severiano-de-carvalho-b57a05237",
+                "imageUrl": "https://github.com/paulo-evangelista.png",
+                "alt": "Paulo Presa Evangelista profile picture",
+                "name": "Paulo Presa Evangelista"
+            },
+            "victor": {
+                "link": "https://www.linkedin.com/in/victor-severiano-de-carvalho-b57a05237",
+                "imageUrl": "https://github.com/vict0rcarvalh0.png",
+                "alt": "Victor Severiano de Carvalho profile picture",
+                "name": "Victor Severiano de Carvalho"
+            }
+        }
+    },
+    "SignUp": {
+        "createYourAccount": "Create your account",
+        "accountOpeningDescription": "Open an account in Tesouro Direto and start investing now. It's quick and practical.",
+        "whoAreYou": "Who are you?",
+        "user": "User",
+        "userSignUp": {
+            "title": "User Registration",
+            "emailPlaceholder": "Email",
+            "passwordPlaceholder": "Password",
+            "firstNamePlaceholder": "First Name",
+            "lastNamePlaceholder": "Last Name",
+            "walletPlaceholder": "Ethereum Network Wallet Address",
+            "noWalletCheckbox": "I don't have an address",
+            "autoGeneratedAddressNote": "An address will be automatically generated",
+            "submitButton": "Register",
+            "requiredField": "This field is required",
+            "successMessage": "Registration successful!",
+            "errorMessage": "Error during registration! Please try again."
+        },
+        "company": "Company",
+        "companySignUp": {
+            "title": "Brokerage Registration",
+            "successMessage": "Registration successful!",
+            "errorMessage": "Error during registration! Please try again.",
+            "namePlaceholder": "Company Name",
+            "emailPlaceholder": "Email",
+            "passwordPlaceholder": "Password",
+            "walletPlaceholder": "Ethereum network wallet address",
+            "submitButton": "Submit",
+            "requiredField": "This field is required"
+        },
+        "government": "Government",
+        "governmentSignUp": {
+            "title": "Government Registration",
+            "successMessage": "Registration successful!",
+            "errorMessage": "Error during registration! Please try again.",
+            "emailPlaceholder": "Email",
+            "passwordPlaceholder": "Password",
+            "firstNamePlaceholder": "First name",
+            "lastNamePlaceholder": "Last name",
+            "submitButton": "Register",
+            "requiredField": "This field is required"
+        }
+    },
+    "Footer": {
+        "directTreasury": "Tesouro Direto",
+        "copyRight": "© 2023 Tesouro Direto. All rights reserved."
     }
 }

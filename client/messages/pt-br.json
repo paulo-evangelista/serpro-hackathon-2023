@@ -1,0 +1,181 @@
+{
+    "Home": {
+        "tr+": {
+            "title": "Tesouro RendA+",
+            "description": "Planeje a sua aposentadoria com o novo título do Tesouro Direto",
+            "button": "Conheça o RendA+ e comece a investir",
+            "bannerAlt": "Descrição da imagem do banner",
+            "yieldTitle": "Título sobre rentabilidade",
+            "marketStatus": "Status do mercado",
+            "operationHours": "Horário de funcionamento",
+            "serviceAvailability": "Disponibilidade do serviço",
+            "lastUpdate": "Última atualização",
+            "tableTitle": "Título",
+            "tableYield": "Rentabilidade",
+            "tablePrice": "Preço unitário",
+            "tableMaturity": "Vencimento",
+            "tableInvest": "Investir",
+            "simulateInvestment": "SIMULE SEU INVESTIMENTO",
+            "investmentAdvantages": "Compare e confira as vantagens de investir seu dinheiro no Tesouro Direto.",
+            "iHave": "Eu tenho R$",
+            "toApplyFor": "Para aplicar durante",
+            "years": "anos",
+            "simulateMore": "Simule mais opções",
+            "projectionDisclaimer": "*Projeção do valor líquido de resgate (após taxas e impostos).",
+            "simulationDisclaimer": "*As simulações são baseadas em projeções de mercado. Isso não garante resultados futuros.",
+            "savings": "POUPANÇA",
+            "treasuryIPCA": "TESOURO IPCA+ 2045",
+            "noTitles": "Sem títulos..."
+        },
+        "goals": {
+            "chooseYourGoal": "ESCOLHA SEU OBJETIVO",
+            "investInTreasury": "Aplique no Tesouro Direto e chegue mais perto dos seus sonhos.",
+            "discoverTheIdealTitle": "Descubra o título ideal",
+            "simulationDisclaimer": "*As simulações são baseadas em projeções de mercado. Isso não garante resultados futuros.",
+            "travel": "Viajar",
+            "newCar": "Carro Novo",
+            "studies": "Estudos",
+            "newHouse": "Casa Nova",
+            "retirement": "Aposentadoria"
+        }
+    },
+    "Login": {
+        "titlePart1": "Já tem uma conta no Tesouro",
+        "titlePart2": "Direto?",
+        "titlePart3": "Faça login agora.",
+        "selectUserType": "Selecione o tipo de usuário",
+        "userTypeGovernment": "Governo",
+        "userTypeUser": "Usuário",
+        "userTypeCompany": "Empresa",
+        "requiredField": "Este campo é obrigatório",
+        "emailPlaceholder": "Email",
+        "passwordPlaceholder": "Senha",
+        "submitButton": "Entrar",
+        "needToRegister": "Precisa se registrar?",
+        "wantToOpenAccount": "Quero abrir uma conta",
+        "openAccountDescription": "Abra uma conta no Tesouro Direto e comece agora a investir. É rápido e prático.",
+        "registrationIsEasier": "Agora o cadastro é mais fácil para todos!",
+        "whoWantsToOpenAccount": "Para quem deseja abrir uma conta?",
+        "forYouButton": "Para você",
+        "forMinorButton": "Para o menor de idade"
+    },
+    "Navbar": {
+        "closeIconAlt": "Fechar",
+        "directTreasury": "Tesouro Direto",
+        "home": "Início",
+        "titles": "Títulos",
+        "learnMore": "Conheça",
+        "contact": "Contato",
+        "menuIconAlt": "Menu",
+        "logoAlt": "Logo Tesouro Direto",
+        "login": "Entrar",
+        "profile": "Perfil",
+        "logout": "Logout",
+        "administration": "Administração",
+        "yourCompany": "Sua empresa"
+    },
+    "Profile": {
+        "yourProfile": "Seu Perfil",
+        "name": "Nome",
+        "email": "Email",
+        "notProvided": "Não informado",
+        "currentAddress": "Endereço atual",
+        "balance": "Saldo em Real/DREX",
+        "easyToInvest": "Agora é mais fácil investir em títulos públicos!",
+        "reloadWithPix": "Recarregue sua conta com PIX",
+        "easyFastReliable": "Fácil, rápido e confiável",
+        "enterAmount": "Insira a quantidade a ser recarregada",
+        "reload": "Recarregar"
+    },
+    "Title": {
+        "backgroundImageAlt": "Imagem de fundo",
+        "chooseAndInvest": "Escolha e invista em títulos públicos",
+        "checkProfitability": "Confira a rentabilidade de cada título",
+        "marketOpen": "Mercado Aberto",
+        "operatingHours": "Horário de funcionamento",
+        "serviceAvailability": "Nossos serviços estão disponíveis 24 horas por dia, 7 dias por semana",
+        "invest": "Investir",
+        "noTitles": "Sem títulos..."
+    },
+    "About": {
+        "backgroundImageAlt": "Imagem de fundo",
+        "mainTitleLine1": "O seu dinheiro rendendo",
+        "mainTitleLine2": "com segurança!",
+        "whatIsIt": "O QUE É?",
+        "description1": "O Tesouro Direto é um Programa do Tesouro Nacional desenvolvido em parceria com a B3 para venda de títulos públicos federais para pessoas físicas, de forma 100% online.",
+        "description2": "Lançado em 2002, o Programa surgiu com o objetivo de democratizar o acesso aos títulos públicos, permitindo aplicações a partir de R$ 30,00.",
+        "description3": "O Tesouro Direto é uma excelente alternativa de investimento pois oferece títulos com diferentes tipos de rentabilidade (prefixada, ligada à variação da inflação ou à variação da taxa de juros básica da economia - Selic), diferentes prazos de vencimento e também diferentes fluxos de remuneração. Com tantas opções, fica fácil achar o título indicado para realizar seus objetivos!",
+        "description4": "Além de acessível e de apresentar muitas opções de investimento, o Tesouro Direto oferece boa rentabilidade e liquidez diária, mesmo sendo a aplicação de menor risco do mercado."
+    },
+    "Contact": {
+        "title": "Contato",
+        "links": {
+            "marcelo": {
+                "link": "https://www.linkedin.com/in/marcelofeitoza7/",
+                "imageUrl": "https://avatars.githubusercontent.com/u/71825192?v=4",
+                "alt": "Imagem de perfil de Marcelo Feitoza",
+                "name": "Marcelo Gomes Feitoza"
+            },
+            "paulo": {
+                "link": "https://www.linkedin.com/in/victor-severiano-de-carvalho-b57a05237",
+                "imageUrl": "https://github.com/paulo-evangelista.png",
+                "alt": "Imagem de perfil de Paulo Evangelista",
+                "name": "Paulo Presa Evangelista"
+            },
+            "victor": {
+                "link": "https://www.linkedin.com/in/victor-severiano-de-carvalho-b57a05237",
+                "imageUrl": "https://github.com/vict0rcarvalh0.png",
+                "alt": "Imagem de perfil de Victor Carvalho",
+                "name": "Victor Severiano de Carvalho"
+            }
+        }
+    },
+    "SignUp": {
+        "createYourAccount": "Crie sua conta",
+        "accountOpeningDescription": "Abra uma conta no Tesouro Direto e comece agora a investir. É rápido e prático.",
+        "whoAreYou": "Quem é você?",
+        "user": "Usuário",
+        "userSignUp": {
+            "title": "Cadastro de usuário",
+            "emailPlaceholder": "Email",
+            "passwordPlaceholder": "Senha",
+            "firstNamePlaceholder": "Primeiro nome",
+            "lastNamePlaceholder": "Sobrenome",
+            "walletPlaceholder": "Endereço da carteira na rede Ethereum",
+            "noWalletCheckbox": "Não tenho endereço",
+            "autoGeneratedAddressNote": "Um endereço será gerado automaticamente",
+            "submitButton": "Cadastrar",
+            "requiredField": "Este campo é obrigatório",
+            "successMessage": "Cadastro realizado com sucesso!",
+            "errorMessage": "Erro ao realizar cadastro! Tente novamente."
+        },
+        "company": "Empresa",
+        "companySignUp": {
+            "title": "Cadastro de corretora",
+            "successMessage": "Cadastro realizado com sucesso!",
+            "errorMessage": "Erro ao realizar cadastro! Tente novamente.",
+            "namePlaceholder": "Nome da Empresa",
+            "emailPlaceholder": "Email",
+            "passwordPlaceholder": "Senha",
+            "walletPlaceholder": "Endereço da carteira na rede Ethereum",
+            "submitButton": "Enviar",
+            "requiredField": "Este campo é obrigatório"
+        },
+        "government": "Governo",
+        "governmentSignUp": {
+            "title": "Cadastro governamental",
+            "successMessage": "Cadastro realizado com sucesso!",
+            "errorMessage": "Erro ao realizar cadastro! Tente novamente.",
+            "emailPlaceholder": "Email",
+            "passwordPlaceholder": "Senha",
+            "firstNamePlaceholder": "Primeiro nome",
+            "lastNamePlaceholder": "Sobrenome",
+            "submitButton": "Cadastrar",
+            "requiredField": "Este campo é obrigatório"
+        }
+    },
+    "Footer": {
+        "directTreasury": "Tesouro Direto",
+        "copyRight": "© 2023 Tesouro Direto. Todos os direitos reservados."
+    }
+}

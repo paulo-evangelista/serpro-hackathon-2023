@@ -4,9 +4,11 @@ import { useAuth } from "@/app/[locale]/hooks/useAuth";
 import { useRouter } from "@/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 export default function GovernmentSignUp() {
 	const { signUp }: any = useAuth();
+	const t = useTranslations("SignUp.governmentSignUp");
 
 	const {
 		register,
@@ -19,11 +21,11 @@ export default function GovernmentSignUp() {
 	const onSubmit = async (data: any) => {
 		await signUp(data, "government")
 			.then((res: any) => {
-				toast.success("Cadastro realizado com sucesso!");
+				toast.success(t("successMessage"));
 				router.push("/login");
 			})
 			.catch((err: any) => {
-				toast.error("Erro ao realizar cadastro!\nTente novamente.");
+				toast.error(t("errorMessage"));
 				router.push("/login");
 			});
 	};
@@ -35,7 +37,7 @@ export default function GovernmentSignUp() {
 				<div className="w-1/3 bg-[#002c63] bg-cover bg-left flex flex-col justify-center items-center">
 					<div className="flex flex-col justify-center items-center w-full">
 						<h1 className="text-2xl text-white font-bold mb-8">
-							Cadastro governamental
+							{t("title")}
 						</h1>
 						<form
 							onSubmit={handleSubmit(onSubmit)}
@@ -43,52 +45,52 @@ export default function GovernmentSignUp() {
 						>
 							<input
 								{...register("email", { required: true })}
-								placeholder="Email"
-								defaultValue="Digite seu email"
+								placeholder={t("emailPlaceholder")}
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
 							{errors.email && (
 								<span className="text-red-500">
-									Este campo é obrigatório
+									{t("requiredField")}
 								</span>
 							)}
+
 							<input
 								{...register("password", { required: true })}
-								placeholder="Senha"
-								defaultValue="Digite sua senha"
+								placeholder={t("passwordPlaceholder")}
 								type="password"
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
 							{errors.password && (
 								<span className="text-red-500">
-									Este campo é obrigatório
+									{t("requiredField")}
 								</span>
 							)}
+
 							<input
 								{...register("firstName", { required: true })}
-								placeholder="Primeiro nome"
-								defaultValue="Digite seu primeiro nome"
+								placeholder={t("firstNamePlaceholder")}
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
 							{errors.firstName && (
 								<span className="text-red-500">
-									Este campo é obrigatório
+									{t("requiredField")}
 								</span>
 							)}
+
 							<input
 								{...register("lastName", { required: true })}
-								placeholder="Sobrenome"
-								defaultValue="Digite seu sobrenome"
+								placeholder={t("lastNamePlaceholder")}
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
 							{errors.lastName && (
 								<span className="text-red-500">
-									Este campo é obrigatório
+									{t("requiredField")}
 								</span>
 							)}
+
 							<input
 								type="submit"
-								value="Cadastrar"
+								value={t("submitButton")}
 								className="px-4 py-4 bg-blue-800 text-white rounded-full cursor-pointer hover:bg-blue-600"
 							/>
 						</form>

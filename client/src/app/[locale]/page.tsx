@@ -53,9 +53,7 @@ export default function Home({
 	};
 
 	useEffect(() => {
-		getTitles().then((res: any) => {
-			setTitles(res.data);
-		});
+		getTitles();
 	}, []);
 
 	useEffect(() => {
@@ -123,7 +121,7 @@ export default function Home({
 						)}
 					</div>
 				</div>
-				<div className="max-w-screen-xl mx-auto mt-8">
+				<div className="max-w-screen-xl mx-auto mt-8 w-full md:w-4/5">
 					<h1 className="text-4xl text-gray-700 font-semibold mb-8">
 						{t("tr+.yieldTitle")}
 					</h1>
@@ -329,7 +327,7 @@ const Graph = () => {
 
 			<div className="max-w-2xl mx-auto lg:w-1/2">
 				<div className="flex justify-around mb-4">
-					<div className="text-center">
+					<div className="text-center flex flex-col justify-center items-center">
 						<div
 							className="bg-blue-500 w-24"
 							style={{
@@ -345,7 +343,7 @@ const Graph = () => {
 							})}
 						</p>
 					</div>
-					<div className="text-center">
+					<div className="text-center flex flex-col justify-center items-center">
 						<div
 							className="bg-teal-500 w-24"
 							style={{

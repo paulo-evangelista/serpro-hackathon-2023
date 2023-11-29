@@ -5,11 +5,15 @@ import { Navbar } from "../components/Navbar";
 import { useState, useEffect } from "react";
 import { Footer } from "../components/Footer";
 import { Link } from "@/navigation";
+import { useTranslations } from "next-intl";
 
 const Title = () => {
 	const [titles, setTitles] = useState<any>([]);
+	const [isLoadingTitles, setIsLoadingTitles] = useState<boolean>(true);
 
 	const getTitles = async () => {
+		setIsLoadingTitles(true);
+
 		const path = "http://localhost:3050/platform/getAllAssets";
 
 		try {
@@ -30,6 +34,8 @@ const Title = () => {
 		} catch (error) {
 			console.error("Error during signup: ", error);
 			throw error;
+		} finally {
+			setIsLoadingTitles(false);
 		}
 	};
 
@@ -39,6 +45,8 @@ const Title = () => {
 		});
 	}, []);
 
+	const t = useTranslations("Title");
+
 	return (
 		<div>
 			<Navbar />
@@ -47,29 +55,28 @@ const Title = () => {
 					<div className="w-full h-80 overflow-hidden">
 						<img
 							src="https://www.tesourodireto.com.br/data/files/8B/75/DD/0C/63D4D710C0F1C0D7894D49A8/banner-acessibilidade-precos-taxas.png"
-							alt="Imagem de fundo"
+							alt={t("backgroundImageAlt")}
 							className="w-full h-full object-cover"
 						/>
 					</div>
 					<div className="absolute inset-0 flex items-center justify-start px-32">
 						<h1 className="text-white text-4xl font-bold text-center">
-							Escolha e invista em títulos públicos
+							{t("chooseAndInvest")}
 						</h1>
 					</div>
 				</div>
 				<div className="max-w-screen-xl mx-auto">
 					<h1 className="text-4xl text-gray-700 font-semibold mb-8">
-						Confira a rentabilidade de cada título
+						{t("checkProfitability")}
 					</h1>
 
 					{/* Availability */}
 					<div className="border border-gray-600 rounded-md flex flex-col justify-center mb-8">
 						<div className="flex items-center justify-between p-4">
 							<div className="flex items-center justify-center w-1/2">
-								{/* small green ball */}
 								<div className="bg-green-500 rounded-full w-2 h-2 mr-2"></div>
 								<p className="text-gray-700 text-2xl">
-									Mercado Aberto
+									{t("marketOpen")}
 								</p>
 							</div>
 
@@ -79,11 +86,10 @@ const Title = () => {
 
 							<div className="flex flex-col justify-center">
 								<p className="text-gray-700">
-									Horario de funcionamento:
+									{t("operatingHours")}
 								</p>
 								<p className="text-gray-700 text-lg font-semibold">
-									Nossos serviços estão disponíveis 24 horas
-									por dia, 7 dias por semana.
+									{t("serviceAvailability")}
 								</p>
 							</div>
 						</div>
@@ -91,6 +97,8 @@ const Title = () => {
 					{/* Titles */}
 					<div className="overflow-x-auto">
 						<table className="table-auto w-full">
+							{/* Table Head and Body */}
+
 							<thead>
 								<tr className="bg-gray-200">
 									<th className="px-4 py-2">Título</th>
@@ -104,7 +112,8 @@ const Title = () => {
 							</thead>
 							<tbody>
 								{titles &&
-									titles.map((title: any, index: number) => (
+									titles.length > 0 &&
+									titles.map((title: any, index: any) => (
 										<tr key={index} className="border-b">
 											<td className="px-4 py-2 text-center">
 												{title.name}
@@ -123,11 +132,50 @@ const Title = () => {
 													href={`/titles/${title.id}`}
 													className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
 												>
-													Investir
+													{t("invest")}
 												</Link>
 											</td>
 										</tr>
 									))}
+
+								{titles.length < 1 && !isLoadingTitles && (
+									<tr>
+										<td
+											colSpan={5}
+											className="px-4 py-2 text-center"
+										>
+											{t("noTitles")}
+										</td>
+									</tr>
+								)}
+
+								{isLoadingTitles && (
+									<tr>
+										<td
+											colSpan={5}
+											className="px-4 py-2 text-center"
+										>
+											<svg
+												className="animate-spin h-5 w-5 mr-3 text-center"
+												viewBox="0 0 24 24"
+											>
+												<circle
+													className="opacity-25"
+													cx="12"
+													cy="12"
+													r="10"
+													stroke="currentColor"
+													strokeWidth="4"
+												/>
+												<path
+													className="opacity-75"
+													fill="currentColor"
+													d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+												/>
+											</svg>
+										</td>
+									</tr>
+								)}
 							</tbody>
 						</table>
 					</div>

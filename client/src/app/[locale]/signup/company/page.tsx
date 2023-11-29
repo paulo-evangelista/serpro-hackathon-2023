@@ -2,19 +2,18 @@
 import { Navbar } from "@/app/[locale]/components/Navbar";
 import { useAuth } from "@/app/[locale]/hooks/useAuth";
 import { useRouter } from "@/navigation";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 export default function CompanySignUp() {
 	const { signUp }: any = useAuth();
+	const t = useTranslations("SignUp.companySignUp");
+
 	const {
 		register,
 		handleSubmit,
 		formState: { errors },
-		watch,
-		resetField,
-		setValue,
 	} = useForm();
 
 	const router = useRouter();
@@ -22,11 +21,11 @@ export default function CompanySignUp() {
 	const onSubmit = async (data: any) => {
 		await signUp(data, "company")
 			.then((res: any) => {
-				toast.success("Cadastro realizado com sucesso!");
+				toast.success(t("successMessage"));
 				router.push("/login");
 			})
 			.catch((err: any) => {
-				toast.error("Erro ao realizar cadastro!\nTente novamente.");
+				toast.error(t("errorMessage"));
 				router.push("/login");
 			});
 	};
@@ -38,7 +37,7 @@ export default function CompanySignUp() {
 				<div className="w-1/3 bg-[#002c63] bg-cover bg-left flex flex-col justify-center items-center">
 					<div className="flex flex-col justify-center items-center w-full">
 						<h1 className="text-2xl text-white font-bold mb-8">
-							Cadastro de corretora
+							{t("title")}
 						</h1>
 						<form
 							onSubmit={handleSubmit(onSubmit)}
@@ -46,48 +45,54 @@ export default function CompanySignUp() {
 						>
 							<input
 								{...register("name", { required: true })}
-								placeholder="Nome da Empresa"
+								placeholder={t("namePlaceholder")}
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
 							{errors.name && (
 								<span className="text-red-500">
-									Este campo é obrigatório
+									{t("requiredField")}
 								</span>
 							)}
 							<input
 								{...register("email", { required: true })}
-								placeholder="Email"
+								placeholder={t(
+									"emailPlaceholder"
+								)}
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
 							{errors.email && (
 								<span className="text-red-500">
-									Este campo é obrigatório
+									{t("requiredField")}
 								</span>
 							)}
 							<input
 								{...register("password", { required: true })}
-								placeholder="Senha"
+								placeholder={t(
+									"passwordPlaceholder"
+								)}
 								type="password"
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
 							{errors.password && (
 								<span className="text-red-500">
-									Este campo é obrigatório
+									{t("requiredField")}
 								</span>
 							)}
 							<input
 								{...register("wallet", { required: true })}
-								placeholder="Endereço da carteira na rede Ethereum"
-								className="px-4 py-4 border border-gray-300 rounded-md mr-2 w-full"
+								placeholder={t(
+									"walletPlaceholder"
+								)}
+								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
 							{errors.wallet && (
 								<span className="text-red-500">
-									Este campo é obrigatório
+									{t("requiredField")}
 								</span>
 							)}
 							<input
 								type="submit"
-								value="Enviar"
+								value={t("submitButton")}
 								className="px-4 py-4 bg-blue-800 text-white rounded-full cursor-pointer hover:bg-blue-600"
 							/>
 						</form>

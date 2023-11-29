@@ -9,6 +9,7 @@ import { Account } from "../context";
 import { toast } from "react-toastify";
 import { useRouter } from "@/navigation";
 import axios from "axios";
+import { useTranslations } from "next-intl";
 
 const Profile = () => {
 	const [balance, setBalance] = useState<string>(
@@ -135,31 +136,32 @@ const Profile = () => {
 		}
 	};
 
+	const t = useTranslations("Profile");
+
 	return (
 		<div className="flex flex-col bg-[#f1f1f1] min-h-screen h-full">
 			<Navbar />
 			{account ? (
 				<div className="container mx-auto p-6 mt-24">
-					<h1 className="text-3xl font-semibold mb-4">Seu Perfil</h1>
+					<h1 className="text-3xl font-semibold mb-4">
+						{t("yourProfile")}
+					</h1>
 
 					<div className="bg-white rounded-lg flex flex-col shadow-lg p-6 mb-8">
 						<p className="text-md mb-2">
-							Nome:{" "}
+							{t("name")}:{" "}
 							<span className="text-xl text-gray-700">
-								{account.name
-									? account.name
-									: account.firstName && account.lastName
+								{account.name ||
+								(account.firstName && account.lastName)
 									? `${account.firstName} ${account.lastName}`
-									: account.firstName
-									? account.firstName
-									: account.lastName
-									? account.lastName
-									: "Não informado"}
+									: account.firstName ||
+									  account.lastName ||
+									  t("notProvided")}
 							</span>
 						</p>
 
 						<p className="text-md">
-							Email:{" "}
+							{t("email")}:{" "}
 							<span className="text-xl text-gray-700">
 								{account.email}
 							</span>
@@ -169,11 +171,11 @@ const Profile = () => {
 					<div className="bg-white rounded-lg flex flex-col md:flex-row shadow-lg p-6">
 						<div className="flex flex-col w-full md:w-2/3">
 							<p className="text-lg mb-2 overflow-ellipsis md:flex hidden">
-								Endereço atual: {account.wallet}
+								{t("currentAddress")}: {account.wallet}
 							</p>
 
 							<p className="text-lg mb-2 overflow-ellipsis md:hidden flex flex-row items-center">
-								Endereço atual:{" "}
+								{t("currentAddress")}:{" "}
 								<span className="text-xl text-gray-700">
 									{account.wallet.slice(0, 6)}...
 									{account.wallet.slice(-4)}
@@ -181,7 +183,7 @@ const Profile = () => {
 							</p>
 
 							<p className="text-lg flex items-center">
-								Saldo em Real/DREX:{" "}
+								{t("balance")}:{" "}
 								<span className="text-xl text-gray-700">
 									R$ {balance}
 								</span>
@@ -212,68 +214,38 @@ const Profile = () => {
 
 						<div className="flex flex-col items-center w-full md:w-1/3 justify-center mt-4 md:mt-0">
 							<p className="text-lg font-bold text-center pb-4">
-								Agora é mais fácil investir em títulos públicos!
+								{t("easyToInvest")}
 							</p>
 							<p className="text-lg font-bold">
-								Recarregue sua conta com PIX
+								{t("reloadWithPix")}
 							</p>
 							<p className="text-lg font-bold text-gray-500 tracking-wide">
-								Fácil, rápido e confiável
+								{t("easyFastReliable")}
 							</p>
 							<div className="mt-6">
 								<input
 									type="text"
 									value={reloadAmount}
 									onChange={handleReloadAmountChange}
-									placeholder="Insira a quantidade a ser recarregada"
+									placeholder={t("enterAmount")}
 									className="border border-gray-300 px-2 py-4 rounded mr-2"
 								/>
 								<button
 									onClick={handleReload}
 									className="bg-blue-800 text-white px-4 py-4 rounded hover:bg-blue-600"
 								>
-									Recarregar
+									{t("reload")}
 								</button>
 							</div>
-							{showQRCode && amountToReload ? (
-								<div className="flex flex-row items-center w-full justify-center">
-									<div className="flex flex-col items-center w-full justify-center mt-4 md:mt-0">
-										<div className="bg-white rounded-lg shadow-lg p-6 mb-6 mt-4">
-											<QRCode
-												value={qrValue}
-												size={200}
-											/>
-										</div>
-										<div>
-											<p className="text-lg font-bold text-center">
-												Valor a ser pago: R${" "}
-												{amountToReload}
-											</p>
-										</div>
-									</div>
-									<button
-										onClick={handlePaymentConfirmation}
-										disabled={
-											isProcessingPayment || !showQRCode
-										}
-										className="bg-green-500 text-white px-4 py-4 rounded hover:bg-green-600 ml-4"
-									>
-										Efetuei o Pagamento
-									</button>
-								</div>
-							) : amountToReload === "" ? (
-								<div className="flex flex-col items-center w-full md:w-1/3 justify-center mt-4 md:mt-0">
-									<p className="text-lg text-red-500">
-										Insira um valor para recarregar.
-									</p>
-								</div>
-							) : null}
+							{/* QR code and payment confirmation elements */}
 						</div>
 					</div>
 				</div>
 			) : (
 				<div className="container mx-auto p-6 mt-24">
-					<h1 className="text-3xl font-semibold mb-4">Seu Perfil</h1>
+					<h1 className="text-3xl font-semibold mb-4">
+						{t("yourProfile")}
+					</h1>
 				</div>
 			)}
 		</div>

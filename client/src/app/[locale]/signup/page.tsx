@@ -1,7 +1,10 @@
 import { Link } from "@/navigation";
 import { Navbar } from "../components/Navbar";
+import { useTranslations } from "next-intl";
 
 export default function SignUp() {
+	const t = useTranslations("SignUp");
+
 	return (
 		<div>
 			<Navbar />
@@ -9,31 +12,30 @@ export default function SignUp() {
 				<div className="w-1/3 bg-[#002c63] bg-cover bg-left flex flex-col justify-center items-center">
 					<div className="w-full">
 						<h1 className="text-2xl text-white font-bold pl-16">
-							Crie sua conta
+							{t("createYourAccount")}
 						</h1>
 						<h1 className="text-md text-white mb-8 pl-16 pr-16">
-							Abra uma conta no Tesouro Direto e comece agora a
-							investir. É rápido e prático.
+							{t("accountOpeningDescription")}
 						</h1>
 
 						<div className="w-full flex flex-col items-start space-y-8">
 							<h2 className="text-xl mb-4 text-white pl-16">
-								Quem é você?
+								{t("whoAreYou")}
 							</h2>
 
 							<Link href={"/signup/government"}>
 								<button className="bg-blue-800 hover:bg-blue-700 py-4 px-44 text-white font-bold rounded-full text-center ml-16">
-									Governo
+									{t("government")}
 								</button>
 							</Link>
 							<Link href={"/signup/user"}>
 								<button className="bg-blue-800 hover:bg-blue-700 py-4 px-44 text-white font-bold rounded-full text-center ml-16">
-									Usuário
+									{t("user")}
 								</button>
 							</Link>
 							<Link href={"/signup/company"}>
 								<button className="bg-blue-800 hover:bg-blue-700 py-4 px-44 text-white font-bold rounded-full text-center ml-16">
-									Empresa
+									{t("company")}
 								</button>
 							</Link>
 						</div>

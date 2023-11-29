@@ -8,7 +8,6 @@ import xIcon from "@/app/[locale]/assets/x.svg";
 import tIcon from "@/app/[locale]/assets/td.svg";
 import { useAuth } from "../context";
 import { useTranslations } from "next-intl";
-import { useRouter } from "@/navigation";
 
 export const Navbar = () => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -19,8 +18,6 @@ export const Navbar = () => {
 	const handleClick = () => {
 		setIsSidebarOpen(!isSidebarOpen);
 	};
-
-	const router = useRouter();
 
 	const t = useTranslations("Navbar");
 
@@ -74,7 +71,7 @@ export const Navbar = () => {
 			{/* Navbar */}
 			<div className="bg-[#26336a] text-[#f1f1f1] flex flex-1 absolute top-0 items-center left-0 px-2 py-4 w-full justify-between">
 				<div className="flex w-auto md:w-1/3 items-center justify-start">
-					<button
+					{/* <button
 						onClick={handleClick}
 						className={`flex flex-col justify-center items-center ${
 							isOpen ? "rotate-180" : ""
@@ -86,7 +83,7 @@ export const Navbar = () => {
 							height={24}
 							alt={t("menuIconAlt")}
 						/>
-					</button>
+					</button> */}
 					<Link href={"/"} className="ml-4">
 						<Image
 							src={tIcon}
@@ -142,7 +139,7 @@ export const Navbar = () => {
 								aria-orientation="vertical"
 								aria-labelledby="options-menu"
 							>
-								{account.wallet && (
+								{account && account.wallet && (
 									<div className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
 										<p className="text-sm text-gray-700">
 											{account.wallet.substring(0, 6) +

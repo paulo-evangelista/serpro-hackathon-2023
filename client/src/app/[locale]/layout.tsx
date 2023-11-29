@@ -3,7 +3,7 @@ import { unstable_setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
 
 // Can be imported from a shared config
-const locales = ["en", "pt"];
+const locales = ["en", "pt-br"];
 
 export function generateStaticParams() {
 	return locales.map((locale) => ({ locale }));
@@ -22,11 +22,12 @@ export default function LocaleLayout({
 
 	let messages;
 	try {
-		console.log(locale);
-		messages = require(`../../../messages/${locale}.json`);
+		console.log("Searching for locale: ", locale);
+		// messages = require(`../../../messages/${locale}.json`);
+		messages = require(`../../../messages/pt-br.json`);
 	} catch (error) {
-		console.log(locale);
-		messages = require(`../../../messages/pt.json`);
+		console.log("Locale not found, using default locale: pt-br", error);
+		messages = require(`../../../messages/pt-br.json`);
 	}
 
 	return (
