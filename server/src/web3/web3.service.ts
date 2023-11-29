@@ -1,18 +1,32 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { ethers } from 'ethers';
-import axios, { AxiosHeaders, AxiosRequestConfig, AxiosRequestHeaders } from 'axios';
+import { Transaction, TransactionReceipt, TransactionRequest, ethers } from 'ethers';
+import axios, { AxiosRequestConfig  } from 'axios';
 import { randomBytes } from 'crypto';
+import { HexString } from 'ethers/lib.commonjs/utils/data';
+
+import drexAbi from './ABIs/drexAbi';
 
 @Injectable()
 export class Web3Service {
     private provider: ethers.InfuraProvider;
     private wallet: ethers.Wallet;
     private contract: ethers.Contract;
-    private contractAbi: any;
+    private publicTitleAbi: any;
+    private publicTitleBytecode: any;
+    private drexAddress: HexString;
+    private drexAbi: any;
+    private drexBytecode: any;
+    private drexContract: ethers.Contract;
+
+
     constructor() {
         this.provider = new ethers.InfuraProvider('sepolia', process.env.INFURA_APIKEY);
-
         this.wallet = new ethers.Wallet(process.env.GOV_PK, this.provider);
+        this.publicTitleAbi = ""
+        this.publicTitleBytecode= ""
+        this.drexAddress= "0xDA478bFaE6699C5B9f1150b0610BA2DAABC0bcdb"
+        this.drexAbi = drexAbi;
+        this.drexContract = new ethers.Contract(this.drexAddress, this.drexAbi, this.wallet);
     }
 
     createWallet() {
@@ -80,18 +94,12 @@ export class Web3Service {
         launchDate: number,
         expirationDate: number,
         amount: number,
-        price: number,
         financialAmount: number,
         accountingOpening: string,
+        drexAddress: HexString
     ) => {
         try {
-            const provider = new ethers.InfuraProvider('sepolia', process.env.INFURA_APIKEY);
-            const wallet = new ethers.Wallet(process.env.GOV_PK, provider);
-
-            const abi = [];
-            const bytecode = { bytecode: '' };
-
-            const factory = new ethers.ContractFactory(abi, bytecode.bytecode, wallet); // Pegar bytecode e abi!!!
+            const factory = new ethers.ContractFactory(this.publicTitleAbi, this.publicTitleBytecode, this.wallet);
             const contract = await factory.deploy(
                 titleName,
                 titleSymbol,
@@ -102,7 +110,6 @@ export class Web3Service {
                 launchDate,
                 expirationDate,
                 amount,
-                price,
                 financialAmount,
                 accountingOpening,
             );
@@ -113,5 +120,11 @@ export class Web3Service {
         } catch (error) {
             console.error('Erro ao fazer o deploy do contrato:', error);
         }
+    };
+
+    mintDrex = async (wallet: string, amount: bigint) => {
+        const tx = await this.drexContract.mint(wallet, amount);
+        const receipt: TransactionReceipt = await tx.wait();
+        return receipt.hash;
     };
 }

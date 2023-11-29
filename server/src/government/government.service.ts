@@ -19,7 +19,6 @@ export class GovernmentService {
     ) {}
 
     async aproveCompany(userId: number, govId: number) {
-        // TODO: DEPLOYAR O CONTRATO DE EMPRESA.
 
         const companyEntrie = await this.companyRepository.findOne({ where: { id: userId } });
 
@@ -44,7 +43,9 @@ export class GovernmentService {
     }
 
     async deployNewAsset(assetData: CreateAssetDto): Promise<Asset_Pre_I> {
-        const newAsset = this.assetPreIRepository.create(assetData);
+        const newAsset = this.assetPreIRepository.create({
+            
+        });
         return await this.assetPreIRepository.save(newAsset);
     }
     

@@ -2,10 +2,13 @@ import { IsDate, IsEmail, IsNumber, IsString, Matches, matches } from 'class-val
 
 export class CreateAssetDto {
     @IsString()
-    name: string;
+    titleName: string;
+    
+    @IsString()
+    titleSymbol: string;
 
     @IsString()
-    description: string;
+    annual: string;
 
     @IsString()
     ipfsImageURI: string;

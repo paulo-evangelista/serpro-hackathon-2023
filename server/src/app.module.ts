@@ -11,6 +11,7 @@ import { GovernmentModule } from './government/government.module';
 import { UserModule } from './user/user.module';
 import { CompanyModule } from './company/company.module';
 import { PlatformModule } from './platform/platform.module';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
     imports: [
@@ -38,6 +39,7 @@ import { PlatformModule } from './platform/platform.module';
         UserModule,
         CompanyModule,
         PlatformModule,
+        PaymentsModule,
     ],
     controllers: [AppController],
     providers: [AppService],

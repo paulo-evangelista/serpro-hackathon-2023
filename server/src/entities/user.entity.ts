@@ -26,6 +26,9 @@ export class User {
     @CreateDateColumn()
     created_at: Date;
 
+    @Column({default: 0n, type: "bigint"})
+    drexBalance: string;
+
     @Column({ nullable: true, default: '' })
     private_key: string;
 

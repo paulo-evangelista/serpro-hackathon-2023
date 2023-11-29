@@ -7,10 +7,10 @@ POST {{URL}}/auth/signupUser
 Content-Type: application/json
 
 {
-    "email": "paulao@paulo.com",
+    "email": "paulo@paulo.com",
     "password": "paulo",
     "document": "123456789",
-    "wallet": "asdasd",
+    "wallet": "0x8aB5cC51C0CF731F652d704b767a73d60385B8a3",
     "firstName": "Paulo",
     "lastName": "Evangelista"
 }
