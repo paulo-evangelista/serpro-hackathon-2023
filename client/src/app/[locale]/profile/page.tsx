@@ -7,7 +7,7 @@ import { getAbi } from "../utils/getAbi";
 import { useAuth } from "../hooks/useAuth";
 import { Account } from "../context";
 import { toast } from "react-toastify";
-
+import axios from "axios";
 
 const Profile = () => {
 	const [balance, setBalance] = useState<string>(
@@ -39,13 +39,13 @@ const Profile = () => {
 
 	const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
-	const handlePaymentConfirmation = () => {
-	  setIsProcessingPayment(true);
-	  setTimeout(() => {
-		setIsProcessingPayment(false);
-		toast.success("Pagamento concluído!");
-	  }, 5000);
-	};
+	// const handlePaymentConfirmation = () => {
+	//   setIsProcessingPayment(true);
+	//   setTimeout(() => {
+	// 	setIsProcessingPayment(false);
+	// 	toast.success("Pagamento concluído!");
+	//   }, 5000);
+	// };
 
 	const [loadingBalance, setLoadingBalance] = useState<boolean>(false);
 	const { account }: { account: Account | null } = useAuth();
@@ -111,6 +111,31 @@ const Profile = () => {
 		// Clean up the interval on component unmount
 		return () => clearInterval(intervalId);
 	}, [getDrexBalance]);
+
+	const handlePaymentConfirmation = async () => {
+		if (!amountToReload || !reloadAmount) {
+		  toast.error("Insira um valor válido para recarregar.");
+		  return;
+		}
+	
+		setIsProcessingPayment(true);
+		console.log("Loading payment started");
+	
+		try {
+		  const response = await axios.get(
+			`http://localhost:3050/payments/pix/${reloadAmount * 100}/${account.email}`
+		  );
+		  console.log("bateu");
+
+		  setIsProcessingPayment(false);
+		  toast.success("Pagamento concluído!");
+		  return response.data;
+		} catch (error) {
+		  setIsProcessingPayment(false);
+		  toast.error("Erro ao processar pagamento. Tente novamente mais tarde.");
+		  return error;
+		}
+	  };
 
 	return (
 		<div className="flex flex-col bg-[#f1f1f1] min-h-screen h-full">

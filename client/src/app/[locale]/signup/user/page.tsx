@@ -1,6 +1,6 @@
 "use client";
-import { Navbar } from "@/app/[locale]/[locale]/components/Navbar";
-import { useAuth } from "@/app/[locale]/[locale]/hooks/useAuth";
+import { Navbar } from "@/app//[locale]/components/Navbar";
+import { useAuth } from "@/app//[locale]/hooks/useAuth";
 import { ethers } from "ethers";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
