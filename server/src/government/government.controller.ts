@@ -3,7 +3,7 @@ import { GovernmentService } from './government.service';
 import { IsGovernment } from 'src/auth/auth.guard';
 import { CreateAssetDto } from './dtos/deploy-new-asset.dto';
 
-@UseGuards(IsGovernment)
+// @UseGuards(IsGovernment)
 @Controller('government')
 export class GovernmentController {
     constructor(private readonly governmentService: GovernmentService) {}

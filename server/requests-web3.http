@@ -1,0 +1,17 @@
+
+POST http://localhost:3050/government/deployNewAsset
+Content-Type: application/json
+
+{
+    "titleName":"Titulo publicouu",
+    "titleSymbol":"TTP",
+    "annualProfitability":12,
+    "unitPrice":1000,
+    "program":"programa testes",
+    "lobby":"meu lobby",
+    "launchDate":1701237594,
+    "expirationDate":1735448093,
+    "amount":10,
+    "financialAmount":10000,
+    "accountOpening":"dfvdfvsdfvsdfv"
+}

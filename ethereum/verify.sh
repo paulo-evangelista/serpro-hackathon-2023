@@ -1,3 +1,3 @@
 #! /bin/sh
 
-npx hardhat verify --network sepolia 0xB8A37ef4d8f5DA488a18F3FFEfcE1716B97dA166 "O titulo do bgl" "TTT" 12 1000 12347669 "SGDDYTUI" "SHRTY45Y4RGR" 2134542341 353245234642 1000 123123 324324234 "SDFsdfsafd"
+npx hardhat verify --network sepolia "0xd630e409c3a4be74617b488da896b8a84ffefb9b"  "Titulo publico" "TTP"  12 1000   "programa testes" "meu lobby"  1701237594  1735448093   10  10000  "dfvdfvsdfvsdfv"  "0xa614F4E4F595E826Bff3E69534211EDF820782Ad"

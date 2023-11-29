@@ -32,7 +32,6 @@ contract PublicTitle is ERC721, ERC721Enumerable, ERC721URIStorage, Ownable {
     uint64 public launchDate;
     uint64 public expirationDate;
     uint256 public amount;
-    uint256 public price;
     uint256 public financialAmount;
     string public accountingOpening;
 
