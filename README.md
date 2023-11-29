@@ -46,6 +46,8 @@ Além disso, a utilização do token DREX facilita essa entrada, permitindo que 
 
 Combinar o fracionamento dos títulos públicos e o uso do token DREX abre as portas para uma nova geração de investidores, reduzindo a barreira financeira de entrada e proporcionando uma maneira acessível e flexível de participar no mercado de investimentos em títulos públicos. Esta abordagem inovadora promove a inclusão financeira e a democratização do acesso aos investimentos, alinhando-se com os princípios de nossa solução.
 
+## Público-alvo(Personas)
+
 ## Problem-Solution Fit
 
 ## Business Model Canvas
