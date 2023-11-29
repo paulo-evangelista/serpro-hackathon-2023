@@ -49,6 +49,54 @@ Combinar o fracionamento dos títulos públicos e o uso do token DREX abre as po
 ## Público-alvo(Personas)
 
 ## Problem-Solution Fit
+1. **Público-Alvo (Quem é o seu cliente?)**
+    - Investidores novatos interessados em iniciar investimentos em títulos públicos.
+    - Investidores experientes que buscam maior facilidade e transparência no processo de investimento.
+    - Investidores internacionais que desejam investir no mercado de títulos públicos brasileiros.
+
+2. **Problemas/Dores (Descreva os problemas que pretende resolver)**
+    - Complexidade no acesso aos títulos públicos, dificultando a entrada de novos investidores.
+    - Falta de massificação e adoção dos títulos públicos por investidores nacionais e estrangeiros.
+    - Barreiras de usabilidade e acessibilidade nas ferramentas de investimento em títulos públicos.
+    - Limitações no mercado secundário de títulos públicos, como falta de liquidez e agilidade nas transações.
+
+3. **Motivação para Agir (Gatilhos que fazem o público querer mudar a ação)**
+    - Facilidade de acesso e uso de ferramentas simplificadas para investir em títulos públicos.
+    - A oportunidade de investir de forma transparente e automatizada em um mercado estável.
+    - A possibilidade de fracionar títulos públicos, reduzindo a barreira financeira de entrada.
+    - Acesso a informações precisas e em tempo real sobre os títulos públicos por meio de oráculos.
+
+4. **Emoções Antes e Depois da Solução (Quais emoções o cliente sente antes e depois da solução?)**
+    - Antes: Frustração, confusão e desconfiança devido à complexidade e falta de acessibilidade.
+    - Depois: Confiança, segurança e satisfação ao investir de forma simplificada e transparente.
+
+5. **Limitações dos Clientes (O que limita seus clientes a agir quando ocorre um problema?)**
+    - Falta de acesso a informações claras e precisas sobre títulos públicos.
+    - Dificuldade em encontrar ferramentas simples e intuitivas para investir.
+    - Restrições financeiras devido à exigência de quantias mínimas para investimentos.
+
+6. **Raiz/Causa dos Problemas (São relações completas com os problemas propostos)**
+    - Complexidade burocrática e falta de usabilidade das plataformas de investimento.
+    - Restrições financeiras impostas pela quantia mínima para investir em títulos públicos.
+    - Falta de acesso a informações atualizadas e transparentes sobre os títulos disponíveis.
+
+7. **Sua solução (Descreva em poucas palavras sua proposta)**
+    - Tokenização do Tesouro Nacional para simplificar o acesso e uso de títulos públicos, oferecendo transparência, automação e fracionamento de investimentos.
+
+8. **Soluções disponíveis (Quais soluções estão disponíveis para o cliente?)**
+    - Plataformas tradicionais de investimento em títulos públicos com interfaces complexas.
+    - Mercado secundário de títulos com limitações de liquidez e agilidade nas transações.
+    - Restrições financeiras impostas por quantias mínimas para investir em títulos públicos.
+
+9. **Comportamento (O que seu cliente faz relacionado ao problema?)**
+    - Busca por alternativas mais acessíveis e simples para investir em títulos públicos.
+    - Procura por informações precisas e transparentes sobre os títulos disponíveis.
+    - Deseja investir de forma segura e confiável, sem enfrentar barreiras financeiras significativas.
+
+10. **Canais de comportamento (Canal onde o problema se manifesta. Onde estão?)**
+    - Plataformas de investimento tradicionais com interfaces complexas.
+    - Mercado secundário de títulos com restrições de liquidez e agilidade nas transações.
+    - Restrições financeiras em relação às quantias mínimas para investir em títulos públicos.
 
 ## Business Model Canvas
 A solução oferece uma forma acessível, transparente e automatizada de investir em títulos públicos, utilizando tecnologias avançadas para tornar o mercado mais inclusivo, simplificado e seguro.
