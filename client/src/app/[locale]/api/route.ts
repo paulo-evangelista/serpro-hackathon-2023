@@ -1,8 +1,7 @@
 export const dynamic = "force-dynamic"; // defaults to force-static
+import { ipcaData } from './ipcaData.js';
 
 export async function GET(request: Request) {
-  // req.add("path", "ETH,USD");
-
   const res = new Response(JSON.stringify({}), {
     headers: { "content-type": "application/json" },
   });
@@ -12,5 +11,8 @@ export async function GET(request: Request) {
   );
   data = await data.json();
 
-  return Response.json(data);
+  return {
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(ipcaData),
+  };
 }
