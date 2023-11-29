@@ -1,14 +1,14 @@
 "use client";
-import { Navbar } from "@/app/[locale]/[locale]/components/Navbar";
+import { Navbar } from "@/app//[locale]/components/Navbar";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Title({ params }: { params: { id: string } }) {
-	// Simulando dados do produto, você pode substituir isso por dados reais
 	const [product, setProduct] = useState<{
-		title: string;
+		name: string;
 		price: number;
-		image: string;
+		ipfsImageURI: string;
 		description: string;
 	} | null>();
 	const [loading, setLoading] = useState(true);
@@ -16,17 +16,30 @@ export default function Title({ params }: { params: { id: string } }) {
 	useEffect(() => {
 		setLoading(true);
 
-		setTimeout(() => {
-			if (params.id) {
+		const fetchData = async () => {
+			try {
+				const response = await axios.get(`http://localhost:3050/platform/getAsset/${params.id}`);
+				console.log(response)
+				const data = response.data;
+
 				setProduct({
-					title: "Blocos de montar LegoTechnic 42083 Bugatti chiron 3599 peças em caixa",
-					price: 4497,
-					image: "https://www.tesourodireto.com.br/data/files/8A/A5/73/12/83D4D710C0F1C0D7894D49A8/tesouro-direto-carro-novo.png",
-					description: "Construção recomendada: carro.",
+					name: data.name,
+					price: data.price,
+					ipfsImageURI: data.ipfsImageURI,
+					description: data.description,
 				});
+				console.log(data)
+				return data;
+			} catch (error) {
+				console.error("Error fetching data:", error);
+			} finally {
 				setLoading(false);
 			}
-		}, 1000);
+		};
+
+		if (params.id) {
+			fetchData();
+		}
 	}, [params.id]);
 
 	return (
@@ -40,7 +53,7 @@ export default function Title({ params }: { params: { id: string } }) {
 							<div className="spinner" />
 						) : (
 							<Image
-								src={product?.image || ""}
+								src={product?.ipfsImageURI || ""}
 								alt="Imagem do produto"
 								width={350}
 								height={350}
@@ -50,12 +63,11 @@ export default function Title({ params }: { params: { id: string } }) {
 					</div>
 				</div>
 
-				{/* Informações do Produto */}
 				<div className="flex-1 w-full">
 					<h1 className="text-2xl font-bold mb-2">
 						{loading
 							? "Carregando..."
-							: product?.title || "Carregando..."}
+							: product?.name || "Carregando..."}
 					</h1>
 					<p className="text-xl font-semibold mb-2">
 						{loading
@@ -74,12 +86,8 @@ export default function Title({ params }: { params: { id: string } }) {
 						)}
 					</ul>
 					<div className="mb-4">
-						{/* Botões de ação */}
-						<button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mb-2">
+						<button className="bg-blue-800 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mb-2">
 							Comprar
-						</button>
-						<button className="bg-gray-300 hover:bg-gray-400 text-black font-bold py-2 px-4 rounded">
-							Adicionar ao carrinho
 						</button>
 					</div>
 				</div>

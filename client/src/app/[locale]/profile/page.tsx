@@ -39,14 +39,6 @@ const Profile = () => {
 
 	const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
-	// const handlePaymentConfirmation = () => {
-	//   setIsProcessingPayment(true);
-	//   setTimeout(() => {
-	// 	setIsProcessingPayment(false);
-	// 	toast.success("Pagamento concluído!");
-	//   }, 5000);
-	// };
-
 	const [loadingBalance, setLoadingBalance] = useState<boolean>(false);
 	const { account }: { account: Account | null } = useAuth();
 
