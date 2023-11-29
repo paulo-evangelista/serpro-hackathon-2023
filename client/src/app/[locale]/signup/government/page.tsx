@@ -1,7 +1,7 @@
 "use client";
-import { Navbar } from "@/app/[locale]/[locale]/components/Navbar";
-import { useAuth } from "@/app/[locale]/[locale]/hooks/useAuth";
-import { useRouter } from "next/navigation";
+import { Navbar } from "@/app/[locale]/components/Navbar";
+import { useAuth } from "@/app/[locale]/hooks/useAuth";
+import { useRouter } from "@/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 
@@ -14,16 +14,17 @@ export default function GovernmentSignUp() {
 		formState: { errors },
 	} = useForm();
 
-	const route = useRouter();
+	const router = useRouter();
 
 	const onSubmit = async (data: any) => {
 		await signUp(data, "government")
 			.then((res: any) => {
 				toast.success("Cadastro realizado com sucesso!");
-				route.push("/login");
+				router.push("/login");
 			})
 			.catch((err: any) => {
-				toast.error("Erro ao realizar cadastro!");
+				toast.error("Erro ao realizar cadastro!\nTente novamente.");
+				router.push("/login");
 			});
 	};
 

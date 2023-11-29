@@ -1,7 +1,7 @@
 "use client";
-import { Navbar } from "@/app/[locale]/[locale]/components/Navbar";
-import { useAuth } from "@/app/[locale]/[locale]/hooks/useAuth";
-import { useRouter } from "next/navigation";
+import { Navbar } from "@/app/[locale]/components/Navbar";
+import { useAuth } from "@/app/[locale]/hooks/useAuth";
+import { useRouter } from "@/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
@@ -27,6 +27,7 @@ export default function CompanySignUp() {
 			})
 			.catch((err: any) => {
 				toast.error("Erro ao realizar cadastro!\nTente novamente.");
+				router.push("/login");
 			});
 	};
 

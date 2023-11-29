@@ -1,5 +1,77 @@
 {
-    "Index": {
-        "title": "Hello world!"
+    "Home": {
+        "tr+": {
+            "title": "Treasury RendA+",
+            "description": "Plan your retirement with the new Treasury Direct title",
+            "button": "Discover RendA+ and start investing",
+            "bannerAlt": "Description of the banner image",
+            "yieldTitle": "Yield Title",
+            "marketStatus": "Market Status",
+            "operationHours": "Operating Hours",
+            "serviceAvailability": "Service Availability",
+            "lastUpdate": "Last Update",
+            "tableTitle": "Title",
+            "tableYield": "Yield",
+            "tablePrice": "Unit Price",
+            "tableMaturity": "Maturity",
+            "tableInvest": "Invest",
+            "simulateInvestment": "SIMULATE YOUR INVESTMENT",
+            "investmentAdvantages": "Compare and check the advantages of investing your money in Treasury Direct.",
+            "iHave": "I have R$",
+            "toApplyFor": "To apply for",
+            "years": "years",
+            "simulateMore": "Simulate more options",
+            "projectionDisclaimer": "*Projection of the net redemption value (after fees and taxes).",
+            "simulationDisclaimer": "*Simulations are based on market projections. This does not guarantee future results.",
+            "savings": "SAVINGS",
+            "treasuryIPCA": "TREASURY IPCA+ 2045",
+            "noTitles": "No titles..."
+        },
+        "goals": {
+            "chooseYourGoal": "CHOOSE YOUR GOAL",
+            "investInTreasury": "Invest in Treasury Direct and get closer to your dreams.",
+            "discoverTheIdealTitle": "Discover the Ideal Title",
+            "simulationDisclaimer": "*Simulations are based on market projections. This does not guarantee future results.",
+            "travel": "Travel",
+            "newCar": "New Car",
+            "studies": "Studies",
+            "newHouse": "New House",
+            "retirement": "Retirement"
+        }
+    },
+    "Login": {
+        "titlePart1": "Already have an account at Direct",
+        "titlePart2": "Treasury?",
+        "titlePart3": "Log in now.",
+        "selectUserType": "Select user type",
+        "userTypeGovernment": "Government",
+        "userTypeUser": "User",
+        "userTypeCompany": "Company",
+        "requiredField": "This field is required",
+        "emailPlaceholder": "Email",
+        "passwordPlaceholder": "Password",
+        "submitButton": "Enter",
+        "needToRegister": "Need to register?",
+        "wantToOpenAccount": "I want to open an account",
+        "openAccountDescription": "Open an account in Treasury Direct and start investing now. It's fast and practical.",
+        "registrationIsEasier": "Now registration is easier for everyone!",
+        "whoWantsToOpenAccount": "Who wants to open an account?",
+        "forYouButton": "For you",
+        "forMinorButton": "For the minor"
+    },
+    "Navbar": {
+        "closeIconAlt": "Close",
+        "directTreasury": "Direct Treasury",
+        "home": "Home",
+        "titles": "Titles",
+        "learnMore": "Learn More",
+        "contact": "Contact",
+        "menuIconAlt": "Menu",
+        "logoAlt": "Direct Treasury Logo",
+        "login": "Login",
+        "profile": "Profile",
+        "logout": "Logout",
+        "administration": "Administration",
+        "yourCompany": "Your Company"
     }
 }

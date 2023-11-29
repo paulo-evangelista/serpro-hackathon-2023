@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import { ethers } from "ethers";
 import { Navbar } from "../components/Navbar";
 import QRCode from "qrcode.react";
@@ -7,7 +7,7 @@ import { getAbi } from "../utils/getAbi";
 import { useAuth } from "../hooks/useAuth";
 import { Account } from "../context";
 import { toast } from "react-toastify";
-
+import { useRouter } from "@/navigation";
 
 const Profile = () => {
 	const [balance, setBalance] = useState<string>(
@@ -19,36 +19,38 @@ const Profile = () => {
 
 	const [reloadAmount, setReloadAmount] = useState<string>("");
 	const [showQRCode, setShowQRCode] = useState(false);
-	const [qrValue, setQRValue] = useState('');
-	const [amountToReload, setAmountToReload] = useState('');
+	const [qrValue, setQRValue] = useState("");
+	const [amountToReload, setAmountToReload] = useState("");
 
-	const handleReloadAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setReloadAmount(event.target.value);
-    };
+	const handleReloadAmountChange = (
+		event: React.ChangeEvent<HTMLInputElement>
+	) => {
+		setReloadAmount(event.target.value);
+	};
 
 	const handleReload = () => {
-        if (parseFloat(reloadAmount) > 0) {
+		if (parseFloat(reloadAmount) > 0) {
 			const newQRValue = `https://example.com/?amount=${reloadAmount}`;
 			setQRValue(newQRValue);
 			setAmountToReload(reloadAmount);
 			setShowQRCode(true);
-        } else {
+		} else {
 			setShowQRCode(false);
-        }
-    };
+		}
+	};
 
 	const [isProcessingPayment, setIsProcessingPayment] = useState(false);
 
 	const handlePaymentConfirmation = () => {
-	  setIsProcessingPayment(true);
-	  setTimeout(() => {
-		setIsProcessingPayment(false);
-		toast.success("Pagamento concluído!");
-	  }, 5000);
+		setIsProcessingPayment(true);
+		setTimeout(() => {
+			setIsProcessingPayment(false);
+			toast.success("Pagamento concluído!");
+		}, 5000);
 	};
 
 	const [loadingBalance, setLoadingBalance] = useState<boolean>(false);
-	const { account }: { account: Account | null } = useAuth();
+	const { account }: any = useAuth();
 
 	const getProviderAndSigner = useCallback(() => {
 		const provider = new ethers.BrowserProvider(window.ethereum);
@@ -56,14 +58,14 @@ const Profile = () => {
 		return { provider, signer };
 	}, []);
 
-	const getDrexBalance = useCallback(async () => {
+	const getDrexBalance = useRef<() => Promise<void>>();
+	getDrexBalance.current = useCallback(async () => {
+		console.time("getDrexBalance");
 		if (loadingBalance) {
-			console.log("getDrexBalance is already running");
 			return;
 		}
 
 		setLoadingBalance(true);
-		console.log("Loading balance started");
 
 		try {
 			if (window.ethereum) {
@@ -71,7 +73,7 @@ const Profile = () => {
 				const address = (await signer).address;
 
 				const drexContractAddress =
-					"0x3493dF730cA3a8b1d9912F884bc55Be7AD04b608";
+					"0xDA478bFaE6699C5B9f1150b0610BA2DAABC0bcdb";
 				const abi = await getAbi(drexContractAddress);
 				const drexContract = new ethers.Contract(
 					drexContractAddress,
@@ -81,7 +83,7 @@ const Profile = () => {
 
 				let parseDrex = (drexBalance: any): string => {
 					let balance = parseFloat(
-						ethers.formatUnits(drexBalance, 6)
+						ethers.formatUnits(drexBalance, 18)
 					);
 					return new Intl.NumberFormat("pt-BR", {
 						style: "decimal",
@@ -90,27 +92,26 @@ const Profile = () => {
 				};
 
 				setBalance(
-					parseDrex(await drexContract.balanceOf(account.wallet))
+					parseDrex(await drexContract.balanceOf(account?.wallet))
 				);
 			}
 		} catch (error) {
 			console.error(error);
 		} finally {
 			setLoadingBalance(false);
-			console.log("Loading balance finished");
+			console.timeEnd("getDrexBalance");
 		}
 	}, [account, getProviderAndSigner, loadingBalance]);
 
 	useEffect(() => {
-		// Call getDrexBalance immediately when the component mounts
-		getDrexBalance();
+		getDrexBalance.current && getDrexBalance.current();
 
-		// Then set up an interval to call it every minute
-		const intervalId = setInterval(getDrexBalance, 0.05 * 60 * 1000);
+		const intervalId = setInterval(() => {
+			getDrexBalance.current && getDrexBalance.current();
+		}, 5000);
 
-		// Clean up the interval on component unmount
 		return () => clearInterval(intervalId);
-	}, [getDrexBalance]);
+	}, []);
 
 	return (
 		<div className="flex flex-col bg-[#f1f1f1] min-h-screen h-full">
@@ -135,7 +136,7 @@ const Profile = () => {
 							</span>
 						</p>
 
-						<p className="text-lg">
+						<p className="text-md">
 							Email:{" "}
 							<span className="text-xl text-gray-700">
 								{account.email}
@@ -145,19 +146,49 @@ const Profile = () => {
 
 					<div className="bg-white rounded-lg flex flex-col md:flex-row shadow-lg p-6">
 						<div className="flex flex-col w-full md:w-2/3">
-							<p className="text-lg mb-2 overflow-ellipsis">
+							<p className="text-lg mb-2 overflow-ellipsis md:flex hidden">
 								Endereço atual: {account.wallet}
 							</p>
-							<p className="text-lg">
+
+							<p className="text-lg mb-2 overflow-ellipsis md:hidden flex flex-row items-center">
+								Endereço atual:{" "}
+								<span className="text-xl text-gray-700">
+									{account.wallet.slice(0, 6)}...
+									{account.wallet.slice(-4)}
+								</span>
+							</p>
+
+							<p className="text-lg flex items-center">
 								Saldo em Real/DREX:{" "}
 								<span className="text-xl text-gray-700">
 									R$ {balance}
 								</span>
+								{loadingBalance && (
+									<svg
+										className="ml-2 animate-spin h-5 w-5 mr-3 ..."
+										xmlns="http://www.w3.org/2000/svg"
+										fill="none"
+										viewBox="0 0 24 24"
+									>
+										<circle
+											className="opacity-25"
+											cx="12"
+											cy="12"
+											r="10"
+											stroke="currentColor"
+											strokeWidth="4"
+										></circle>
+										<path
+											className="opacity-75"
+											fill="currentColor"
+											d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+										></path>
+									</svg>
+								)}
 							</p>
 						</div>
 
-
-                        <div className="flex flex-col items-center w-full md:w-1/3 justify-center mt-4 md:mt-0">
+						<div className="flex flex-col items-center w-full md:w-1/3 justify-center mt-4 md:mt-0">
 							<p className="text-lg font-bold text-center pb-4">
 								Agora é mais fácil investir em títulos públicos!
 							</p>
@@ -167,45 +198,55 @@ const Profile = () => {
 							<p className="text-lg font-bold text-gray-500 tracking-wide">
 								Fácil, rápido e confiável
 							</p>
-                            <div className="mt-6">
-                                <input
-                                    type="text"
-                                    value={reloadAmount}
-                                    onChange={handleReloadAmountChange}
-                                    placeholder="Insira a quantidade a ser recarregada"
-                                    className="border border-gray-300 px-2 py-4 rounded mr-2"
-                                />
-                                <button
-                                    onClick={handleReload}
-                                    className="bg-blue-800 text-white px-4 py-4 rounded hover:bg-blue-600"
-                                >
-                                    Recarregar
-                                </button>
-                            </div>
-							{showQRCode && amountToReload ?(
+							<div className="mt-6">
+								<input
+									type="text"
+									value={reloadAmount}
+									onChange={handleReloadAmountChange}
+									placeholder="Insira a quantidade a ser recarregada"
+									className="border border-gray-300 px-2 py-4 rounded mr-2"
+								/>
+								<button
+									onClick={handleReload}
+									className="bg-blue-800 text-white px-4 py-4 rounded hover:bg-blue-600"
+								>
+									Recarregar
+								</button>
+							</div>
+							{showQRCode && amountToReload ? (
 								<div className="flex flex-row items-center w-full justify-center">
 									<div className="flex flex-col items-center w-full justify-center mt-4 md:mt-0">
 										<div className="bg-white rounded-lg shadow-lg p-6 mb-6 mt-4">
-											<QRCode value={qrValue} size={200} />
+											<QRCode
+												value={qrValue}
+												size={200}
+											/>
 										</div>
 										<div>
-											<p className="text-lg font-bold text-center">Valor a ser pago: R$ {amountToReload}</p>
+											<p className="text-lg font-bold text-center">
+												Valor a ser pago: R${" "}
+												{amountToReload}
+											</p>
 										</div>
 									</div>
 									<button
-									onClick={handlePaymentConfirmation}
-									disabled={isProcessingPayment || !showQRCode}
-									className="bg-green-500 text-white px-4 py-4 rounded hover:bg-green-600 ml-4"
+										onClick={handlePaymentConfirmation}
+										disabled={
+											isProcessingPayment || !showQRCode
+										}
+										className="bg-green-500 text-white px-4 py-4 rounded hover:bg-green-600 ml-4"
 									>
-									Efetuei o Pagamento
+										Efetuei o Pagamento
 									</button>
 								</div>
-								) : amountToReload === '' ? (
-									<div className="flex flex-col items-center w-full md:w-1/3 justify-center mt-4 md:mt-0">
-										<p className="text-lg text-red-500">Insira um valor para recarregar.</p>
-									</div>
+							) : amountToReload === "" ? (
+								<div className="flex flex-col items-center w-full md:w-1/3 justify-center mt-4 md:mt-0">
+									<p className="text-lg text-red-500">
+										Insira um valor para recarregar.
+									</p>
+								</div>
 							) : null}
-                        </div>
+						</div>
 					</div>
 				</div>
 			) : (

@@ -22,8 +22,11 @@ export default function Home({
 	);
 
 	const [titles, setTitles] = useState<any>([]);
+	const [isLoadingTitles, setIsLoadingTitles] = useState<boolean>(true);
 
 	const getTitles = async () => {
+		setIsLoadingTitles(true);
+
 		const path = "http://localhost:3050/platform/getAllAssets";
 
 		try {
@@ -44,6 +47,8 @@ export default function Home({
 		} catch (error) {
 			console.error("Error during signup: ", error);
 			throw error;
+		} finally {
+			setIsLoadingTitles(false);
 		}
 	};
 
@@ -53,48 +58,36 @@ export default function Home({
 		});
 	}, []);
 
-	// useEffect(() => {
-	// 	const interval = setInterval(() => {
-	// 		let date = new Date().toLocaleString().replace(",", " 🕘");
-	// 		setLastUpdatedTime(date);
-	// 	}, 5 * 60 * 1000 /* 5 minutes */);
-
-	// 	() => clearInterval(interval);
-	// }, [lastUpdatedTime]);
-
 	useEffect(() => {
 		setLastUpdatedTime(new Date().toLocaleString().replace(",", " 🕘"));
 	}, []);
 
-	const t = useTranslations("Index");
-
-	// return <h1>{t("title")}</h1>;
+	const t = useTranslations("Home");
 
 	return (
 		<div>
 			<Navbar />
 
-			<div className="flex flex-1 flex-col px-4 md:px-0">
-				<div className="relative mt-16">
+			<div className="flex flex-1 flex-col px-4 md:px-0 min-h-screen">
+				<div className="relative mt-[4.5rem]">
 					<div className="w-full h-80 overflow-hidden">
 						{/* eslint-disable-next-line @next/next/no-img-element */}
 						<img
 							src="https://www.tesourodireto.com.br/data/files/7E/31/02/3D/25907810B0345668894D49A8/Banner-1.png"
-							alt="Imagem de fundo"
+							alt={t("tr+.bannerAlt")}
 							className="w-full h-full object-cover"
 						/>
 					</div>
 					<div className="absolute inset-0 flex items-center justify-start px-32">
 						<div className="flex flex-col">
 							<h1 className="text-white text-4xl font-bold mb-2">
-								Tesouro RendA+
+								{t("tr+.title")}
 							</h1>
 							<p className="text-white mb-2">
-								Planeje a sua aposentadoria com o novo título do
-								Tesouro Direto
+								{t("tr+.description")}
 							</p>
 							<button className="bg-green-700 text-md font-bold text-white px-6 py-3 rounded-full">
-								Conheça o RendA+ e comece a investir
+								{t("tr+.button")}
 							</button>
 						</div>
 					</div>
@@ -107,41 +100,39 @@ export default function Home({
 				</div>
 				<div className="bg-indigo-900 ">
 					<div className="max-w-screen-xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4 mb-16 bt-16 pt-20 pb-20">
-						<InvestmentCard
-							title={"TESOURO PREFIXADO 2026"}
-							yieldAnnual={"11%"}
-							dueDate={"01/01/2026"}
-						/>
-						<InvestmentCard
-							title={"TESOURO PREFIXADO 2026"}
-							yieldAnnual={"11%"}
-							dueDate={"01/01/2026"}
-						/>
-						<InvestmentCard
-							title={"TESOURO PREFIXADO 2026"}
-							yieldAnnual={"11%"}
-							dueDate={"01/01/2026"}
-						/>
-						<InvestmentCard
-							title={"TESOURO PREFIXADO 2026"}
-							yieldAnnual={"11%"}
-							dueDate={"01/01/2026"}
-						/>
+						{titles.map(
+							(
+								title: {
+									name: string;
+									percentageReturnPerYear: string;
+									deadline: string;
+								},
+								index: number
+							) => {
+								return (
+									<InvestmentCard
+										key={index}
+										title={title.name}
+										yieldAnnual={
+											title.percentageReturnPerYear
+										}
+										dueDate={title.deadline}
+									/>
+								);
+							}
+						)}
 					</div>
 				</div>
 				<div className="max-w-screen-xl mx-auto mt-8">
 					<h1 className="text-4xl text-gray-700 font-semibold mb-8">
-						Confira a rentabilidade de cada título
+						{t("tr+.yieldTitle")}
 					</h1>
-
-					{/* Availability */}
 					<div className="border border-gray-600 rounded-md flex flex-col justify-center mb-8">
 						<div className="flex items-center justify-between p-4">
 							<div className="flex items-center justify-center w-1/2">
-								{/* small green ball */}
 								<div className="bg-green-500 rounded-full w-2 h-2 mr-2"></div>
 								<p className="text-gray-700 text-2xl">
-									Mercado Aberto
+									{t("tr+.marketStatus")}
 								</p>
 							</div>
 
@@ -151,16 +142,15 @@ export default function Home({
 
 							<div className="flex flex-col justify-center">
 								<p className="text-gray-700">
-									Horario de funcionamento:
+									{t("tr+.operationHours")}
 								</p>
 								<p className="text-gray-700 text-lg font-semibold">
-									Nossos serviços estão disponíveis 24 horas
-									por dia, 7 dias por semana.
+									{t("tr+.serviceAvailability")}
 								</p>
 							</div>
 							<div className="flex justify-center">
 								<p className="text-gray-700 font-semibold text-center">
-									Ultima atualização:{" "}
+									{t("tr+.lastUpdate")}{" "}
 									<span
 										className="text-gray-700 font-normal"
 										suppressHydrationWarning
@@ -171,23 +161,31 @@ export default function Home({
 							</div>
 						</div>
 					</div>
-					{/* Titles */}
 					<div className="overflow-x-auto">
 						<table className="table-auto w-full mb-16">
 							<thead>
 								<tr className="bg-gray-200">
-									<th className="px-4 py-2">Título</th>
-									<th className="px-4 py-2">Rentabilidade</th>
 									<th className="px-4 py-2">
-										Preço unitário
+										{t("tr+.tableTitle")}
 									</th>
-									<th className="px-4 py-2">Vencimento</th>
-									<th className="px-4 py-2">Investir</th>
+									<th className="px-4 py-2">
+										{t("tr+.tableYield")}
+									</th>
+									<th className="px-4 py-2">
+										{t("tr+.tablePrice")}
+									</th>
+									<th className="px-4 py-2">
+										{t("tr+.tableMaturity")}
+									</th>
+									<th className="px-4 py-2">
+										{t("tr+.tableInvest")}
+									</th>
 								</tr>
 							</thead>
 							<tbody>
 								{titles &&
-									titles.map((title: any, index: number) => (
+									titles.length > 0 &&
+									titles.map((title: any, index: any) => (
 										<tr key={index} className="border-b">
 											<td className="px-4 py-2 text-center">
 												{title.name}
@@ -206,11 +204,50 @@ export default function Home({
 													href={`/titles/${title.id}`}
 													className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
 												>
-													Investir
+													{t("tr+.invest")}
 												</Link>
 											</td>
 										</tr>
 									))}
+
+								{titles.length < 1 && !isLoadingTitles && (
+									<tr>
+										<td
+											colSpan={5}
+											className="px-4 py-2 text-center"
+										>
+											{t("tr+.noTitles")}
+										</td>
+									</tr>
+								)}
+
+								{isLoadingTitles && (
+									<tr>
+										<td
+											colSpan={5}
+											className="px-4 py-2 text-center"
+										>
+											<svg
+												className="animate-spin h-5 w-5 mr-3 ..."
+												viewBox="0 0 24 24"
+											>
+												<circle
+													className="opacity-25"
+													cx="12"
+													cy="12"
+													r="10"
+													stroke="currentColor"
+													strokeWidth="4"
+												/>
+												<path
+													className="opacity-75"
+													fill="currentColor"
+													d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+												/>
+											</svg>
+										</td>
+									</tr>
+								)}
 							</tbody>
 						</table>
 					</div>
@@ -220,7 +257,6 @@ export default function Home({
 		</div>
 	);
 }
-
 const Graph = () => {
 	const [investment, setInvestment] = useState(1000000);
 	const [years, setYears] = useState(20);
@@ -251,19 +287,18 @@ const Graph = () => {
 		setTreasuryOutcome(treasury);
 	};
 
+	const t = useTranslations("Home");
+
 	return (
 		<div className="p-10 flex flex-col lg:flex-row">
 			<div className="max-w-2xl mx-auto lg:mr-10 lg:w-1/2">
 				<h1 className="text-2xl font-bold mb-6">
-					SIMULE SEU INVESTIMENTO
+					{t("tr+.simulateInvestment")}
 				</h1>
-				<p className="mb-4">
-					Compare e confira as vantagens de investir seu dinheiro no
-					Tesouro Direto.
-				</p>
+				<p className="mb-4">{t("tr+.investmentAdvantages")}</p>
 
 				<div className="flex flex-col space-y-4 mb-8">
-					<label htmlFor="amount">Eu tenho R$</label>
+					<label htmlFor="amount">{t("tr+.iHave")}</label>
 					<input
 						id="amount"
 						className="form-input mt-1 block w-full border-2 border-gray-200 p-2"
@@ -272,7 +307,7 @@ const Graph = () => {
 						maxLength={9}
 						value={investment.toLocaleString("pt-BR")}
 					/>
-					<label htmlFor="years">Para aplicar durante</label>
+					<label htmlFor="years">{t("tr+.toApplyFor")}</label>
 					<input
 						id="years"
 						className="form-input mt-1 block w-full border-2 border-gray-200 p-2"
@@ -282,20 +317,14 @@ const Graph = () => {
 						onChange={handleYearsChange}
 						value={years}
 					/>{" "}
-					anos
+					{t("tr+.years")}
 				</div>
 
 				<button className="bg-green-700 text-lg font-bold px-12 py-4 text-white px-4 py-2 rounded-full hover:bg-green-600">
-					Simule mais opções
+					{t("tr+.simulateMore")}
 				</button>
-				<p className="text-xs mt-4">
-					*Projeção do valor líquido de resgate (após taxas e
-					impostos).
-				</p>
-				<p className="text-xs">
-					*As simulações são baseadas em projeções de mercado. Isso
-					não garante resultados futuros.
-				</p>
+				<p className="text-xs mt-4">{t("tr+.projectionDisclaimer")}</p>
+				<p className="text-xs">{t("tr+.simulationDisclaimer")}</p>
 			</div>
 
 			<div className="max-w-2xl mx-auto lg:w-1/2">
@@ -308,7 +337,7 @@ const Graph = () => {
 								transform: "scaleY(-1)",
 							}}
 						></div>
-						<p className="mt-2">POUPANÇA</p>
+						<p className="mt-2">{t("tr+.savings")}</p>
 						<p className="font-bold">
 							{savingsOutcome.toLocaleString("pt-BR", {
 								style: "currency",
@@ -325,7 +354,7 @@ const Graph = () => {
 							}}
 						></div>
 
-						<p className="mt-2">TESOURO IPCA+ 2045</p>
+						<p className="mt-2">{t("tr+.treasuryIPCA")}</p>
 						<p className="font-bold">
 							{treasuryOutcome.toLocaleString("pt-BR", {
 								style: "currency",
