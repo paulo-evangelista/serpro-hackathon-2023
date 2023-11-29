@@ -51,6 +51,57 @@ Combinar o fracionamento dos títulos públicos e o uso do token DREX abre as po
 ## Problem-Solution Fit
 
 ## Business Model Canvas
+A solução oferece uma forma acessível, transparente e automatizada de investir em títulos públicos, utilizando tecnologias avançadas para tornar o mercado mais inclusivo, simplificado e seguro.
+
+#### Segmentos de Clientes
+- Investidores Novatos: Pessoas interessadas em começar a investir, sem experiência prévia no mercado financeiro.
+
+- Investidores Experientes: Indivíduos ou instituições com conhecimento no mercado, buscando maior facilidade e transparência.
+
+- Investidores Internacionais: Pessoas físicas ou jurídicas de outros países interessadas em investir no mercado de títulos públicos brasileiros.
+
+#### Segmento de Mercado
+- Investidores em Títulos Públicos: Pessoas físicas e jurídicas interessadas em investir em títulos públicos do Tesouro Nacional.
+
+- Mercado Financeiro Nacional: Instituições e empresas do mercado financeiro brasileiro interessadas em novas soluções tecnológicas para investimentos em títulos públicos.
+
+- Mercado Internacional: Investidores globais que buscam oportunidades em títulos públicos de um mercado financeiro estável e transparente.
+
+#### Canais de Distribuição
+- Plataformas Online: Site oficial, aplicativos móveis para investimento.
+- Parcerias Estratégicas: Colaborações com instituições financeiras, divulgação em eventos, parcerias com órgãos reguladores.
+
+#### Relacionamento com o Cliente
+- Suporte Personalizado: Chat online, suporte por e-mail, guias e tutoriais detalhados.
+
+- Comunidade de Investidores: Fóruns de discussão, webinars educativos, eventos presenciais.
+
+#### Atividades-Chave
+- Desenvolvimento Tecnológico: Manutenção e melhoria contínua das plataformas.
+
+- Educação Financeira: Criar conteúdo educativo sobre títulos públicos e blockchain.
+
+- Manutenção da Comunidade: Estímulo à interação entre investidores, resolução de dúvidas e problemas.
+
+#### Recursos-Chave
+- Equipe de Desenvolvimento: Engenheiros de software, especialistas em blockchain, designers.
+
+- Parcerias Estratégicas: Colaborações com órgãos reguladores, instituições financeiras e educacionais.
+
+#### Parcerias-Chave
+- Instituições Financeiras: Bancos, corretoras, parceiros para liquidez e infraestrutura.
+
+- Órgãos Reguladores: Parcerias para cumprimento das regulamentações.
+
+#### Fluxo de Receita
+- Taxas de Transação: Cobrança de pequenas taxas sobre as transações realizadas.
+
+- Serviços Premium: Oferta de serviços exclusivos para assinantes.
+
+#### Estrutura de Custos
+- Desenvolvimento Tecnológico: Custos de manutenção das plataformas, atualizações, segurança.
+
+- Marketing e Publicidade: Investimento em campanhas de marketing, presença em eventos, publicidade online.
 
 ## Arquitetura
 
