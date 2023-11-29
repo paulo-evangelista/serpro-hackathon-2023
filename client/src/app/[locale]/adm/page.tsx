@@ -3,10 +3,12 @@ import axios from "../utils/axios";
 import React, { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Navbar } from "../components/Navbar";
+import { Navbar } from "../../../components/Navbar";
 import { useAuth } from "../hooks/useAuth";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const AdmHome = () => {
+const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
+	unstable_setRequestLocale(locale);
 	const { register, handleSubmit } = useForm();
 
 	const governmentGrantCompanyPermission = async (data: any) => {
@@ -174,6 +176,8 @@ const AdmHome = () => {
 
 		setCompanies(response);
 	};
+
+	const liquidate = (data: any) => {};
 
 	const { account }: any = useAuth();
 
@@ -471,8 +475,8 @@ const AdmHome = () => {
 					</table>
 				</div>
 
-				{/* <div>
-					<form onSubmit={handleSubmit(grantPermission)}>
+				<div>
+					<form onSubmit={handleSubmit(liquidate)}>
 						<input
 							type="text"
 							{...register("corretoraInput")}
@@ -486,7 +490,7 @@ const AdmHome = () => {
 							Liquidar no Vencimento
 						</button>
 					</form>
-				</div> */}
+				</div>
 			</div>
 		</div>
 	);

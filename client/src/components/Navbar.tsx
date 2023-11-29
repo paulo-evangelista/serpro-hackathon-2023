@@ -1,17 +1,22 @@
 "use client";
-import { Link } from "@/navigation";
+import { Link, useRouter, usePathname, redirect } from "@/navigation";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import menu from "@/app/[locale]/assets/menu.svg";
-import xIcon from "@/app/[locale]/assets/x.svg";
-import tIcon from "@/app/[locale]/assets/td.svg";
-import { useAuth } from "../context";
+import menu from "@/assets/menu.svg";
+import xIcon from "@/assets/x.svg";
+import tIcon from "@/assets/td.svg";
+import { useAuth } from "../app/[locale]/context";
 import { useTranslations } from "next-intl";
+
+const locales = ["en", "pt-br"];
 
 export const Navbar = () => {
 	const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 	const [isOpen, setIsOpen] = useState(false);
+	const [isIdiomOpen, setIsIdiomOpen] = useState(false);
+
+	const router = useRouter();
 
 	const { account, logout }: any = useAuth();
 
@@ -20,6 +25,12 @@ export const Navbar = () => {
 	};
 
 	const t = useTranslations("Navbar");
+
+	let pathname = usePathname();
+
+	// const handleChangeLocale = (locale: string) => {
+	//     <Link href="/" locale="de">Switch to German</Link>
+	// };
 
 	return (
 		<>
@@ -112,7 +123,37 @@ export const Navbar = () => {
 				</div>
 
 				<div className="relative flex justify-end w-1/3">
-					{account && account.wallet && (
+					<button
+						className="flex justify-center items-center mr-4"
+						onClick={() => setIsIdiomOpen(!isIdiomOpen)}
+					>
+						<span className="text-xl md:text-2xl">🌎</span>
+					</button>
+					{isIdiomOpen && (
+						<div className="absolute right-24 top-2 z-10 mt-8 w-24 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5">
+							<div
+								className="py-1"
+								role="menu"
+								aria-orientation="vertical"
+								aria-labelledby="options-menu"
+							>
+								{locales.map(
+									(locale: string, index: number) => (
+										<Link
+											key={index}
+											href={"/"}
+											// locale={locale}
+											className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center"
+										>
+											{locale.toUpperCase()}
+										</Link>
+									)
+								)}
+							</div>
+						</div>
+					)}
+
+					{account && (
 						<button onClick={() => setIsOpen(!isOpen)}>
 							<Jazzicon
 								diameter={32}

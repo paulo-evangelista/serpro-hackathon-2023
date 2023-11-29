@@ -1,10 +1,10 @@
 "use client";
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Footer } from "./components/Footer";
-import InvestmentCard from "./components/InvestmentCard";
-import { Navbar } from "./components/Navbar";
-import InvestmentGoals from "./components/InvesmentGoals";
+import { Footer } from "../../components/Footer";
+import InvestmentCard from "../../components/InvestmentCard";
+import { Navbar } from "../../components/Navbar";
+import InvestmentGoals from "../../components/InvesmentGoals";
 import { Link } from "@/navigation";
 import axios from "axios";
 import { useTranslations } from "next-intl";
@@ -37,7 +37,6 @@ export default function Home({
 					},
 				})
 				.then((res: { data: any }) => {
-					console.log(res.data);
 					setTitles(res.data);
 					return res.data;
 				})

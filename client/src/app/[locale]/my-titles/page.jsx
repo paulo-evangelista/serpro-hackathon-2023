@@ -1,19 +1,25 @@
 import React from 'react';
-import { Navbar } from "../components/Navbar";
-import { Footer } from "../components/Footer";
+import { Navbar } from "../../../components/Navbar";
+import { Footer } from "../../../components/Footer";
+import Image from 'next/image';
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const myTitle = () => {
+const myTitle = ({
+    params: { locale },
+}) => {
+    unstable_setRequestLocale(locale);
     return (
         <div>
             <Navbar />
             <div className="flex flex-1 flex-col min-h-screen">
                 <div className="relative mt-20 mb-10">
                     <div className="w-full h-80 overflow-hidden">
-                        <img
+                        {/* <img
                             src="https://www.tesourodireto.com.br/data/files/12/85/08/1C/63D4D710C0F1C0D7894D49A8/banner-acessibilidade-tipos-tesouro.png"
                             alt="Imagem de fundo"
                             className="w-full h-full object-cover"
-                        />
+                        /> */}
+                        <Image src="https://www.tesourodireto.com.br/data/files/12/85/08/1C/63D4D710C0F1C0D7894D49A8/banner-acessibilidade-tipos-tesouro.png" alt="Imagem de fundo" objectFit='cover' width={200} height={200} className="w-full h-full object-cover" />
                     </div>
                     <div className="absolute inset-0 flex items-center justify-center">
                         <h1 className="text-white text-4xl font-bold text-center">

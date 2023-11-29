@@ -22,11 +22,9 @@ export default function LocaleLayout({
 
 	let messages;
 	try {
-		console.log("Searching for locale: ", locale);
-		// messages = require(`../../../messages/${locale}.json`);
-		messages = require(`../../../messages/pt-br.json`);
+		messages = require(`../../../messages/${locale}.json`);
+		// messages = require(`../../../messages/pt-br.json`);
 	} catch (error) {
-		console.log("Locale not found, using default locale: pt-br", error);
 		messages = require(`../../../messages/pt-br.json`);
 	}
 

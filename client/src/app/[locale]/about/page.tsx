@@ -1,8 +1,10 @@
 import React from "react";
-import { Navbar } from "../components/Navbar";
+import { Navbar } from "../../../components/Navbar";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const About = () => {
+const About = ({ params: { locale } }: { params: { locale: string } }) => {
+	unstable_setRequestLocale(locale);
 	const t = useTranslations("About");
 
 	return (

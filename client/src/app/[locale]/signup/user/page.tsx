@@ -1,5 +1,5 @@
 "use client";
-import { Navbar } from "@/app//[locale]/components/Navbar";
+import { Navbar } from "@/components/Navbar";
 import { useAuth } from "@/app//[locale]/hooks/useAuth";
 import { ethers } from "ethers";
 import { useRouter } from "@/navigation";
@@ -7,6 +7,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
 declare global {
 	interface Window {
@@ -14,7 +15,12 @@ declare global {
 	}
 }
 
-export default function UserSignUp() {
+export default function UserSignUp({
+	params: { locale },
+}: {
+	params: { locale: string };
+}) {
+	unstable_setRequestLocale(locale);
 	const [hasNoAddress, setHasNoAddress] = useState(false);
 
 	const { signUp }: any = useAuth();
@@ -44,11 +50,11 @@ export default function UserSignUp() {
 			},
 			"user"
 		)
-			.then((res: any) => {
+			.then(() => {
 				toast.success("Cadastro realizado com sucesso!");
 				router.push("/login");
 			})
-			.catch((err: any) => {
+			.catch(() => {
 				toast.error("Erro ao realizar cadastro!\nTente novamente.");
 				router.push("/login");
 			});
@@ -82,9 +88,7 @@ export default function UserSignUp() {
 
 							<input
 								{...register("password", { required: true })}
-								placeholder={t(
-									"passwordPlaceholder"
-								)}
+								placeholder={t("passwordPlaceholder")}
 								type="password"
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
@@ -96,9 +100,7 @@ export default function UserSignUp() {
 
 							<input
 								{...register("firstName", { required: true })}
-								placeholder={t(
-									"firstNamePlaceholder"
-								)}
+								placeholder={t("firstNamePlaceholder")}
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
 							{errors.firstName && (
@@ -109,9 +111,7 @@ export default function UserSignUp() {
 
 							<input
 								{...register("lastName", { required: true })}
-								placeholder={t(
-									"lastNamePlaceholder"
-								)}
+								placeholder={t("lastNamePlaceholder")}
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
 							{errors.lastName && (
@@ -126,9 +126,7 @@ export default function UserSignUp() {
 										{...register("wallet", {
 											required: !hasNoAddress,
 										})}
-										placeholder={t(
-											"walletPlaceholder"
-										)}
+										placeholder={t("walletPlaceholder")}
 										className="px-4 py-3 border border-gray-300 rounded-md mr-2 w-full"
 										disabled={hasNoAddress}
 									/>

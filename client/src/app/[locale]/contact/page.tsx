@@ -1,8 +1,11 @@
 import React from "react";
-import { Navbar } from "../components/Navbar";
+import { Navbar } from "../../../components/Navbar";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const Contact = () => {
+const Contact = ({ params: { locale } }: { params: { locale: string } }) => {
+	unstable_setRequestLocale(locale);
 	const t = useTranslations("Contact");
 
 	return (
@@ -20,13 +23,20 @@ const Contact = () => {
 							rel="noopener noreferrer"
 							className="text-center flex flex-col items-center"
 						>
-							<img
+							{/* <img
 								src={t("links.marcelo.imageUrl")}
 								width="150px"
 								alt={t("links.marcelo.alt")}
 								className="rounded-full mb-2 mb-16 transition duration-300 transform hover:scale-110"
+							/> */}
+							<Image
+								src={t("links.marcelo.imageUrl")}
+								width={200}
+								height={200}
+								alt={t("links.marcelo.alt")}
+								className="rounded-full mb-2 mb-16 transition duration-300 transform hover:scale-110 shadow-lg"
 							/>
-							<sub className="font-bold text-lg pt-12">
+							<sub className="font-bold text-lg">
 								{t("links.marcelo.name")}
 							</sub>
 						</a>
@@ -38,13 +48,20 @@ const Contact = () => {
 							rel="noopener noreferrer"
 							className="text-center flex flex-col items-center"
 						>
-							<img
+							{/* <img
 								src={t("links.paulo.imageUrl")}
 								width="150px"
 								alt={t("links.paulo.alt")}
 								className="rounded-full mb-2 transition duration-300 transform hover:scale-110"
+							/> */}
+							<Image
+								src={t("links.paulo.imageUrl")}
+								width={200}
+								height={200}
+								alt={t("links.paulo.alt")}
+								className="rounded-full mb-2 transition duration-300 transform hover:scale-110 shadow-lg"
 							/>
-							<sub className="font-bold text-lg pt-12">
+							<sub className="font-bold text-lg">
 								{t("links.paulo.name")}
 							</sub>
 						</a>
@@ -56,13 +73,20 @@ const Contact = () => {
 							rel="noopener noreferrer"
 							className="text-center flex flex-col items-center"
 						>
-							<img
+							{/* <img
 								src={t("links.victor.imageUrl")}
 								width="150px"
 								alt={t("links.victor.alt")}
 								className="rounded-full mb-2 transition duration-300 transform hover:scale-110"
+							/> */}
+							<Image
+								src={t("links.victor.imageUrl")}
+								width={200}
+								height={200}
+								alt={t("links.victor.alt")}
+								className="rounded-full mb-2 transition duration-300 transform hover:scale-110 shadow-lg"
 							/>
-							<sub className="font-bold text-lg pt-12">
+							<sub className="font-bold text-lg">
 								{t("links.victor.name")}
 							</sub>
 						</a>

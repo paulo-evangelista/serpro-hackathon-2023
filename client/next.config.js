@@ -6,7 +6,25 @@ const nextConfig = {
 		ETHERSCAN_API: process.env.ETHERSCAN_API,
 	},
 	images: {
-		domains: ["www.tesourodireto.com.br"],
+		// domains: ["www.tesourodireto.com.br"],
+		remotePatterns: [
+			{
+				hostname: "www.tesourodireto.com.br",
+				pathname: "/**",
+				protocol: "https",
+			},
+			{
+				hostname: "avatars.githubusercontent.com",
+				pathname: "/**",
+				protocol: "https",
+			},
+			{
+				// (https://github.com/paulo-evangelista.png)
+				hostname: "github.com",
+				pathname: "/**",
+				protocol: "https",
+			},
+		],
 	},
 };
 

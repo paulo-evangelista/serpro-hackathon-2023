@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect, useCallback, useRef } from "react";
 import { ethers } from "ethers";
-import { Navbar } from "../components/Navbar";
+import { Navbar } from "../../../components/Navbar";
 import QRCode from "qrcode.react";
 import { getAbi } from "../utils/getAbi";
 import { useAuth } from "../hooks/useAuth";
@@ -10,8 +10,12 @@ import { toast } from "react-toastify";
 import { useRouter } from "@/navigation";
 import axios from "axios";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const Profile = () => {
+const Profile = ({params:{locale}}: {
+    params: { locale: string };
+}) => {
+    unstable_setRequestLocale(locale);
 	const [balance, setBalance] = useState<string>(
 		Intl.NumberFormat("pt-BR", {
 			style: "decimal",
@@ -114,15 +118,15 @@ const Profile = () => {
 		}
 
 		setIsProcessingPayment(true);
-		console.log("Loading payment started");
 
 		try {
+			let reloadAmountNumber = Number(reloadAmount);
+
 			const response = await axios.get(
-				`http://localhost:3050/payments/pix/${reloadAmount * 100}/${
-					account.email
-				}`
+				`http://localhost:3050/payments/pix/${
+					reloadAmountNumber * 100
+				}/${account.email}`
 			);
-			console.log("bateu");
 
 			setIsProcessingPayment(false);
 			toast.success("Pagamento concluído!");

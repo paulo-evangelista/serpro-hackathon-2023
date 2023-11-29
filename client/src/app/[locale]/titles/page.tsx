@@ -1,13 +1,17 @@
 "use client";
 import axios from "axios";
 import React from "react";
-import { Navbar } from "../components/Navbar";
+import { Navbar } from "../../../components/Navbar";
 import { useState, useEffect } from "react";
-import { Footer } from "../components/Footer";
+import { Footer } from "../../../components/Footer";
 import { Link } from "@/navigation";
+import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-const Title = () => {
+const Title = ({ params: { locale } }: { params: { locale: string } }) => {
+	unstable_setRequestLocale(locale);
+
 	const [titles, setTitles] = useState<any>([]);
 	const [isLoadingTitles, setIsLoadingTitles] = useState<boolean>(true);
 
@@ -24,7 +28,6 @@ const Title = () => {
 					},
 				})
 				.then((res: { data: any }) => {
-					console.log(res.data);
 					setTitles(res.data);
 					return res.data;
 				})
@@ -40,9 +43,7 @@ const Title = () => {
 	};
 
 	useEffect(() => {
-		getTitles().then((res: any) => {
-			setTitles(res.data);
-		});
+		getTitles();
 	}, []);
 
 	const t = useTranslations("Title");
@@ -53,10 +54,18 @@ const Title = () => {
 			<div className="flex flex-1 flex-col min-h-screen mt-16">
 				<div className="relative mt-1 mb-10">
 					<div className="w-full h-80 overflow-hidden">
-						<img
+						{/* <img
 							src="https://www.tesourodireto.com.br/data/files/8B/75/DD/0C/63D4D710C0F1C0D7894D49A8/banner-acessibilidade-precos-taxas.png"
 							alt={t("backgroundImageAlt")}
 							className="w-full h-full object-cover"
+						/> */}
+						<Image
+							src="https://www.tesourodireto.com.br/data/files/8B/75/DD/0C/63D4D710C0F1C0D7894D49A8/banner-acessibilidade-precos-taxas.png"
+							alt={t("backgroundImageAlt")}
+							quality={100}
+							className="w-full h-full object-cover"
+							width={200}
+							height={200}
 						/>
 					</div>
 					<div className="absolute inset-0 flex items-center justify-start px-32">

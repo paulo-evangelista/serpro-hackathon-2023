@@ -1,12 +1,18 @@
 "use client";
-import { Navbar } from "@/app/[locale]/components/Navbar";
+import { Navbar } from "@/components/Navbar";
 import { useAuth } from "@/app/[locale]/hooks/useAuth";
 import { useRouter } from "@/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function CompanySignUp() {
+export default function CompanySignUp({
+	params: { locale },
+}: {
+	params: { locale: string };
+}) {
+	unstable_setRequestLocale(locale);
 	const { signUp }: any = useAuth();
 	const t = useTranslations("SignUp.companySignUp");
 
@@ -55,9 +61,7 @@ export default function CompanySignUp() {
 							)}
 							<input
 								{...register("email", { required: true })}
-								placeholder={t(
-									"emailPlaceholder"
-								)}
+								placeholder={t("emailPlaceholder")}
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
 							{errors.email && (
@@ -67,9 +71,7 @@ export default function CompanySignUp() {
 							)}
 							<input
 								{...register("password", { required: true })}
-								placeholder={t(
-									"passwordPlaceholder"
-								)}
+								placeholder={t("passwordPlaceholder")}
 								type="password"
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
@@ -80,9 +82,7 @@ export default function CompanySignUp() {
 							)}
 							<input
 								{...register("wallet", { required: true })}
-								placeholder={t(
-									"walletPlaceholder"
-								)}
+								placeholder={t("walletPlaceholder")}
 								className="px-4 py-4 border border-gray-300 rounded-md"
 							/>
 							{errors.wallet && (

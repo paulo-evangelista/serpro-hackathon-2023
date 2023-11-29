@@ -1,18 +1,77 @@
-export const dynamic = "force-dynamic"; // defaults to force-static
-import { ipcaData } from './ipcaData.js';
+export async function GET() {
+	let data = await fetch(
+		"https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR"
+	).then((res) => res.json());
 
-export async function GET(request: Request) {
-  const res = new Response(JSON.stringify({}), {
-    headers: { "content-type": "application/json" },
-  });
+	const ipcaData = {
+		"2020-01": 0.29,
+		"2020-02": 0.32,
+		"2020-03": 0.25,
+		"2020-04": 0.35,
+		"2020-05": 0.42,
+		"2020-06": 0.38,
+		"2020-07": 0.45,
+		"2020-08": 0.39,
+		"2020-09": 0.47,
+		"2020-10": 0.55,
+		"2020-11": 0.58,
+		"2020-12": 0.65,
+		"2020": 8.2,
+		"2021-01": 0.29,
+		"2021-02": 0.32,
+		"2021-03": 0.25,
+		"2021-04": 0.35,
+		"2021-05": 0.42,
+		"2021-06": 0.38,
+		"2021-07": 0.45,
+		"2021-08": 0.39,
+		"2021-09": 0.47,
+		"2021-10": 0.55,
+		"2021-11": 0.58,
+		"2021-12": 0.65,
+		"2021": 9.2,
+		"2022-01": 0.29,
+		"2022-02": 0.32,
+		"2022-03": 0.25,
+		"2022-04": 0.35,
+		"2022-05": 0.42,
+		"2022-06": 0.38,
+		"2022-07": 0.45,
+		"2022-08": 0.39,
+		"2022-09": 0.47,
+		"2022-10": 0.55,
+		"2022-11": 0.58,
+		"2022-12": 0.65,
+		"2022": 10.2,
+		"2023-01": 0.29,
+		"2023-02": 0.32,
+		"2023-03": 0.25,
+		"2023-04": 0.35,
+		"2023-05": 0.42,
+		"2023-06": 0.38,
+		"2023-07": 0.45,
+		"2023-08": 0.39,
+		"2023-09": 0.47,
+		"2023-10": 0.55,
+		"2023-11": 0.58,
+		"2023-12": 0.65,
+		"2023": 10.2,
+		"2024-01": 0.29,
+		"2024-02": 0.32,
+		"2024-03": 0.25,
+		"2024-04": 0.35,
+		"2024-05": 0.42,
+		"2024-06": 0.38,
+		"2024-07": 0.45,
+		"2024-08": 0.39,
+		"2024-09": 0.47,
+		"2024-10": 0.55,
+		"2024-11": 0.58,
+		"2024-12": 0.65,
+		"2024": 11.2,
+	};
 
-  let data = await fetch(
-    "https://min-api.cryptocompare.com/data/pricemulti?fsyms=BTC,ETH&tsyms=USD,EUR",
-  );
-  data = await data.json();
-
-  return {
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(ipcaData),
-  };
+	return new Response(JSON.stringify(data), {
+		headers: { "content-type": "application/json" },
+	});
 }

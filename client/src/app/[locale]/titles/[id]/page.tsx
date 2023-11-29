@@ -1,10 +1,17 @@
 "use client";
-import { Navbar } from "@/app//[locale]/components/Navbar";
+import { Navbar } from "@/components/Navbar";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function Title({ params }: { params: { id: string } }) {
+export default function Title({
+	params: { id, locale },
+}: {
+	params: { id: string; locale: string };
+}) {
+	unstable_setRequestLocale(locale);
+
 	const [product, setProduct] = useState<{
 		name: string;
 		price: number;
@@ -18,8 +25,9 @@ export default function Title({ params }: { params: { id: string } }) {
 
 		const fetchData = async () => {
 			try {
-				const response = await axios.get(`http://localhost:3050/platform/getAsset/${params.id}`);
-				console.log(response)
+				const response = await axios.get(
+					`http://localhost:3050/platform/getAsset/${id}`
+				);
 				const data = response.data;
 
 				setProduct({
@@ -28,7 +36,6 @@ export default function Title({ params }: { params: { id: string } }) {
 					ipfsImageURI: data.ipfsImageURI,
 					description: data.description,
 				});
-				console.log(data)
 				return data;
 			} catch (error) {
 				console.error("Error fetching data:", error);
@@ -37,10 +44,10 @@ export default function Title({ params }: { params: { id: string } }) {
 			}
 		};
 
-		if (params.id) {
+		if (id) {
 			fetchData();
 		}
-	}, [params.id]);
+	}, [id]);
 
 	return (
 		<div className="container mx-auto mt-4 p-4 flex flex-col w-full">

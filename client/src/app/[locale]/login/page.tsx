@@ -4,11 +4,17 @@ import { Link } from "@/navigation";
 import { useRouter } from "@/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
-import { Navbar } from "../components/Navbar";
+import { Navbar } from "../../../components/Navbar";
 import { useTranslations } from "next-intl";
 import { useEffect } from "react";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function GovernmentSignUp() {
+export default function GovernmentSignUp({
+	params: { locale },
+}: {
+	params: { locale: string };
+}) {
+	unstable_setRequestLocale(locale);
 	const { login }: any = useAuth();
 	const router = useRouter();
 
@@ -18,7 +24,7 @@ export default function GovernmentSignUp() {
 		if (account) {
 			router.push("/");
 		}
-	}, [account]);
+	}, [account, router]);
 
 	const {
 		register,

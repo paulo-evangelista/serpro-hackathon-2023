@@ -1,12 +1,18 @@
 "use client";
-import { Navbar } from "@/app/[locale]/components/Navbar";
+import { Navbar } from "@/components/Navbar";
 import { useAuth } from "@/app/[locale]/hooks/useAuth";
 import { useRouter } from "@/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function GovernmentSignUp() {
+export default function GovernmentSignUp({
+	params: { locale },
+}: {
+	params: { locale: string };
+}) {
+	unstable_setRequestLocale(locale);
 	const { signUp }: any = useAuth();
 	const t = useTranslations("SignUp.governmentSignUp");
 

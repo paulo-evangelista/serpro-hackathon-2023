@@ -1,8 +1,15 @@
 import { Link } from "@/navigation";
-import { Navbar } from "../components/Navbar";
+import { Navbar } from "../../../components/Navbar";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function SignUp() {
+export default function SignUp({
+	params: { locale },
+}: {
+	params: { locale: string };
+}) {
+	unstable_setRequestLocale(locale);
+
 	const t = useTranslations("SignUp");
 
 	return (
