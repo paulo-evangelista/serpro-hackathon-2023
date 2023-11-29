@@ -1,34 +1,92 @@
 # Hackathon Web3 - Tokenização do Tesouro Nacional
-## Problema
-Desafio 1: Desenvolvimento de tecnologias para casos de uso utilizando títulos públicos tokenizados para aplicações em: Tesouro Direto e Mercado Secundário. Com a finalidade de incentivar a massificação, adoção e uso dos títulos, por investidores no Brasil e/ou no Exterior, prestigiando fácil acesso e a usabilidade das ferramentas.
+## Desafio
+**Desafio 1**:
+Desenvolvimento de tecnologias para casos de uso utilizando títulos públicos tokenizados para aplicações em: Tesouro Direto e Mercado Secundário. Com a finalidade de incentivar a massificação, adoção e uso dos títulos, por investidores no Brasil e/ou no Exterior, prestigiando fácil acesso e a usabilidade das ferramentas.
 
-Desafio 4: Desenvolvimento de tecnologias para casos de uso de automação de monitoramento, controle e precificação online de títulos públicos (e.g. oráculos).
+## Cenário Atual e Dores
+O Tesouro Direto, como um programa de investimento em títulos públicos, enfrenta diversos desafios que podem ser abordados e solucionados por meio do Desafio 1 proposto no Hackathon. Estas são algumas das principais questões identificadas:
+
+1. **Complexidade de Acesso aos Títulos Públicos**
+Atualmente, o acesso aos títulos públicos pode ser complexo para muitos investidores. O processo tradicional pode demandar etapas burocráticas e exigir conhecimentos específicos do mercado financeiro, dificultando a participação de novos investidores.
+
+2. **Pouca Massificação e Adoção**
+A falta de massificação e adoção dos títulos públicos é um obstáculo. A complexidade de acesso, somada à falta de familiaridade do público em geral com esses investimentos, limita a participação e atração de investidores, tanto no Brasil quanto no exterior.
+
+3. **Barreiras de Usabilidade e Facilidade de Acesso**
+A usabilidade das ferramentas para investir em títulos públicos pode representar um desafio. A falta de interfaces amigáveis, ferramentas intuitivas e processos simplificados para compra e venda de títulos pode desencorajar potenciais investidores.
+
+4. **Limitações no Mercado Secundário**
+O mercado secundário de títulos públicos pode carecer de liquidez e agilidade nas transações. A falta de dinamismo nesse mercado pode desestimular investimentos e dificultar a negociação dos títulos.
 
 ## Solução
 
 O cenário financeiro atual demanda soluções inovadoras para massificar e simplificar o acesso a investimentos em títulos públicos, tanto para investidores nacionais quanto estrangeiros. Diante disso, desenvolvemos uma solução robusta e abrangente que utiliza tecnologias avançadas, centradas na eficiência, facilidade e transparência para os investidores. Nesse sentido, a nossa solução tem como objetivo não apenas facilitar o acesso, adoção, uso e a usabilidade dos títulos públicos, mas também aumentar a confiança dos investidores, fornecendo transparência, automação e simplicidade nos processos de investimento e conformidade.
 
 #### Account Abstraction - Cadastro simplificado
-O objetivo aqui é simplificar o processo de cadastro para investidores interessados em adquirir títulos públicos. Isso pode ser alcançado por meio de um sistema de "account abstraction" ou abstração de conta. Isso significa que, em vez de exigir uma série extensa de informações pessoais, podemos criar um processo de cadastro simplificado, exigindo apenas informações essenciais para a transação de compra e venda de títulos. Isso pode incluir identificação básica, informações de contato e um procedimento de verificação simplificado, como verificação de e-mail ou telefone, priorizando a agilidade e simplicidade para atrair novos investidores. Nesse sentido, em nossa aplicação utilizamos um cadastro simples, que envolve apenas e-mail, senha, nome e sobrenome, já que o backend consegue criar uma carteira para o usuário automaticamente, caso ele não tenha e  permite também gerenciar todo o fluxo de interação com a blockchain sem afetar a experiência do usuário.
+O objetivo aqui é simplificar o processo de cadastro para investidores interessados em adquirir títulos públicos. Isso foi alcançado por meio de um sistema de "account abstraction" ou abstração de conta. Isso significa que, em vez de exigir uma série extensa de informações pessoais, podemos criar um processo de cadastro simplificado, exigindo apenas informações essenciais para a transação de compra e venda de títulos. Isso pode incluir identificação básica, informações de contato e um procedimento de verificação simplificado, como verificação de e-mail ou telefone, priorizando a agilidade e simplicidade para atrair novos investidores. Nesse sentido, em nossa aplicação utilizamos um cadastro simples, que envolve apenas e-mail, senha, nome e sobrenome, já que o backend consegue criar uma carteira para o usuário automaticamente, caso ele não tenha, e  permite também gerenciar todo o fluxo de interação com a blockchain sem afetar a experiência do usuário em nenhum quesito.
 
 #### Oráculos - Automação na Coleta de Dados 
-Os oráculos desempenham um papel fundamental ao fornecer dados em tempo real sobre os títulos públicos. Automatizar a coleta desses dados de diversas fontes, como índices financeiros e plataformas de negociação, é crucial. Isso pode ser feito por meio de APIs (interfaces de programação de aplicativos) conectadas a essas fontes. A tecnologia blockchain pode ser integrada a esses oráculos para garantir transparência e segurança na obtenção desses dados, garantindo que os investidores tenham acesso a informações precisas e atualizadas para tomar decisões informadas. Nesse sentido, utilizamos os Oráculos para automatizar a coleta dos indexadores de títulos públicos, como o IPCA(Índice Nacional de Preços ao Consumidor Amplo), por exemplo, de forma a conseguir ter uma maior precisão e automação no pagamento dos juros.
+Os oráculos desempenham um papel fundamental ao fornecer dados em tempo real sobre os títulos públicos. Automatizar a coleta desses dados de diversas fontes, como índices financeiros e plataformas de negociação, é crucial. Fizemos por meio de APIs (interfaces de programação de aplicativos) conectadas a essas fontes. A tecnologia blockchain foi integrada a esses oráculos para garantir transparência e segurança na obtenção desses dados, garantindo que os investidores tenham acesso a informações precisas e atualizadas para tomar decisões informadas. Nesse sentido, utilizamos os Oráculos para automatizar a coleta dos indexadores de títulos públicos, como o IPCA(Índice Nacional de Preços ao Consumidor Amplo), por exemplo, de forma a conseguir ter uma maior precisão e automação na coleta dos dados, e consequentemente, no cálculo dos juros a serem pagos.
 
 #### Facilidade em trazer investidores do exterior
-Uma das vantagens da tecnologia blockchain é a sua natureza global e sem fronteiras. Aproveitar essa característica para atrair investidores estrangeiros pode ser feito por meio de interfaces e plataformas de investimento amigáveis para diferentes idiomas e moedas. Além disso, a divulgação e promoção eficaz dessas plataformas nos mercados internacionais são essenciais para atrair investidores estrangeiros.(site pt br)?????????
+Uma das vantagens da tecnologia blockchain é a sua natureza global e sem fronteiras, ou seja, independente do país e sua moeda, é possível investir em nossos títulos públicos. Nesse sentido, aproveitamos essa característica para atrair investidores estrangeiros por meio de interfaces e plataformas de investimento amigáveis para diferentes idiomas e moedas. Além disso, a divulgação e promoção eficaz dessas plataformas nos mercados internacionais são essenciais para atrair investidores estrangeiros.
 
 #### Sem restrição de idade - Acesso simplificado
-Ao usar tecnologias blockchain para investimentos em títulos públicos, pode-se criar um sistema sem restrição de idade para a criação de carteiras digitais. Diferentemente de instituições financeiras tradicionais, que podem impor restrições de idade, as carteiras digitais baseadas em blockchain podem ser acessadas por qualquer pessoa, independentemente da idade, desde que tenham capacidade para utilizar a tecnologia necessária. Em nosso caso, conseguimos por meio da abstração de conta, conseguimos fazer com que o menor de idade tenha acesso mais fácil, já que não enfrenta os riscos de restrições de idade relacionados a instituições financeiras tradicionais.
+Ao usar tecnologias blockchain para investimentos em títulos públicos, pode-se criar um sistema sem restrição de idade para a criação de carteiras digitais. Diferentemente de instituições financeiras tradicionais, que podem impor restrições de idade, as carteiras digitais baseadas em blockchain podem ser acessadas por qualquer pessoa, independentemente da idade, desde que tenham capacidade para utilizar a tecnologia necessária. Em nosso caso, conseguimos por meio da abstração de conta, conseguimos fazer com que o menor de idade tenha acesso mais fácil, já que não enfrenta os riscos de restrições de idade relacionados a instituições financeiras tradicionais por meio da texnologia de blockchain e account abstraction.
 
 #### Automação para gerar relatórios contábeis para registro no SIAFI
-Automatizar a geração de relatórios contábeis para o Sistema Integrado de Administração Financeira do Governo Federal (SIAFI) é fundamental para simplificar e agilizar o processo de registro e conformidade. A tecnologia blockchain pode ser integrada aos sistemas contábeis, criando um registro imutável e transparente das transações relacionadas aos títulos públicos. Isso simplifica a geração de relatórios precisos e atualizados para cumprir os requisitos do SIAFI. Dessa forma, aplicamos uma funcionalidade no Smart Contract que permite gerar os relatórios contábeis automaticamente em relação a um determinado token, ou seja, título público, contribuindo para todos os benefícios anteriormente citados.
+Automatizar a geração de relatórios contábeis para o Sistema Integrado de Administração Financeira do Governo Federal (SIAFI) é fundamental para simplificar e agilizar o processo de registro e conformidade. A tecnologia blockchain pode ser integrada aos sistemas contábeis, criando um registro imutável, transparente e muito mais rastreável das transações relacionadas aos títulos públicos. Isso simplifica a geração de relatórios precisos e atualizados para cumprir os requisitos do SIAFI. Dessa forma, aplicamos uma funcionalidade no Smart Contract que permite gerar os relatórios contábeis automaticamente em relação a um determinado token, ou seja, título público, contribuindo para todos os benefícios anteriormente citados.
 
+#### Barreira de Entrada Financeira Menor - Fracionamento e Uso da DREX
+Uma das barreiras significativas para muitos investidores é a quantia mínima exigida para investir em títulos públicos. Com a utilização da tecnologia blockchain e do token DREX, nossa solução resolve esse problema ao permitir o fracionamento de títulos públicos em partes menores, tornando possível investir em frações mínimas de um título.
+
+Através do processo de tokenização, um título público pode ser dividido em unidades menores, permitindo que investidores comprem frações de um título de acordo com suas possibilidades financeiras. Esse fracionamento oferece acesso inclusivo ao mercado de títulos públicos, possibilitando que investidores, mesmo com quantidades menores de capital, participem do mercado de investimentos.
+
+Além disso, a utilização do token DREX facilita essa entrada, permitindo que os investidores utilizem frações mínimas do token para investir nos títulos públicos fracionados. Isso cria uma flexibilidade considerável, onde os investidores podem começar com pequenas quantias, até mesmo a partir de 1 centavo, aumentando a acessibilidade e a democratização dos investimentos em títulos públicos.
+
+Combinar o fracionamento dos títulos públicos e o uso do token DREX abre as portas para uma nova geração de investidores, reduzindo a barreira financeira de entrada e proporcionando uma maneira acessível e flexível de participar no mercado de investimentos em títulos públicos. Esta abordagem inovadora promove a inclusão financeira e a democratização do acesso aos investimentos, alinhando-se com os princípios de nossa solução.
 
 ## Problem-Solution Fit
 
 ## Business Model Canvas
 
 ## Arquitetura
+
+## Regras de negócio dos Smart Contracts(Contratos Inteligentes)
+### Contrato 1: `InstitutionContract`
+
+Este contrato define a permissão para "minters" e as ações permitidas por eles. Os "minters" têm o poder de executar ações específicas no sistema.
+
+#### Regras de Negócio:
+- Adição e remoção de "minters" são exclusivas para o dono do contrato.
+- A função `checkIfUserHavePermission` permite verificar se um endereço tem permissão de "minter".
+
+---
+
+### Contrato 2: `PublicTitle`
+
+Esse contrato gerencia a emissão e venda de tokens não fungíveis (NFTs) associados a títulos públicos. Ele define informações sobre os títulos, como nome, símbolo, rentabilidade anual, datas de vencimento e lançamento, entre outros. Além disso, permite a emissão de NFTs para investidores.
+
+#### Regras de Negócio:
+- A emissão de NFTs (`safeMint`) é possível apenas se o título ainda não tiver expirado (`notExpired`).
+- A liquidação (`liquidate`) pode ser realizada apenas após a expiração do título pelo dono do contrato.
+- Proíbe a transferência de tokens, garantindo a posse fixa dos NFTs emitidos.
+
+---
+
+### Contrato 3: `RealDigital`
+
+Este contrato é um token ERC20 denominado "Real Digital" (DREX) e gerencia a criação e transferência desses tokens.
+
+#### Regras de Negócio:
+- A criação inicial do token é feita durante a inicialização do contrato, com um suprimento fixo emitido para o proprietário inicial.
+- A função `mint` permite que o proprietário crie novos tokens e os envie para endereços específicos.
+
+#### Observações Gerais:
+- Os contratos `InstitutionContract` e `PublicTitle` têm propriedades de acesso que controlam quem pode realizar certas ações.
+- O `RealDigital` define uma moeda digital e seu proprietário tem controle sobre a emissão de novos tokens.
+
+Esta formatação em Markdown destaca as principais funcionalidades e restrições de cada contrato para facilitar o entendimento das regras e operações permitidas dentro do sistema.
 
 
 ## Tecnologias
