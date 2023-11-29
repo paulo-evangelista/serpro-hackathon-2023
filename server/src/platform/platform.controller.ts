@@ -10,4 +10,9 @@ export class PlatformController {
   async getAllAssets() {
       return await this.platformService.getAllAssets();
   }
+
+  @Get('getAsset/:id')
+  async getAsset(@Param('id') id: number) {
+      return await this.platformService.getAsset(id);
+  }
 }

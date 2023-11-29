@@ -13,4 +13,8 @@ export class PlatformService {
   async getAllAssets() {
     return await this.assetPreIRepository.find();
   }
+
+  async getAsset(id: number) {
+    return await this.assetPreIRepository.findOne({ where: { id } });
+  }
 }
