@@ -1,6 +1,6 @@
 "use client";
-import { useAuth } from "@/app/[locale]/[locale]/hooks/useAuth";
-import Link from "next/link";
+import { useAuth } from "@/app/[locale]/hooks/useAuth";
+import { Link } from "@/navigation";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";

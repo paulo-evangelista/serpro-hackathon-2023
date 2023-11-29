@@ -1,36 +1,37 @@
-import { NextIntlClientProvider, useLocale } from "next-intl";
+import { NextIntlClientProvider } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
-import Error from "./500";
 
-export default async function LocaleLayout({
+// Can be imported from a shared config
+const locales = ["en", "de"];
+
+export function generateStaticParams() {
+	return locales.map((locale) => ({ locale }));
+}
+
+export default function LocaleLayout({
 	children,
 	params: { locale },
 }: {
 	children: React.ReactNode;
 	params: { locale: string };
 }) {
-	const defaultLocale = useLocale();
+	if (!locales.includes(locale as any)) notFound();
+
+	unstable_setRequestLocale(locale);
 
 	let messages;
 	try {
-		messages = (await import(`../../../messages/${locale}.json`)).default;
+		messages = require(`../../../messages/${locale}.json`);
 	} catch (error) {
-		console.log(error);
-		Error({ statusCode: 404 });
-	}
-
-	if (!locale) {
-		console.log("Locale not found");
-		locale = defaultLocale;
+		messages = require(`../../../messages/en.json`);
 	}
 
 	return (
 		<html lang={locale}>
-			<body>
-				<NextIntlClientProvider messages={messages}>
-					{children}
-				</NextIntlClientProvider>
-			</body>
+			<NextIntlClientProvider locale={locale} messages={messages}>
+				<body>{children}</body>
+			</NextIntlClientProvider>
 		</html>
 	);
 }

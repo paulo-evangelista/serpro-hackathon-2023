@@ -5,11 +5,18 @@ import { Footer } from "./components/Footer";
 import InvestmentCard from "./components/InvestmentCard";
 import { Navbar } from "./components/Navbar";
 import InvestmentGoals from "./components/InvesmentGoals";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import axios from "axios";
 import { useTranslations } from "next-intl";
+import { unstable_setRequestLocale } from "next-intl/server";
 
-export default function Home() {
+export default function Home({
+	params: { locale },
+}: {
+	params: { locale: string };
+}) {
+	unstable_setRequestLocale(locale);
+
 	let [lastUpdatedTime, setLastUpdatedTime] = useState<string>(
 		new Date().toLocaleString().replace(",", " 🕘")
 	);
@@ -61,6 +68,8 @@ export default function Home() {
 
 	const t = useTranslations("Index");
 
+	// return <h1>{t("title")}</h1>;
+
 	return (
 		<div>
 			<Navbar />
@@ -90,7 +99,6 @@ export default function Home() {
 						</div>
 					</div>
 				</div>
-				<h1>{t("title")}</h1>
 				<div className="bg-gray-100 pt-10 pb-10">
 					<Graph />
 				</div>

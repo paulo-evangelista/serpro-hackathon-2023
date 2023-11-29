@@ -4,7 +4,7 @@ import React from "react";
 import { Navbar } from "../components/Navbar";
 import { useState, useEffect } from "react";
 import { Footer } from "../components/Footer";
-import Link from "next/link";
+import { Link } from "@/navigation";
 
 const Title = () => {
 	const [titles, setTitles] = useState<any>([]);
@@ -31,14 +31,13 @@ const Title = () => {
 			console.error("Error during signup: ", error);
 			throw error;
 		}
-	}
+	};
 
-    useEffect(() => {
+	useEffect(() => {
 		getTitles().then((res: any) => {
 			setTitles(res.data);
-		}
-	)}, []);
-
+		});
+	}, []);
 
 	return (
 		<div>
@@ -83,8 +82,8 @@ const Title = () => {
 									Horario de funcionamento:
 								</p>
 								<p className="text-gray-700 text-lg font-semibold">
-									Nossos serviços estão disponíveis 24 horas por
-									dia, 7 dias por semana.
+									Nossos serviços estão disponíveis 24 horas
+									por dia, 7 dias por semana.
 								</p>
 							</div>
 						</div>
@@ -96,34 +95,39 @@ const Title = () => {
 								<tr className="bg-gray-200">
 									<th className="px-4 py-2">Título</th>
 									<th className="px-4 py-2">Rentabilidade</th>
-									<th className="px-4 py-2">Preço unitário</th>
+									<th className="px-4 py-2">
+										Preço unitário
+									</th>
 									<th className="px-4 py-2">Vencimento</th>
 									<th className="px-4 py-2">Investir</th>
 								</tr>
 							</thead>
 							<tbody>
-								{titles && titles.map((title: any, index: number) => (
-									<tr key={index} className="border-b">
-										<td className="px-4 py-2 text-center">{title.name}</td>
-										<td className="px-4 py-2 text-center">
-											{title.percentageReturnPerYear}
-										</td>
-										<td className="px-4 py-2 text-center">
-											{title.price}
-										</td>
-										<td className="px-4 py-2 text-center">
-											{title.deadline}
-										</td>
-										<td className="px-4 py-2 text-center">
-											<Link
-												href={`/titles/${title.id}`}
-												className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
-											>
-												Investir
-											</Link>
-										</td>
-									</tr>
-								))}
+								{titles &&
+									titles.map((title: any, index: number) => (
+										<tr key={index} className="border-b">
+											<td className="px-4 py-2 text-center">
+												{title.name}
+											</td>
+											<td className="px-4 py-2 text-center">
+												{title.percentageReturnPerYear}
+											</td>
+											<td className="px-4 py-2 text-center">
+												{title.price}
+											</td>
+											<td className="px-4 py-2 text-center">
+												{title.deadline}
+											</td>
+											<td className="px-4 py-2 text-center">
+												<Link
+													href={`/titles/${title.id}`}
+													className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
+												>
+													Investir
+												</Link>
+											</td>
+										</tr>
+									))}
 							</tbody>
 						</table>
 					</div>

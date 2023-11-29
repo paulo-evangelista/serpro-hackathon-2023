@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { Link } from "@/navigation";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { useEffect, useState } from "react";
 import Image from "next/image";
