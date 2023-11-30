@@ -78,7 +78,15 @@ app.get("/health", (req, res) => {
 });
 
 app.get("/ipca", (req, res) => {
-	console.log(`Request data: ${JSON.stringify(req)}\n\n`);
+	const clientInfo = {
+		ip: req.ip,
+		headers: req.headers,
+		userAgent: req.get("User-Agent"),
+		method: req.method,
+		url: req.originalUrl,
+	};
+
+	console.log(`Client info: ${JSON.stringify(clientInfo)}`);
 
 	res.status(200).json(ipcaData);
 });
