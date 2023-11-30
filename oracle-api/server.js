@@ -78,7 +78,7 @@ app.get("/health", (req, res) => {
 });
 
 app.get("/ipca", (req, res) => {
-	res.json(ipcaData);
+	res.json(ipcaData.map((item) => item * 100));
 });
 
 const PORT = 5500;
