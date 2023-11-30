@@ -19,5 +19,4 @@ export class UserService {
     async getOracleData() {
         return await this.web3service.requestIPCA();
     }
-
 }

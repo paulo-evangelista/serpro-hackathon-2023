@@ -211,7 +211,7 @@ const Profile = ({ params: { locale } }: { params: { locale: string } }) => {
 							</p>
 
 							<p className="text-lg flex items-center">
-								{t("balance")}:{" "}
+								{t("balance")}:{"  "}
 								<span className="text-xl text-gray-700">
 									R$ {balance}
 								</span>

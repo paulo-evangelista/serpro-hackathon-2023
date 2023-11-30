@@ -15,6 +15,14 @@ let ipcaData: {
         yearMonth: string;
     };
     timestamp: number;
+    transactionHash: string;
+} = {
+    value: {
+        ipca: 0,
+        yearMonth: '',
+    },
+    timestamp: 0,
+    transactionHash: '',
 };
 
 @Injectable()
@@ -154,36 +162,38 @@ export class Web3Service {
             return ipcaData.value.ipca;
         }
 
-        try {
-            const tx = await this.oracleContract.request(`${year}-${month}`);
+        return ipcaData;
+        // try {
+        //     const tx = await this.oracleContract.request(`${year}-${month}`);
 
-            const receipt = await tx.wait();
-            const response = await this.oracleContract.response();
+        //     const receipt = await tx.wait();
+        //     const response = await this.oracleContract.response();
 
-            console.log('Transação enviada:', receipt);
-            console.log('Resposta do Oracle:', response);
-            console.log('Transação enviada:', receipt.hash);
+        //     console.log('Transação enviada:', receipt);
+        //     console.log('Resposta do Oracle:', response);
+        //     console.log('Transação enviada:', receipt.hash);
 
-            ipcaData = {
-                value: {
-                    ipca: Number(response),
-                    yearMonth: currentYearMonth,
-                },
-                timestamp: Date.now(),
-            };
+        //     ipcaData = {
+        //         value: {
+        //             ipca: Number(response),
+        //             yearMonth: currentYearMonth,
+        //         },
+        //         transactionHash: receipt.hash,
+        //         timestamp: Date.now(),
+        //     };
 
-            return ipcaData;
-        } catch (error) {
-            console.error('Erro ao fazer a solicitação ao BCB:', error);
+        //     return ipcaData;
+        // } catch (error) {
+        //     console.error('Erro ao fazer a solicitação ao BCB:', error);
 
-            return {
-                value: {
-                    ipca: 0,
-                    yearMonth: currentYearMonth,
-                },
-                timestamp: Date.now(),
-            };
-        }
+        //     return {
+        //         value: {
+        //             ipca: 0,
+        //             yearMonth: currentYearMonth,
+        //         },
+        //         timestamp: Date.now(),
+        //     };
+        // }
     };
 
     liquidateContract = async (contractAddress: HexString, abi: any) => {

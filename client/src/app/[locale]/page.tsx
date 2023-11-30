@@ -323,6 +323,7 @@ const Graph = () => {
 							style={{
 								height: `${savingsOutcome / 15000}px`,
 								transform: "scaleY(-1)",
+                            maxHeight: `750px`
 							}}
 						></div>
 						<p className="mt-2">{t("Home.tr+.savings")}</p>
@@ -339,6 +340,7 @@ const Graph = () => {
 							style={{
 								height: `${treasuryOutcome / 15000}px`,
 								transform: "scaleY(-1)",
+								maxHeight: `1000px`
 							}}
 						></div>
 
