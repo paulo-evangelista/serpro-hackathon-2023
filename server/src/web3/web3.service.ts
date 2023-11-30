@@ -53,6 +53,21 @@ export class Web3Service {
         this.oracleContract = new ethers.Contract(this.oracleAddress, this.oracleAbi, this.wallet);
     }
 
+    buyAsset = async (contractAddress: HexString, userAddress: HexString, userPayables: number, amount: number, ipfsUri: string) => {
+        try {
+            const publicTitleContract = new ethers.Contract(contractAddress, this.publicTitleAbi, this.wallet);
+
+            const tx = await publicTitleContract.safeMint(userAddress, amount, userPayables, ipfsUri);
+
+            const receipt = await tx.wait();
+            console.log('Transação enviada:', receipt);
+
+            return receipt.hash;
+        } catch (error) {
+            console.error('Erro ao comprar o ativo:', error);
+        }
+    }
+
     createWallet() {
         const wallet = ethers.Wallet.createRandom();
         return {
@@ -97,15 +112,13 @@ export class Web3Service {
             },
         };
 
-        axios
+        const response = await axios
             .request(options)
-            .then(function (response) {
-                return response.data.IpfsHash;
-            })
             .catch(function (error) {
                 console.log(error);
                 throw new InternalServerErrorException('pinata upload error');
             });
+        return response.data.IpfsHash as string;
     };
 
     deployNewAsset = async ({ titleName, titleSymbol, annualProfitability, unitPrice, program, lobby, launchDate, expirationDate, amount, financialAmount, accountOpening }: CreateAssetDto) => {
