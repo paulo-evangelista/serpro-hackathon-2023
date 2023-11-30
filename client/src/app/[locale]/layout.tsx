@@ -23,7 +23,6 @@ export default function LocaleLayout({
 	let messages;
 	try {
 		messages = require(`../../../messages/${locale}.json`);
-		// messages = require(`../../../messages/pt-br.json`);
 	} catch (error) {
 		messages = require(`../../../messages/pt-br.json`);
 	}

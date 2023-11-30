@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import { Footer } from "../../components/Footer";
 import InvestmentCard from "../../components/InvestmentCard";
 import { Navbar } from "../../components/Navbar";
@@ -59,32 +58,32 @@ export default function Home({
 		setLastUpdatedTime(new Date().toLocaleString().replace(",", " 🕘"));
 	}, []);
 
-	const t = useTranslations("Home");
+	const t = useTranslations();
 
 	return (
 		<div>
 			<Navbar />
 
-			<div className="flex flex-1 flex-col px-4 md:px-0 min-h-screen">
-				<div className="relative mt-[4.5rem]">
+			<div className="flex flex-1 flex-col px-4 md:px-0 min-h-screen pb-8">
+				<div className="relative mt-[4.25rem]">
 					<div className="w-full h-80 overflow-hidden">
 						{/* eslint-disable-next-line @next/next/no-img-element */}
 						<img
 							src="https://www.tesourodireto.com.br/data/files/7E/31/02/3D/25907810B0345668894D49A8/Banner-1.png"
-							alt={t("tr+.bannerAlt")}
+							alt={t("Home.tr+.bannerAlt")}
 							className="w-full h-full object-cover"
 						/>
 					</div>
 					<div className="absolute inset-0 flex items-center justify-start px-32">
 						<div className="flex flex-col">
 							<h1 className="text-white text-4xl font-bold mb-2">
-								{t("tr+.title")}
+								{t("Home.tr+.title")}
 							</h1>
 							<p className="text-white mb-2">
-								{t("tr+.description")}
+								{t("Home.tr+.description")}
 							</p>
 							<button className="bg-green-700 text-md font-bold text-white px-6 py-3 rounded-full">
-								{t("tr+.button")}
+								{t("Home.tr+.button")}
 							</button>
 						</div>
 					</div>
@@ -120,63 +119,53 @@ export default function Home({
 						)}
 					</div>
 				</div>
-				<div className="max-w-screen-xl mx-auto mt-8 w-full md:w-4/5">
+
+				<div className="w-full md:w-2/3 max-w-screen-xl mx-auto px-2 mt-4">
 					<h1 className="text-4xl text-gray-700 font-semibold mb-8">
-						{t("tr+.yieldTitle")}
+						{t("Title.checkProfitability")}
 					</h1>
+
+					{/* Availability */}
 					<div className="border border-gray-600 rounded-md flex flex-col justify-center mb-8">
-						<div className="flex items-center justify-between p-4">
-							<div className="flex items-center justify-center w-1/2">
+						<div className="flex flex-col sm:flex-row items-center justify-between p-4">
+							<div className="flex items-center justify-center w-full sm:w-1/2 mb-4 sm:mb-0">
 								<div className="bg-green-500 rounded-full w-2 h-2 mr-2"></div>
 								<p className="text-gray-700 text-2xl">
-									{t("tr+.marketStatus")}
+									{t("Title.marketOpen")}
 								</p>
 							</div>
 
-							<div className="mx-2 text-4xl text-gray-400 font-thin">
+							<div className="mx-2 text-4xl text-gray-400 font-thin hidden sm:block">
 								|
 							</div>
 
-							<div className="flex flex-col justify-center">
+							<div className="flex flex-col justify-center w-full sm:w-auto">
 								<p className="text-gray-700">
-									{t("tr+.operationHours")}
+									{t("Title.operatingHours")}
 								</p>
 								<p className="text-gray-700 text-lg font-semibold">
-									{t("tr+.serviceAvailability")}
-								</p>
-							</div>
-							<div className="flex justify-center">
-								<p className="text-gray-700 font-semibold text-center">
-									{t("tr+.lastUpdate")}{" "}
-									<span
-										className="text-gray-700 font-normal"
-										suppressHydrationWarning
-									>
-										{lastUpdatedTime}
-									</span>
+									{t("Title.serviceAvailability")}
 								</p>
 							</div>
 						</div>
 					</div>
+				</div>
+
+				<div className="max-w-screen-xl mx-auto px-2 md:max-w-screen-xl w-full md:w-2/3">
+					{/* Titles */}
 					<div className="overflow-x-auto">
-						<table className="table-auto w-full mb-16">
+						<table className="table-auto w-full">
+							{/* Table Head and Body */}
+
 							<thead>
 								<tr className="bg-gray-200">
+									<th className="px-4 py-2">Título</th>
+									<th className="px-4 py-2">Rentabilidade</th>
 									<th className="px-4 py-2">
-										{t("tr+.tableTitle")}
+										Preço unitário
 									</th>
-									<th className="px-4 py-2">
-										{t("tr+.tableYield")}
-									</th>
-									<th className="px-4 py-2">
-										{t("tr+.tablePrice")}
-									</th>
-									<th className="px-4 py-2">
-										{t("tr+.tableMaturity")}
-									</th>
-									<th className="px-4 py-2">
-										{t("tr+.tableInvest")}
-									</th>
+									<th className="px-4 py-2">Vencimento</th>
+									<th className="px-4 py-2">Investir</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -201,7 +190,7 @@ export default function Home({
 													href={`/titles/${title.id}`}
 													className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
 												>
-													{t("tr+.invest")}
+													{t("Title.invest")}
 												</Link>
 											</td>
 										</tr>
@@ -213,7 +202,7 @@ export default function Home({
 											colSpan={5}
 											className="px-4 py-2 text-center"
 										>
-											{t("tr+.noTitles")}
+											{t("Title.noTitles")}
 										</td>
 									</tr>
 								)}
@@ -225,7 +214,7 @@ export default function Home({
 											className="px-4 py-2 text-center"
 										>
 											<svg
-												className="animate-spin h-5 w-5 mr-3 ..."
+												className="animate-spin h-5 w-5 mr-3 text-center"
 												viewBox="0 0 24 24"
 											>
 												<circle
@@ -284,18 +273,18 @@ const Graph = () => {
 		setTreasuryOutcome(treasury);
 	};
 
-	const t = useTranslations("Home");
+	const t = useTranslations();
 
 	return (
 		<div className="p-10 flex flex-col lg:flex-row">
 			<div className="max-w-2xl mx-auto lg:mr-10 lg:w-1/2">
 				<h1 className="text-2xl font-bold mb-6">
-					{t("tr+.simulateInvestment")}
+					{t("Home.tr+.simulateInvestment")}
 				</h1>
-				<p className="mb-4">{t("tr+.investmentAdvantages")}</p>
+				<p className="mb-4">{t("Home.tr+.investmentAdvantages")}</p>
 
 				<div className="flex flex-col space-y-4 mb-8">
-					<label htmlFor="amount">{t("tr+.iHave")}</label>
+					<label htmlFor="amount">{t("Home.tr+.iHave")}</label>
 					<input
 						id="amount"
 						className="form-input mt-1 block w-full border-2 border-gray-200 p-2"
@@ -304,7 +293,7 @@ const Graph = () => {
 						maxLength={9}
 						value={investment.toLocaleString("pt-BR")}
 					/>
-					<label htmlFor="years">{t("tr+.toApplyFor")}</label>
+					<label htmlFor="years">{t("Home.tr+.toApplyFor")}</label>
 					<input
 						id="years"
 						className="form-input mt-1 block w-full border-2 border-gray-200 p-2"
@@ -314,14 +303,16 @@ const Graph = () => {
 						onChange={handleYearsChange}
 						value={years}
 					/>{" "}
-					{t("tr+.years")}
+					{t("Home.tr+.years")}
 				</div>
 
-				<button className="bg-green-700 text-lg font-bold px-12 py-4 text-white px-4 py-2 rounded-full hover:bg-green-600">
-					{t("tr+.simulateMore")}
+				<button className="bg-green-700 text-lg font-bold  text-white px-4 py-2 rounded-full hover:bg-green-600">
+					{t("Home.tr+.simulateMore")}
 				</button>
-				<p className="text-xs mt-4">{t("tr+.projectionDisclaimer")}</p>
-				<p className="text-xs">{t("tr+.simulationDisclaimer")}</p>
+				<p className="text-xs mt-4">
+					{t("Home.tr+.projectionDisclaimer")}
+				</p>
+				<p className="text-xs">{t("Home.tr+.simulationDisclaimer")}</p>
 			</div>
 
 			<div className="max-w-2xl mx-auto lg:w-1/2">
@@ -334,7 +325,7 @@ const Graph = () => {
 								transform: "scaleY(-1)",
 							}}
 						></div>
-						<p className="mt-2">{t("tr+.savings")}</p>
+						<p className="mt-2">{t("Home.tr+.savings")}</p>
 						<p className="font-bold">
 							{savingsOutcome.toLocaleString("pt-BR", {
 								style: "currency",
@@ -351,7 +342,7 @@ const Graph = () => {
 							}}
 						></div>
 
-						<p className="mt-2">{t("tr+.treasuryIPCA")}</p>
+						<p className="mt-2">{t("Home.tr+.treasuryIPCA")}</p>
 						<p className="font-bold">
 							{treasuryOutcome.toLocaleString("pt-BR", {
 								style: "currency",

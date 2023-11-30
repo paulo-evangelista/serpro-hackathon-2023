@@ -5,7 +5,7 @@
             "description": "Plan your retirement with the new Tesouro Direto title",
             "button": "Discover RendA+ and start investing",
             "bannerAlt": "Banner image description",
-            "yieldTitle": "Title about profitability",
+            "yieldTitle": "Check the profitability of each title",
             "marketStatus": "Market Status",
             "operationHours": "Operating Hours",
             "serviceAvailability": "Service Availability",
@@ -57,7 +57,9 @@
         "registrationIsEasier": "Now registration is easier for everyone!",
         "whoWantsToOpenAccount": "Who wants to open an account?",
         "forYouButton": "For you",
-        "forMinorButton": "For the minor"
+        "forMinorButton": "For the minor",
+        "loginSuccess": "Login successful! Redirecting...",
+        "loginError": "An error occurred during login: {message}. Please try again."
     },
     "Navbar": {
         "closeIconAlt": "Close",

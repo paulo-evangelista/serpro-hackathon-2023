@@ -5,17 +5,15 @@ import { Navbar } from "../../../components/Navbar";
 import QRCode from "qrcode.react";
 import { getAbi } from "../utils/getAbi";
 import { useAuth } from "../hooks/useAuth";
-import { Account } from "../context";
+import { Account } from "../../../context";
 import { toast } from "react-toastify";
 import { useRouter } from "@/navigation";
 import axios from "axios";
 import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 
-const Profile = ({params:{locale}}: {
-    params: { locale: string };
-}) => {
-    unstable_setRequestLocale(locale);
+const Profile = ({ params: { locale } }: { params: { locale: string } }) => {
+	unstable_setRequestLocale(locale);
 	const [balance, setBalance] = useState<string>(
 		Intl.NumberFormat("pt-BR", {
 			style: "decimal",

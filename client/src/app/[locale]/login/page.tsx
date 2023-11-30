@@ -35,12 +35,14 @@ export default function GovernmentSignUp({
 	const onSubmit = async (data: any) => {
 		await login(data, data.userType)
 			.then((res: any) => {
-				toast.success("Login realizado com sucesso! Redirecionando...");
+				toast.success(t("loginSuccess"));
 				router.push("/");
 			})
 			.catch((err: any) => {
-				toast.error("Erro ao realizar login!\nTente novamente.");
-				alert(err.message);
+				console.error(err.response.data.message);
+				toast.error(
+					t("loginError", { message: err.response.data.message })
+				);
 			});
 	};
 

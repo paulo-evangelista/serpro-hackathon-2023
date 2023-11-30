@@ -1,6 +1,6 @@
 import { Inter } from "next/font/google";
-import { AuthProvider } from "./[locale]/context";
-import "./globals.css";
+import { AuthProvider } from "../context";
+import "../globals.css";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { NextIntlClientProvider } from "next-intl";

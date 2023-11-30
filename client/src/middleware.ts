@@ -6,14 +6,9 @@ export default createMiddleware({
 
 	// Used when no locale matches
 	defaultLocale: "pt-br",
-	localeDetection: false,
-	pathnames: {
-		en: "en",
-		"pt-br": "pt-br",
-	},
 });
 
 export const config = {
 	// Match only internationalized pathnames
-	matcher: ["/", "/(pt-br|en)/:path*"],
+	matcher: ["/", "/(pt-br|en)/:path*", "/(pt-br|en)"],
 };

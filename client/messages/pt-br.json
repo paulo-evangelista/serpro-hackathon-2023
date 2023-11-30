@@ -57,7 +57,9 @@
         "registrationIsEasier": "Agora o cadastro é mais fácil para todos!",
         "whoWantsToOpenAccount": "Para quem deseja abrir uma conta?",
         "forYouButton": "Para você",
-        "forMinorButton": "Para o menor de idade"
+        "forMinorButton": "Para o menor de idade",
+        "loginSuccess": "Login realizado com sucesso! Redirecionando...",
+        "loginError": "Ocorreu um erro durante o login: {message}. Por favor, tente novamente."
     },
     "Navbar": {
         "closeIconAlt": "Fechar",

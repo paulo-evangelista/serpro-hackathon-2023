@@ -74,26 +74,27 @@ const Title = ({ params: { locale } }: { params: { locale: string } }) => {
 						</h1>
 					</div>
 				</div>
-				<div className="max-w-screen-xl mx-auto">
+
+				<div className="max-w-screen-xl mx-auto px-2">
 					<h1 className="text-4xl text-gray-700 font-semibold mb-8">
 						{t("checkProfitability")}
 					</h1>
 
 					{/* Availability */}
 					<div className="border border-gray-600 rounded-md flex flex-col justify-center mb-8">
-						<div className="flex items-center justify-between p-4">
-							<div className="flex items-center justify-center w-1/2">
+						<div className="flex flex-col sm:flex-row items-center justify-between p-4">
+							<div className="flex items-center justify-center w-full sm:w-1/2 mb-4 sm:mb-0">
 								<div className="bg-green-500 rounded-full w-2 h-2 mr-2"></div>
 								<p className="text-gray-700 text-2xl">
 									{t("marketOpen")}
 								</p>
 							</div>
 
-							<div className="mx-2 text-4xl text-gray-400 font-thin">
+							<div className="mx-2 text-4xl text-gray-400 font-thin hidden sm:block">
 								|
 							</div>
 
-							<div className="flex flex-col justify-center">
+							<div className="flex flex-col justify-center w-full sm:w-auto">
 								<p className="text-gray-700">
 									{t("operatingHours")}
 								</p>
@@ -103,6 +104,9 @@ const Title = ({ params: { locale } }: { params: { locale: string } }) => {
 							</div>
 						</div>
 					</div>
+				</div>
+
+				<div className="max-w-screen-xl mx-auto px-2 md:max-w-screen-xl w-full md:w-2/3">
 					{/* Titles */}
 					<div className="overflow-x-auto">
 						<table className="table-auto w-full">

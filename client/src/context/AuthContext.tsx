@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useEffect, useState } from "react";
-import axios from "../utils/axios";
+import axios from "../app/[locale]/utils/axios";
 import { AxiosResponse } from "axios";
 
 export const AuthContext = createContext({});
