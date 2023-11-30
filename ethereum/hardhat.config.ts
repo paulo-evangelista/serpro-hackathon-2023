@@ -5,7 +5,7 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 const INFURA_API_KEY = process.env.INFURA_API_KEY || "";
-const SEPOLIA_PRIVATE_KEY = process.env.SEPOLIA_PRIVATE_KEY || "";
+const SEPOLIA_PRIVATE_KEY = process.env.GOV_PK || "";
 
 const config: HardhatUserConfig = {
 	solidity: {

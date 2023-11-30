@@ -1,30 +1,32 @@
-import { Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Post, Req, UseGuards, Param, ParseIntPipe } from '@nestjs/common';
 import { UserService } from './user.service';
+import { IsUser } from 'src/auth/auth.guard';
+import { Request } from '@nestjs/common';
 
 @Controller('user')
 export class UserController {
     constructor(private readonly userService: UserService) {}
 
+    @UseGuards(IsUser)
     @Get('getAll')
     async getAll() {
         return await this.userService.getAll();
     }
 
-    // Faz os calculos necessários para o usuario chamar a função do contrato
-    @Post('preInvest')
-    async preInvest() {
-        // return await this.userService.preInvest();
-    }
-
-    // Roda se o investimento foi aceito pelo contrato
-    @Post('consolidateInvest')
-    async consolidateInvest() {
+    // @UseGuards(IsUser)
+    @Post('newInvestment')
+    async consolidateInvest(@Body() body: any, @Req() request: Request) {
         // return await this.userService.consolidateInvest();
     }
 
+    @UseGuards(IsUser)
     @Get('getOracleData')
     async getOracleData() {
         return await this.userService.getOracleData();
     }
 
+    @Get(':userId/investments')
+    async getUserInvestments(@Param('userId', ParseIntPipe) userId: number) {
+        return await this.userService.getUserInvestments(userId);
+    }
 }
