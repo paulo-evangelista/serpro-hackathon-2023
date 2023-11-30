@@ -222,7 +222,7 @@ export const Navbar = () => {
 												: locale == "pt-br"
 												? "🇧🇷"
 												: "🌎"}
-											{locale.toUpperCase()}{" "}
+											<span className="ml-2">{locale.toUpperCase()}</span>{" "}
 										</Link>
 									)
 								)}

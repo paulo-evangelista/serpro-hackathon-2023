@@ -12,7 +12,7 @@ const Contact = ({ params: { locale } }: { params: { locale: string } }) => {
 	return (
 		<div>
 			<Navbar />
-			<div className="pt-20 md:pt-40">
+			<div className="pt-20 md:pt-40 min-h-screen h-full">
 				<h1 className="flex justify-center text-4xl font-bold mb-2 md:mb-8 pb-16">
 					{t("title")}
 				</h1>
@@ -75,8 +75,8 @@ const Contact = ({ params: { locale } }: { params: { locale: string } }) => {
 						</a>
 					</div>
 				</div>
-				<Footer />
 			</div>
+			<Footer />
 		</div>
 	);
 };

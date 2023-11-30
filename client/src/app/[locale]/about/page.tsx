@@ -32,10 +32,10 @@ const About = ({ params: { locale } }: { params: { locale: string } }) => {
 						</div>
 					</div>
 				</div>
-				<div className="flex flex-1 flex-col items-center justify-around md:flex-row px-4 md:px-0 border-2 border-red-500">
+				<div className="flex flex-1 flex-col items-center justify-around md:flex-row px-4 md:px-0">
 					<div className="flex items-center justify-center">
 						<h1 className="mr-8 mt-8 text-gray-500 text-3xl">
-							{t("whatIsIt")}
+                        {t("whatIsIt")}
 						</h1>
 					</div>
 					<div className="w-full md:w-2/3 flex flex-col">
