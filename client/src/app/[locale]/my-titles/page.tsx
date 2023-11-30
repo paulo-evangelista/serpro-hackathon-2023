@@ -1,8 +1,12 @@
+"use client";
 import React from "react";
 import { Navbar } from "../../../components/Navbar";
 import { Footer } from "../../../components/Footer";
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import { useEffect, useState } from "react";
+import axios from "axios";
+import { useAuth } from "@/context";
 
 const MyTitle = ({
 	params: { locale },
@@ -12,6 +16,23 @@ const MyTitle = ({
 	};
 }) => {
 	const t = useTranslations("MyTitle");
+	const {account}: any = useAuth()
+
+	const [investments, setInvestments] = useState([]);
+
+	const fetchInvestments = async () => {
+		try {
+			const response = await axios.get(`http://localhost:3050/user/${account.id}/investments`);
+			setInvestments(response.data); 
+			console.log(response.data)
+		} catch (error) {
+			console.error("Erro ao obter investimentos:", error);
+		}
+	  };
+
+	useEffect(() => {
+	  fetchInvestments();
+	}, [account]);
 
 	return (
 		<div>
@@ -62,6 +83,25 @@ const MyTitle = ({
 							</div>
 						</div>
 					</div>
+					<table className="border border-gray-600 rounded-md w-full">
+						<thead>
+							<tr>
+								<th>Id do investimento</th>
+								<th>Quantidade invesitda</th>
+								<th>Asset</th>
+								<th>URI do IPFS</th>
+							</tr>
+						</thead>
+						<tbody>
+							{investments.map((investment: any) => (
+								<tr key={investment.id}>
+									<td>{investment.amount}</td>
+									<td>{investment.asset}</td>
+									<td>{investment.ipfsUri}</td>
+								</tr>
+							))}
+						</tbody>
+					</table>
 				</div>
 			</div>
 			<Footer />
