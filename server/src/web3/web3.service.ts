@@ -1,5 +1,5 @@
 import { Injectable, InternalServerErrorException } from '@nestjs/common';
-import { Transaction, TransactionReceipt, TransactionRequest, ethers } from 'ethers';
+import { TransactionReceipt, ethers } from 'ethers';
 import axios, { AxiosRequestConfig } from 'axios';
 import { randomBytes } from 'crypto';
 import { HexString } from 'ethers/lib.commonjs/utils/data';
@@ -161,6 +161,8 @@ export class Web3Service {
             const response = await this.oracleContract.response();
 
             console.log('Transação enviada:', receipt);
+            console.log('Resposta do Oracle:', response);
+            console.log('Transação enviada:', receipt.hash);
 
             ipcaData = {
                 value: {
@@ -181,6 +183,21 @@ export class Web3Service {
                 },
                 timestamp: Date.now(),
             };
+        }
+    };
+
+    liquidateContract = async (contractAddress: HexString, abi: any) => {
+        try {
+            const publicTitleContract = new ethers.Contract(contractAddress, abi, this.wallet);
+
+            const tx = await publicTitleContract.liquidate();
+
+            const receipt = await tx.wait();
+            console.log('Transação liquidate enviada:', receipt);
+
+            return receipt.hash;
+        } catch (error) {
+            console.error('Erro ao liquidar o contrato:', error);
         }
     };
 }
