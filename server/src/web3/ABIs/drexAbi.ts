@@ -120,4 +120,4 @@ const drexAbi = [
     { inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }], name: 'transferOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
 ];
 
-export default drexAbi
+export default drexAbi;

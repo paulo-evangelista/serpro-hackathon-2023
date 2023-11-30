@@ -198,7 +198,7 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 		};
 		timestamp: number;
 		transactionHash: string;
-	}>({
+	} | null>({
 		value: {
 			ipca: 0.32,
 			yearMonth: "2023-10",
@@ -477,7 +477,7 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 						<p className="">
 							IPCA do mês {ipca?.value.yearMonth}:
 							<span className="text-2xl font-medium ml-2">
-								{ipca?.value.ipca * 100}%
+								{ipca!.value.ipca * 100}%
 							</span>
 						</p>
 						<div className="flex">

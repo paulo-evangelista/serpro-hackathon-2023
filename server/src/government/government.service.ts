@@ -24,7 +24,6 @@ export class GovernmentService {
     ) {}
 
     async aproveCompany(userId: number, govId: number) {
-
         const companyEntrie = await this.companyRepository.findOne({ where: { id: userId } });
 
         if (!companyEntrie) {
@@ -48,9 +47,6 @@ export class GovernmentService {
     }
 
     async deployNewAsset(assetData: CreateAssetDto) {
-
-
-
         const contractAddress = await this.web3service.deployNewAsset(assetData);
         if (!contractAddress) throw new InternalServerErrorException('Erro ao criar o contrato');
 
@@ -62,12 +58,12 @@ export class GovernmentService {
             price: assetData.unitPrice,
             total_supply: assetData.amount,
             available_supply: assetData.amount,
-            ipfsImageURI: "QmVhukDoiXFLPWxsMhYgiiV5HT1UfZUzL1wqfk5Mi3Z1Qa"
-        })
+            ipfsImageURI: 'QmVhukDoiXFLPWxsMhYgiiV5HT1UfZUzL1wqfk5Mi3Z1Qa',
+        });
 
         return await this.assetPreIRepository.save(newAsset);
     }
-    
+
     async getAllCompanies() {
         return await this.companyRepository.find();
     }

@@ -16,14 +16,15 @@ let ipcaData: {
     };
     timestamp: number;
     transactionHash: string;
-} = {
-    value: {
-        ipca: 0,
-        yearMonth: '',
-    },
-    timestamp: 0,
-    transactionHash: '',
-};
+} | null = null;
+// } = {
+//     value: {
+//         ipca: 0,
+//         yearMonth: '',
+//     },
+//     timestamp: 0,
+//     transactionHash: '',
+// };
 
 @Injectable()
 export class Web3Service {
@@ -150,50 +151,54 @@ export class Web3Service {
         let month: number | string = currentDate.getMonth() + 1;
         const currentYearMonth = `${year}-${month}`;
 
-        if (ipcaData && ipcaData.timestamp + 1000 * 60 * 60 * 24 > Date.now()) {
-            return ipcaData.value.ipca;
+        if ((ipcaData && ipcaData.timestamp + 1000 * 60 * 60 * 24 > Date.now()) || (ipcaData && ipcaData.value.yearMonth === currentYearMonth)) {
+            console.log('IPCA cacheado:', ipcaData);
+            return ipcaData;
         }
 
         if (month < 10) {
+            console.log('YearMonth:', `${year}-0${month}`);
             month = String(`0${month}`);
         }
 
-        if (ipcaData && ipcaData.value.yearMonth === currentYearMonth) {
-            return ipcaData.value.ipca;
-        }
-
-        return ipcaData;
-        // try {
-        //     const tx = await this.oracleContract.request(`${year}-${month}`);
-
-        //     const receipt = await tx.wait();
-        //     const response = await this.oracleContract.response();
-
-        //     console.log('Transação enviada:', receipt);
-        //     console.log('Resposta do Oracle:', response);
-        //     console.log('Transação enviada:', receipt.hash);
-
-        //     ipcaData = {
-        //         value: {
-        //             ipca: Number(response),
-        //             yearMonth: currentYearMonth,
-        //         },
-        //         transactionHash: receipt.hash,
-        //         timestamp: Date.now(),
-        //     };
-
+        // if (ipcaData && ipcaData.value.yearMonth === currentYearMonth) {
+        //     console.log('IPCA cacheado:', ipcaData);
         //     return ipcaData;
-        // } catch (error) {
-        //     console.error('Erro ao fazer a solicitação ao BCB:', error);
-
-        //     return {
-        //         value: {
-        //             ipca: 0,
-        //             yearMonth: currentYearMonth,
-        //         },
-        //         timestamp: Date.now(),
-        //     };
         // }
+
+        // return ipcaData;
+
+        try {
+            const tx = await this.oracleContract.request(`${year}-${month}`);
+
+            const receipt = await tx.wait();
+            const response = await this.oracleContract.response();
+
+            console.log('Transação enviada:', receipt);
+            console.log('Resposta do Oracle:', response);
+            console.log('Transação enviada:', receipt.hash);
+
+            ipcaData = {
+                value: {
+                    ipca: Number(response),
+                    yearMonth: currentYearMonth,
+                },
+                transactionHash: receipt.hash,
+                timestamp: Date.now(),
+            };
+
+            return ipcaData;
+        } catch (error) {
+            console.error('Erro ao fazer a solicitação ao BCB:', error);
+
+            return {
+                value: {
+                    ipca: 0,
+                    yearMonth: currentYearMonth,
+                },
+                timestamp: Date.now(),
+            };
+        }
     };
 
     liquidateContract = async (contractAddress: HexString, abi: any) => {
