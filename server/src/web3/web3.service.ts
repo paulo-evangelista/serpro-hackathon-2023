@@ -124,7 +124,7 @@ export class Web3Service {
                 console.log('verifying...');
                 verifyContract([titleName, titleSymbol, annualProfitability, unitPrice, program, lobby, launchDate, expirationDate, amount, financialAmount, accountOpening, this.drexAddress]);
             }, 5000);
-            return contract.target;
+            return contract.target as string;
         } catch (error) {
             console.error('Erro ao fazer o deploy do contrato:', error);
         }
