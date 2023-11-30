@@ -21,4 +21,10 @@ export class UserController {
     async consolidateInvest() {
         // return await this.userService.consolidateInvest();
     }
+
+    @Get('getOracleData')
+    async getOracleData() {
+        return await this.userService.getOracleData();
+    }
+
 }
