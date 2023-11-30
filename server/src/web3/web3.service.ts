@@ -7,6 +7,9 @@ import PublicTitleInfo from './ABIs/PublicTitle';
 import drexAbi from './ABIs/drexAbi';
 import { CreateAssetDto } from 'src/government/dtos/deploy-new-asset.dto';
 import { verifyContract } from 'src/utils/utils';
+import oracleAbi from './ABIs/oracleAbi';
+
+
 @Injectable()
 export class Web3Service {
     private provider: ethers.InfuraProvider;
@@ -18,6 +21,9 @@ export class Web3Service {
     private drexAbi: any;
     private drexBytecode: any;
     private drexContract: ethers.Contract;
+    private oracleAbi: any;
+    private oracleAddress: HexString;
+    private oracleContract: ethers.Contract;
 
     constructor() {
         this.provider = new ethers.InfuraProvider('sepolia', process.env.INFURA_APIKEY);
@@ -27,6 +33,10 @@ export class Web3Service {
         this.drexAddress = '0xa614F4E4F595E826Bff3E69534211EDF820782Ad';
         this.drexAbi = drexAbi;
         this.drexContract = new ethers.Contract(this.drexAddress, this.drexAbi, this.wallet);
+        this.oracleAbi = oracleAbi; // lembra de preenhcer la no orcaleAbi.ts!!
+        this.oracleAddress = '0xa614F4E4F595E826Bff3E69534211EDF820782Ad'; // lembra de colocar o endereço do oracle aqui!!
+        this.oracleContract = new ethers.Contract(this.oracleAddress, this.oracleAbi, this.wallet);
+        
     }
 
     createWallet() {
@@ -119,4 +129,28 @@ export class Web3Service {
         const receipt: TransactionReceipt = await tx.wait();
         return receipt.hash;
     };
+
+    requestIPCA = async () => {
+        try {
+            const currentDate = new Date();
+            const year = currentDate.getFullYear();
+            let month = currentDate.getMonth() + 1;
+
+            if (month < 10) {
+                month = Number(`0${month}`);
+            }
+
+            const tx = await this.oracleContract.request(`${year}-${month}`);
+
+            const receipt = await tx.wait();
+            console.log('Transação enviada:', receipt);
+
+            const response = await this.oracleContract.response();
+            console.log('Resposta do Oracle:', response);
+        } catch (error) {
+            console.error('Erro ao fazer a solicitação ao Oracle:', error);
+        }
+    }
+
+
 }
