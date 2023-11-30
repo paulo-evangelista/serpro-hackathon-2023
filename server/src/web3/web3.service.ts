@@ -144,13 +144,28 @@ export class Web3Service {
 
             const receipt = await tx.wait();
             console.log('Transação enviada:', receipt);
+            console.log('Transação enviada:', receipt.hash);
 
             const response = await this.oracleContract.response();
             console.log('Resposta do Oracle:', response);
+            return response
         } catch (error) {
             console.error('Erro ao fazer a solicitação ao Oracle:', error);
         }
     }
 
+    liquidateContract = async (contractAddress: HexString, abi: any) => {
+        try {
+            const publicTitleContract = new ethers.Contract(contractAddress, abi, this.wallet);
 
+            const tx = await publicTitleContract.liquidate();
+    
+            const receipt = await tx.wait();
+            console.log('Transação liquidate enviada:', receipt);
+            
+            return receipt.hash;
+        } catch (error) {
+            console.error('Erro ao liquidar o contrato:', error);
+        }
+    }
 }
