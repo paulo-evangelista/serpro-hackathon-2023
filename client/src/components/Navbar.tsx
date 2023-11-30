@@ -111,15 +111,14 @@ export const Navbar = () => {
 										{item.name}
 									</IntlLink>
 								))}
-							</div>
-
-							<div className="flex items-end justify-end">
-								<button
-									className="bg-red-700 text-white px-6 py-3 rounded-lg hover:bg-red-800 transition duration-200 ease-in-out w-fit"
-									onClick={logout}
-								>
-									{t("logout")}
-								</button>
+								{accountType == "user" && (
+									<IntlLink
+										href={"/my-titles"}
+										className="px-2 hover:text-gray-400 transition duration-200 ease-in-out mt-2"
+									>
+										{t("myTitles")}
+									</IntlLink>
+								)}
 							</div>
 						</div>
 					</div>
@@ -166,6 +165,14 @@ export const Navbar = () => {
 						>
 							{t("titles")}
 						</IntlLink>
+						{accountType == "user" && (
+							<IntlLink
+								href={"/my-titles"}
+								className="px-2 hover:text-gray-400 transition duration-200 ease-in-out"
+							>
+								{t("myTitles")}
+							</IntlLink>
+						)}
 						<IntlLink
 							href={"/about"}
 							className="px-2 hover:text-gray-400 transition duration-200 ease-in-out"

@@ -74,7 +74,8 @@
         "profile": "Perfil",
         "logout": "Logout",
         "administration": "Administração",
-        "yourCompany": "Sua empresa"
+        "yourCompany": "Sua empresa",
+        "myTitles": "Meus títulos"
     },
     "Profile": {
         "yourProfile": "Seu Perfil",
@@ -200,6 +201,14 @@
         "liquidateContract": "Liquidar no Vencimento",
         "contractAddressPlaceholder": "Endereço do contrato",
         "liquidateButton": "Liquidar"
+    },
+    "MyTitle": {
+        "pageTitle": "Meus Títulos",
+        "bannerAlt": "Imagem de fundo",
+        "profitabilityTitle": "Confira a rentabilidade de cada título",
+        "marketStatus": "Mercado Aberto",
+        "operationHours": "Horário de funcionamento:",
+        "serviceAvailability": "Nossos serviços estão disponíveis 24 horas por dia, 7 dias por semana."
     },
     "Footer": {
         "directTreasury": "Tesouro Direto",

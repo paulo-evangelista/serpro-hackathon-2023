@@ -25,7 +25,7 @@ const Profile = ({ params: { locale } }: { params: { locale: string } }) => {
 	const [showQRCode, setShowQRCode] = useState(false);
 	const [qrValue, setQRValue] = useState("");
 	const [amountToReload, setAmountToReload] = useState("");
-	const [oracleData, setOracleData] = useState("");
+	const [oracleData, setOracleData] = useState<any>();
 
 	const handleReloadAmountChange = (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -141,25 +141,23 @@ const Profile = ({ params: { locale } }: { params: { locale: string } }) => {
 		}
 	};
 
-	
+	const getOracleData = async () => {
+		try {
+			const response = await axios.get(
+				"http://localhost:3050/user/getOracleData"
+			);
+			setOracleData(response.data);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			setOracleData("Erro ao buscar dados do oráculo");
+			return;
+		}
+	};
 
-	// const getOracleData = async () => {
-	// 	try {
-	// 		const response = await axios.get(
-	// 			"http://localhost:3050/user/getOracleData"
-	// 		);
-	// 		setOracleData(response.data);
-	// 		return response.data;
-	// 	} catch (error) {
-	// 		console.error(error);
-	// 		setOracleData("Erro ao buscar dados do oráculo");
-	// 		return 
-	// 	}
-	// }
-
-	// useEffect(() => {
-	// 	getOracleData();
-	// }, []);
+	useEffect(() => {
+		getOracleData();
+	}, []);
 
 	const t = useTranslations("Profile");
 
