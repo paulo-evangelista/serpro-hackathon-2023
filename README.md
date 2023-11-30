@@ -152,6 +152,7 @@ A solução oferece uma forma acessível, transparente e automatizada de investi
 - Marketing e Publicidade: Investimento em campanhas de marketing, presença em eventos, publicidade online.
 
 ## Arquitetura
+<img src="https://github.com/paulo-evangelista/serpro-hackathon-2023/blob/main/assets/images/Fluxograma.jpg" width="100%">
 
 ## Regras de negócio dos Smart Contracts(Contratos Inteligentes)
 ### Contrato 1: `InstitutionContract`
@@ -188,6 +189,35 @@ Este contrato é um token ERC20 denominado "Real Digital" (DREX) e gerencia a cr
 - O `RealDigital` define uma moeda digital e seu proprietário tem controle sobre a emissão de novos tokens.
 
 Esta formatação em Markdown destaca as principais funcionalidades e restrições de cada contrato para facilitar o entendimento das regras e operações permitidas dentro do sistema.
+
+## Diagrama de Blocos
+<img src="https://github.com/paulo-evangelista/serpro-hackathon-2023/blob/main/assets/images/DiagramaBlocos.jpg" width="100%">
+
+1. *Docker*: Uma plataforma de contêinerização que permite empacotar uma aplicação e suas dependências em um contêiner virtual, o qual pode ser executado em qualquer sistema operacional que suporte Docker.
+
+2. *PostgreSQL*: Um sistema de gerenciamento de banco de dados relacional (SGBDR), utilizado para armazenar e gerenciar dados estruturados.
+
+3. *NestJS*: Um framework para construir aplicações de servidor eficientes e escaláveis com Node.js. Ele utiliza TypeScript por padrão e é fortemente inspirado pelo Angular.
+
+4. *TypeORM*: Uma biblioteca de mapeamento objeto-relacional (ORM) que permite trabalhar com bancos de dados usando objetos TypeScript.
+
+5. *NEXT.js*: Um framework de React que permite funcionalidades como renderização do lado do servidor e geração de sites estáticos para aplicações web baseadas em React.
+
+6. *TypeScript (TS)*: Uma linguagem de programação desenvolvida pela Microsoft que é um superconjunto de JavaScript, adicionando tipos estáticos e outros recursos.
+
+7. *Solidity*: Uma linguagem de programação para escrever contratos inteligentes que são executados na Ethereum Virtual Machine (EVM), usada em blockchains como Ethereum.
+
+8. *Chainlink*: Um projeto descentralizado de oráculos que permite a blockchains interagir com dados externos.
+
+9. *Ethereum (ETH)*: Uma plataforma de blockchain descentralizada que permite a execução de contratos inteligentes e aplicações descentralizadas (dApps).
+
+As setas indicam a interação ou dependência entre os componentes. Por exemplo:
+
+- *NestJS ↔ TypeORM ↔ PostgreSQL*: Indica que o NestJS utiliza o TypeORM para interagir com o PostgreSQL.
+- *NestJS ↔ Next.js ↔ TypeScript*: Mostra que o Next.js e o NestJS compartilham o TypeScript como uma linguagem comum.
+- *NestJS ↔ Solidity ↔ Chainlink ↔ Ethereum*: Sugere que o NestJS pode interagir com contratos inteligentes escritos em Solidity, os quais podem se comunicar com dados externos via Chainlink e operar na Ethereum blockchain.
+
+Este diagrama é útil para entender como diferentes partes de uma aplicação interagem e são construídas para trabalhar juntas, provavelmente em um ambiente de desenvolvimento de aplicações web e blockchain.
 
 
 ## Tecnologias
