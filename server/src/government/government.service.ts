@@ -75,4 +75,5 @@ export class GovernmentService {
     async getAllApprovedCompanies() {
         return await this.companyRepository.find({ where: { is_aproved: true } });
     }
+
 }
