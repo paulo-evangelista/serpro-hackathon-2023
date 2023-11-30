@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { Navbar } from "../../../components/Navbar";
 import { useAuth } from "../hooks/useAuth";
 import { unstable_setRequestLocale } from "next-intl/server";
+import { useTranslations } from "next-intl";
 
 const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 	unstable_setRequestLocale(locale);
@@ -187,6 +188,34 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 		account?.type === "government" && getCompanies();
 	}, [account]);
 
+	// "AdmHome": {
+	//     "pageTitle": "National Treasury Secretariat",
+	//     "grantCompanyPermissionTitle": "Grant Permission to Broker",
+	//     "selectBroker": "Select a broker",
+	//     "grantPermission": "Grant Permission",
+	//     "brokersWithPermission": "Brokers with permission",
+	//     "name": "Name",
+	//     "email": "Email",
+	//     "contractAddress": "Contract Address",
+	//     "grantInvestorPermissionTitle": "Grant Permission to Investor",
+	//     "selectUser": "Select a user",
+	//     "usersWithPermission": "Users with permission",
+	//     "issueTitleSection": "Issue a Title",
+	//     "titleNamePlaceholder": "Title Name",
+	//     "symbolPlaceholder": "Symbol",
+	//     "profitabilityPlaceholder": "Profitability",
+	//     "maturityDatePlaceholder": "Maturity Date",
+	//     "issueTitleButton": "Issue Title",
+	//     "notifyInvestors": "Notify Investors",
+	//     "issueDate": "Issue Date",
+	//     "quantity": "Quantity",
+	//     "liquidateContract": "Liquidate at Maturity",
+	//     "contractAddressPlaceholder": "Contract Address",
+	//     "liquidateButton": "Liquidate"
+	// },
+
+    const t = useTranslations("AdmHome");
+
 	return (
 		<div className="container mx-auto p-8">
 			<Navbar />
@@ -204,7 +233,8 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 								)}
 							>
 								<h2 className="text-2xl font-bold mb-4">
-									Conceder Permissão para Corretora
+									{/* Conceder Permissão para Corretora */}
+                                    {t("grantCompanyPermissionTitle")}
 								</h2>
 
 								<select
@@ -213,7 +243,8 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 									className="border border-gray-300 rounded-md px-4 py-2 mb-2 mr-5"
 								>
 									<option value="" disabled>
-										Selecione uma corretora
+										{/* Selecione uma corretora */}
+                                        {t("selectBroker")}
 									</option>
 									{companies.length > 0 &&
 										companies.map(
@@ -238,23 +269,30 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 									className="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600"
 									type="submit"
 								>
-									Conceder Permissão
+									{/* Conceder Permissão */}
+                                    {t("grantPermission")}
 								</button>
 							</form>
 
 							<div>
-								<h3>Corretoras com permissão</h3>
+								<h3>
+                                    {/* Corretoras com permissão */}
+                                    {t("brokersWithPermission")}
+                                </h3>
 								<table className="w-full border-collapse border border-gray-300">
 									<thead>
 										<tr className="bg-gray-200">
 											<th className="border border-gray-300 px-4 py-2">
-												Nome
+												{/* Nome */}
+                                                {t("name")}
 											</th>
 											<th className="border border-gray-300 px-4 py-2">
-												Email
+												{/* Email */}
+                                                {t("email")}
 											</th>
 											<th className="border border-gray-300 px-4 py-2">
-												Endereço do contrato
+												{/* Endereço do contrato */}
+                                                {t("contractAddress")}
 											</th>
 										</tr>
 									</thead>
@@ -297,7 +335,8 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 								)}
 							>
 								<h2 className="text-2xl font-bold mb-4">
-									Conceder Permissão para Investidor
+									{/* Conceder Permissão para Investidor */}
+                                    {t("grantInvestorPermissionTitle")}
 								</h2>
 
 								<select
@@ -306,7 +345,8 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 									className="border border-gray-300 rounded-md px-4 py-2 mb-2 mr-5"
 								>
 									<option value="" disabled>
-										Selecione um usuário
+										{/* Selecione um usuário */}
+                                        {t("selectUser")}
 									</option>
 									{users.length > 0 &&
 										users.map(

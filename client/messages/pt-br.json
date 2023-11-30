@@ -176,6 +176,31 @@
             "requiredField": "Este campo é obrigatório"
         }
     },
+    "AdmHome": {
+        "pageTitle": "Secretaria do Tesouro Nacional",
+        "grantCompanyPermissionTitle": "Conceder Permissão para Corretora",
+        "selectBroker": "Selecione uma corretora",
+        "grantPermission": "Conceder Permissão",
+        "brokersWithPermission": "Corretoras com permissão",
+        "name": "Nome",
+        "email": "Email",
+        "contractAddress": "Endereço do contrato",
+        "grantInvestorPermissionTitle": "Conceder Permissão para Investidor",
+        "selectUser": "Selecione um usuário",
+        "usersWithPermission": "Usuários com permissão",
+        "issueTitleSection": "Emitir um Título",
+        "titleNamePlaceholder": "Nome do Título",
+        "symbolPlaceholder": "Símbolo",
+        "profitabilityPlaceholder": "Rentabilidade",
+        "maturityDatePlaceholder": "Vencimento",
+        "issueTitleButton": "Emitir Título",
+        "notifyInvestors": "Notificar Investidores",
+        "issueDate": "Data de Emissão",
+        "quantity": "Quantidade",
+        "liquidateContract": "Liquidar no Vencimento",
+        "contractAddressPlaceholder": "Endereço do contrato",
+        "liquidateButton": "Liquidar"
+    },
     "Footer": {
         "directTreasury": "Tesouro Direto",
         "copyRight": "© 2023 Tesouro Direto. Todos os direitos reservados."

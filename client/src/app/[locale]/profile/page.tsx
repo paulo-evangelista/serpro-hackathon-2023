@@ -48,6 +48,8 @@ const Profile = ({ params: { locale } }: { params: { locale: string } }) => {
 	const [loadingBalance, setLoadingBalance] = useState<boolean>(false);
 	const { account }: any = useAuth();
 
+	const [accountDetails, setAccountDetails] = useState<Account | null>(null);
+
 	const getProviderAndSigner = useCallback(() => {
 		const provider = new ethers.BrowserProvider(window.ethereum);
 		const signer = provider.getSigner();
@@ -56,7 +58,6 @@ const Profile = ({ params: { locale } }: { params: { locale: string } }) => {
 
 	const getDrexBalance = useRef<() => Promise<void>>();
 	getDrexBalance.current = useCallback(async () => {
-		console.time("getDrexBalance");
 		if (loadingBalance) {
 			return;
 		}
@@ -95,9 +96,10 @@ const Profile = ({ params: { locale } }: { params: { locale: string } }) => {
 			console.error(error);
 		} finally {
 			setLoadingBalance(false);
-			console.timeEnd("getDrexBalance");
 		}
 	}, [account, getProviderAndSigner, loadingBalance]);
+
+	useEffect(() => setAccountDetails(account), [account]);
 
 	useEffect(() => {
 		getDrexBalance.current && getDrexBalance.current();
@@ -153,12 +155,17 @@ const Profile = ({ params: { locale } }: { params: { locale: string } }) => {
 						<p className="text-md mb-2">
 							{t("name")}:{" "}
 							<span className="text-xl text-gray-700">
-								{account.name ||
+								{/* {account.name ||
 								(account.firstName && account.lastName)
 									? `${account.firstName} ${account.lastName}`
 									: account.firstName ||
 									  account.lastName ||
-									  t("notProvided")}
+									  t("notProvided")} */}
+								{accountDetails?.firstName &&
+								accountDetails?.lastName &&
+								!accountDetails?.name
+									? `${accountDetails?.firstName} ${accountDetails?.lastName}`
+									: accountDetails?.name || t("notProvided")}
 							</span>
 						</p>
 

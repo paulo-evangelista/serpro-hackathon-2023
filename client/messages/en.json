@@ -176,6 +176,31 @@
             "requiredField": "This field is required"
         }
     },
+    "AdmHome": {
+        "pageTitle": "National Treasury Secretariat",
+        "grantCompanyPermissionTitle": "Grant Permission to Broker",
+        "selectBroker": "Select a broker",
+        "grantPermission": "Grant Permission",
+        "brokersWithPermission": "Brokers with permission",
+        "name": "Name",
+        "email": "Email",
+        "contractAddress": "Contract Address",
+        "grantInvestorPermissionTitle": "Grant Permission to Investor",
+        "selectUser": "Select a user",
+        "usersWithPermission": "Users with permission",
+        "issueTitleSection": "Issue a Title",
+        "titleNamePlaceholder": "Title Name",
+        "symbolPlaceholder": "Symbol",
+        "profitabilityPlaceholder": "Profitability",
+        "maturityDatePlaceholder": "Maturity Date",
+        "issueTitleButton": "Issue Title",
+        "notifyInvestors": "Notify Investors",
+        "issueDate": "Issue Date",
+        "quantity": "Quantity",
+        "liquidateContract": "Liquidate at Maturity",
+        "contractAddressPlaceholder": "Contract Address",
+        "liquidateButton": "Liquidate"
+    },
     "Footer": {
         "directTreasury": "Tesouro Direto",
         "copyRight": "© 2023 Tesouro Direto. All rights reserved."
