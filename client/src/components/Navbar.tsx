@@ -1,5 +1,10 @@
 "use client";
-import { Link, useRouter, usePathname, redirect } from "@/navigation";
+import {
+	Link as IntlLink,
+	useRouter,
+	usePathname,
+	redirect,
+} from "@/navigation";
 import Jazzicon, { jsNumberForAddress } from "react-jazzicon";
 import { useEffect, useState } from "react";
 import Image from "next/image";
@@ -8,6 +13,7 @@ import xIcon from "@/assets/x.svg";
 import tIcon from "@/assets/td.svg";
 import { useAuth } from "../app/[locale]/context";
 import { useTranslations } from "next-intl";
+import Link from "next/Link";
 
 const locales = ["en", "pt-br"];
 
@@ -29,7 +35,7 @@ export const Navbar = () => {
 	let pathname = usePathname();
 
 	// const handleChangeLocale = (locale: string) => {
-	//     <Link href="/" locale="de">Switch to German</Link>
+	//     <IntlLink href="/" locale="de">Switch to German</IntlLink>
 	// };
 
 	return (
@@ -59,23 +65,23 @@ export const Navbar = () => {
 							alt={t("closeIconAlt")}
 						/>
 					</button>
-					<Link href={"/"}>
+					<IntlLink href={"/"}>
 						<p className="text-2xl">{t("directTreasury")}</p>
-					</Link>
+					</IntlLink>
 				</div>
 				<div className="flex flex-col text-lg">
-					<Link href={"/"} className="px-2">
+					<IntlLink href={"/"} className="px-2">
 						{t("home")}
-					</Link>
-					<Link href={"/titles"} className="px-2">
+					</IntlLink>
+					<IntlLink href={"/titles"} className="px-2">
 						{t("titles")}
-					</Link>
-					<Link href={"/about"} className="px-2">
+					</IntlLink>
+					<IntlLink href={"/about"} className="px-2">
 						{t("learnMore")}
-					</Link>
-					<Link href={"/contact"} className="px-2">
+					</IntlLink>
+					<IntlLink href={"/contact"} className="px-2">
 						{t("contact")}
-					</Link>
+					</IntlLink>
 				</div>
 			</div>
 
@@ -95,30 +101,30 @@ export const Navbar = () => {
 							alt={t("menuIconAlt")}
 						/>
 					</button> */}
-					<Link href={"/"} className="ml-4">
+					<IntlLink href={"/"} className="ml-4">
 						<Image
 							src={tIcon}
 							width={200}
 							height={200}
 							alt={t("logoAlt")}
 						/>
-					</Link>
+					</IntlLink>
 				</div>
 
 				<div className="hidden md:flex w-auto md:w-1/3 items-center justify-center">
 					<ul className="flex flex-row">
-						<Link href={"/"} className="px-2">
+						<IntlLink href={"/"} className="px-2">
 							{t("home")}
-						</Link>
-						<Link href={"/titles"} className="px-2">
+						</IntlLink>
+						<IntlLink href={"/titles"} className="px-2">
 							{t("titles")}
-						</Link>
-						<Link href={"/about"} className="px-2">
+						</IntlLink>
+						<IntlLink href={"/about"} className="px-2">
 							{t("learnMore")}
-						</Link>
-						<Link href={"/contact"} className="px-2">
+						</IntlLink>
+						<IntlLink href={"/contact"} className="px-2">
 							{t("contact")}
-						</Link>
+						</IntlLink>
 					</ul>
 				</div>
 
@@ -139,21 +145,29 @@ export const Navbar = () => {
 							>
 								{locales.map(
 									(locale: string, index: number) => (
-										<button
+										// <button
+										// 	key={index}
+										// 	onClick={() =>
+										// 		router.push(pathname, pathname)
+										// 	}
+										// 	className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center"
+										// >
+										// 	{/* <IntlLink
+										//  	key={index}
+										//  	href={"/"}
+										//  	className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center"
+										//  > */}
+										// 	{locale.toUpperCase()}
+										// 	{/* </IntlLink> */}
+										// </button>
+										<Link
 											key={index}
-											onClick={() =>
-												router.push(pathname, pathname)
-											}
+											href={`/${locale}/${pathname}`}
+											locale={locale}
 											className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center"
 										>
-											{/* <Link
-										 	key={index}
-										 	href={"/"}
-										 	className="block w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 text-center"
-										 > */}
 											{locale.toUpperCase()}
-											{/* </Link> */}
-										</button>
+										</Link>
 									)
 								)}
 							</div>
@@ -172,11 +186,11 @@ export const Navbar = () => {
 					)}
 
 					{!account && (
-						<Link href={"/login"}>
+						<IntlLink href={"/login"}>
 							<button className="bg-green-700 hover:bg-green-800 text-white py-2 px-4 rounded-lg transition duration-200 ease-in-out">
 								{t("login")}
 							</button>
-						</Link>
+						</IntlLink>
 					)}
 
 					{isOpen && (
@@ -199,32 +213,32 @@ export const Navbar = () => {
 									</div>
 								)}
 
-								<Link
+								<IntlLink
 									href={"/profile"}
 									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
 									role="menuitem"
 								>
 									{t("profile")}
-								</Link>
+								</IntlLink>
 
 								{account.type == "company" && (
-									<Link
+									<IntlLink
 										href={"/adm"}
 										className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
 										role="menuitem"
 									>
 										{t("yourCompany")}
-									</Link>
+									</IntlLink>
 								)}
 
 								{account.type == "government" && (
-									<Link
+									<IntlLink
 										href={"/adm"}
 										className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
 										role="menuitem"
 									>
 										{t("administration")}
-									</Link>
+									</IntlLink>
 								)}
 
 								<button
@@ -264,23 +278,23 @@ export const Navbar = () => {
 					>
 						<Image src={xIcon} width={24} height={24} alt="close" />
 					</button>
-					<Link href={"/"}>
+					<IntlLink href={"/"}>
 						<p className="text-2xl">Tesouro Direto</p>
-					</Link>
+					</IntlLink>
 				</div>
 				<div className="flex flex-col text-lg">
-					<Link href={"/"} className="px-2">
+					<IntlLink href={"/"} className="px-2">
 						Home
-					</Link>
-					<Link href={"/titles"} className="px-2">
+					</IntlLink>
+					<IntlLink href={"/titles"} className="px-2">
 						Títulos
-					</Link>
-					<Link href={"/about"} className="px-2">
+					</IntlLink>
+					<IntlLink href={"/about"} className="px-2">
 						Conheça
-					</Link>
-					<Link href={"/contact"} className="px-2">
+					</IntlLink>
+					<IntlLink href={"/contact"} className="px-2">
 						Contato
-					</Link>
+					</IntlLink>
 				</div>
 			</div>
 
@@ -295,7 +309,7 @@ export const Navbar = () => {
 					>
 						<Image src={menu} width={24} height={24} alt="menu" />
 					</button>
-					<Link href={"/"} className="ml-4">
+					<IntlLink href={"/"} className="ml-4">
 						{/* <p className="text-2xl">Tesouro Direto</p> */}
 						<Image
 							src={tIcon}
@@ -303,23 +317,23 @@ export const Navbar = () => {
 							height={200}
 							alt="menu"
 						/>
-					</Link>
+					</IntlLink>
 				</div>
 
 				<div className="hidden md:flex w-auto md:w-1/3 items-center justify-center">
 					<ul className="flex flex-row">
-						<Link href={"/"} className="px-2">
+						<IntlLink href={"/"} className="px-2">
 							Home
-						</Link>
-						<Link href={"/titles"} className="px-2">
+						</IntlLink>
+						<IntlLink href={"/titles"} className="px-2">
 							Títulos
-						</Link>
-						<Link href={"/about"} className="px-2">
+						</IntlLink>
+						<IntlLink href={"/about"} className="px-2">
 							Conheça
-						</Link>
-						<Link href={"/contact"} className="px-2">
+						</IntlLink>
+						<IntlLink href={"/contact"} className="px-2">
 							Contato
-						</Link>
+						</IntlLink>
 					</ul>
 				</div>
 
@@ -336,11 +350,11 @@ export const Navbar = () => {
 					)}
 
 					{!account && (
-						<Link href={"/login"}>
+						<IntlLink href={"/login"}>
 							<button className="bg-green-700 text-white px-6 py-3 rounded-lg">
 								Login
 							</button>
-						</Link>
+						</IntlLink>
 					)}
 
 					{isOpen && (
@@ -363,32 +377,32 @@ export const Navbar = () => {
 									</div>
 								)}
 
-								<Link
+								<IntlLink
 									href={"/profile"}
 									className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
 									role="menuitem"
 								>
 									Perfil
-								</Link>
+								</IntlLink>
 
 								{account.type == "company" && (
-									<Link
+									<IntlLink
 										href={"/adm"}
 										className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
 										role="menuitem"
 									>
 										Sua empresa
-									</Link>
+									</IntlLink>
 								)}
 
 								{account.type == "government" && (
-									<Link
+									<IntlLink
 										href={"/adm"}
 										className="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
 										role="menuitem"
 									>
 										Administração
-									</Link>
+									</IntlLink>
 								)}
 
 								<button
