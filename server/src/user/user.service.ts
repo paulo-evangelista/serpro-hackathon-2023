@@ -37,18 +37,19 @@ export class UserService {
     }
 
     async newInvestment(userId: number, assetId: number, amount: number) {
-    
         const userEntrie = await this.userRepository.findOne({ where: { id: userId } });
         if (!userEntrie) throw new NotFoundException('Usuário não encontrado');
 
-        const assetEntrie = await this.assetRepository.findOne({where: {id: assetId}});
+        const assetEntrie = await this.assetRepository.findOne({ where: { id: assetId } });
         if (!assetEntrie) throw new NotFoundException('Ativo não encontrado');
 
-        const nowTimestamp = Math.floor(+new Date() / 1000)
-        const {payable} = calculateCompoundInterest(nowTimestamp, assetEntrie.deadline, amount, assetEntrie.interest/100)
+        const nowTimestamp = Math.floor(+new Date() / 1000);
+        const { payable } = calculateCompoundInterest(nowTimestamp, assetEntrie.deadline, amount, assetEntrie.interest / 100);
 
-        const ipfsUri = await this.web3service.pinToIPFS(assetEntrie.name, "NFT que comprova a compra e posse de um título do Tesouro Nacional", nowTimestamp, assetEntrie.deadline, amount);
+        const ipfsUri = await this.web3service.pinToIPFS(assetEntrie.name, 'NFT que comprova a compra e posse de um título do Tesouro Nacional', nowTimestamp, assetEntrie.deadline, amount);
 
-        const tx = await this.web3service.buyAsset(assetEntrie.address, amount, ipfsUri);
+        const tx = await this.web3service.buyAsset('0x5FbDB2315678afecb367f032d93F642f64180aa3', assetEntrie.address, 1, amount, ipfsUri);
+
+        return { tx, payable };
     }
 }

@@ -42,6 +42,10 @@ contract IPCAOracle is ChainlinkClient, ConfirmedOwner {
 
     uint256 public response;
 
+    function getResponse() public view returns (uint256) {
+        return response;
+    }
+
     // Receive the result from the Chainlink oracle
     event RequestFulfilled(bytes32 indexed requestId);
 

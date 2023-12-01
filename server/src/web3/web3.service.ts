@@ -6,12 +6,12 @@ import { HexString } from 'ethers/lib.commonjs/utils/data';
 import PublicTitleInfo from './ABIs/PublicTitle';
 import drexAbi from './ABIs/drexAbi';
 import { CreateAssetDto } from 'src/government/dtos/deploy-new-asset.dto';
-import { verifyContract } from 'src/utils/utils';
+import { sleep, verifyContract } from 'src/utils/utils';
 import oracleAbi from './ABIs/oracleAbi';
 
 let ipcaData: {
     value: {
-        ipca: number;
+        ipca: any; // bigint | number;
         yearMonth: string;
     };
     timestamp: number;
@@ -50,7 +50,7 @@ export class Web3Service {
         this.drexAbi = drexAbi;
         this.drexContract = new ethers.Contract(this.drexAddress, this.drexAbi, this.wallet);
         this.oracleAbi = oracleAbi; // lembra de preenhcer la no orcaleAbi.ts!!
-        this.oracleAddress = '0xa614F4E4F595E826Bff3E69534211EDF820782Ad'; // lembra de colocar o endereço do oracle aqui!!
+        this.oracleAddress = '0x7AD5D09c204E61aFB33fd1126acC3f5ABd140171'; // lembra de colocar o endereço do oracle aqui!!
         this.oracleContract = new ethers.Contract(this.oracleAddress, this.oracleAbi, this.wallet);
     }
 
@@ -67,7 +67,7 @@ export class Web3Service {
         } catch (error) {
             console.error('Erro ao comprar o ativo:', error);
         }
-    }
+    };
 
     createWallet() {
         const wallet = ethers.Wallet.createRandom();
@@ -113,12 +113,10 @@ export class Web3Service {
             },
         };
 
-        const response = await axios
-            .request(options)
-            .catch(function (error) {
-                console.log(error);
-                throw new InternalServerErrorException('pinata upload error');
-            });
+        const response = await axios.request(options).catch(function (error) {
+            console.log(error);
+            throw new InternalServerErrorException('pinata upload error');
+        });
         return response.data.IpfsHash as string;
     };
 
@@ -159,56 +157,74 @@ export class Web3Service {
     };
 
     requestIPCA = async () => {
+        console.log('\nStarting requestIPCA...');
         const currentDate = new Date();
         const year = currentDate.getFullYear();
         let month: number | string = currentDate.getMonth() + 1;
         const currentYearMonth = `${year}-${month}`;
 
-        if ((ipcaData && ipcaData.timestamp + 1000 * 60 * 60 * 24 > Date.now()) || (ipcaData && ipcaData.value.yearMonth === currentYearMonth)) {
-            console.log('IPCA cacheado:', ipcaData);
-            return ipcaData;
-        }
-
-        if (month < 10) {
-            console.log('YearMonth:', `${year}-0${month}`);
-            month = String(`0${month}`);
-        }
-
-        // if (ipcaData && ipcaData.value.yearMonth === currentYearMonth) {
+        // if ((ipcaData && ipcaData.timestamp + 1000 * 60 * 60 * 24 > Date.now()) || (ipcaData && ipcaData.value.yearMonth === currentYearMonth)) {
         //     console.log('IPCA cacheado:', ipcaData);
         //     return ipcaData;
         // }
 
-        // return ipcaData;
+        if (month < 10) {
+            console.log('\nYearMonth:', `${year}-0${month}`);
+            month = String(`0${month}`);
+        }
+
+        const isResponseZero = ethers.formatUnits((await this.oracleContract.getResponse()).toString(), 18);
+        console.log('\nResponse from oracleContract:', isResponseZero);
+        if (isResponseZero !== '0' && ipcaData && ipcaData.value.yearMonth === currentYearMonth) {
+            console.log('IPCA cacheado:', ipcaData);
+            return ipcaData;
+        }
 
         try {
+            console.log('\nSending request to oracleContract...');
             const tx = await this.oracleContract.request(`${year}-${month}`);
 
+            console.log('\nWaiting for transaction receipt...');
+
             const receipt = await tx.wait();
-            const response = await this.oracleContract.response();
 
-            console.log('Transação enviada:', receipt);
-            console.log('Resposta do Oracle:', response);
-            console.log('Transação enviada:', receipt.hash);
+            console.log('\nTransação enviada:', receipt);
 
-            ipcaData = {
-                value: {
-                    ipca: Number(response),
-                    yearMonth: currentYearMonth,
-                },
-                transactionHash: receipt.hash,
-                timestamp: Date.now(),
-            };
+            // 5 seconds delay
+            console.log('\nSleeping for 5 seconds...');
+            await sleep(5000);
+
+            // response is a bigInt of 18 decimals, parseUnits converts it to a bigInt of 0 decimals
+            console.log('\nGetting response from oracleContract...');
+            const response = ethers.formatUnits((await this.oracleContract.getResponse()).toString(), 18);
+
+            console.log('\nResposta do Oracle:', response);
+
+            console.log('\nTransação enviada:', receipt.hash);
+
+            if (response != '0') {
+                ipcaData = {
+                    value: {
+                        ipca: response,
+                        yearMonth: currentYearMonth,
+                    },
+                    transactionHash: receipt.hash,
+                    timestamp: Date.now(),
+                };
+
+                return ipcaData;
+            }
 
             return ipcaData;
         } catch (error) {
-            console.error('Erro ao fazer a solicitação ao BCB:', error);
+            console.error('\nErro ao fazer a requisição do IPCA:', error);
 
             return {
                 value: {
                     ipca: 0,
                     yearMonth: currentYearMonth,
                 },
+                transactionHash: '0x0000000000000000000000000000000000000000',
                 timestamp: Date.now(),
             };
         }
