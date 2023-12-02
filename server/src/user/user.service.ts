@@ -36,20 +36,27 @@ export class UserService {
         return user[0].investments;
     }
 
-    async newInvestment(userId: number, assetId: number, amount: number) {
+    async newInvestment(userId: number, assetId: number, financialAmount: number) {
+        console.log('getting desired user');
         const userEntrie = await this.userRepository.findOne({ where: { id: userId } });
         if (!userEntrie) throw new NotFoundException('Usuário não encontrado');
 
+        console.log('getting desired asset');
         const assetEntrie = await this.assetRepository.findOne({ where: { id: assetId } });
         if (!assetEntrie) throw new NotFoundException('Ativo não encontrado');
 
+        console.log('calculation compound interest');
         const nowTimestamp = Math.floor(+new Date() / 1000);
-        const { payable } = calculateCompoundInterest(nowTimestamp, assetEntrie.deadline, amount, assetEntrie.interest / 100);
+        const { payable, span } = calculateCompoundInterest(nowTimestamp, assetEntrie.deadline, financialAmount, assetEntrie.interest / 100);
+        console.log('compound interest calculated -> R$', financialAmount, ' will turn into R$', payable, ' in ', span, ' months');
 
-        const ipfsUri = await this.web3service.pinToIPFS(assetEntrie.name, 'NFT que comprova a compra e posse de um título do Tesouro Nacional', nowTimestamp, assetEntrie.deadline, amount);
+        const amount = (financialAmount / assetEntrie.price).toFixed(2);
+        console.log('amount to buy: ', amount, ', each for R$', assetEntrie.price);
 
-        const tx = await this.web3service.buyAsset('0x5FbDB2315678afecb367f032d93F642f64180aa3', assetEntrie.address, 1, amount, ipfsUri);
+        console.log('pinning to ipfs');
+        const ipfsUri = await this.web3service.pinToIPFS(assetEntrie.name, 'NFT que comprova a compra e posse de um título do Tesouro Nacional', nowTimestamp, assetEntrie.deadline, financialAmount);
 
-        return { tx, payable };
+        console.log('Pinned to ', ipfsUri, '. Starting web3 service for buying asset');
+        const tx = await this.web3service.buyAsset(assetEntrie.address, financialAmount, ipfsUri);
     }
 }

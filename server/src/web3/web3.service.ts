@@ -54,16 +54,16 @@ export class Web3Service {
         this.oracleContract = new ethers.Contract(this.oracleAddress, this.oracleAbi, this.wallet);
     }
 
-    buyAsset = async (contractAddress: HexString, userAddress: HexString, userPayables: number, amount: number, ipfsUri: string) => {
+    buyAsset = async (contractAddress: HexString, userAddress: HexString, userPayables: number, financialAmount: number, ipfsUri: string) => {
         try {
             const publicTitleContract = new ethers.Contract(contractAddress, this.publicTitleAbi, this.wallet);
 
-            const tx = await publicTitleContract.safeMint(userAddress, amount, userPayables, ipfsUri);
+            const tx = await publicTitleContract.safeMint(userAddress, financi alAmount, userPayables, ipfsUri);
 
             const receipt = await tx.wait();
             console.log('Transação enviada:', receipt);
 
-            return receipt.hash;
+            return receipt.hash; 
         } catch (error) {
             console.error('Erro ao comprar o ativo:', error);
         }
