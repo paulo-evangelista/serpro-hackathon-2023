@@ -146,11 +146,16 @@ Combinar o fracionamento dos títulos públicos e o uso do token DREX abre as po
 A solução oferece uma forma acessível, transparente e automatizada de investir em títulos públicos, utilizando tecnologias avançadas para tornar o mercado mais inclusivo, simplificado e seguro.
 
 #### Segmentos de Clientes
-- Investidores Novatos: Pessoas interessadas em começar a investir, sem experiência prévia no mercado financeiro, que 
+- Investidores novatos interessados em iniciar investimentos em títulos públicos.
 
-- Investidores Experientes: Indivíduos ou instituições com conhecimento no mercado, buscando maior facilidade e transparência.
+- Investidores experientes que buscam maior facilidade e transparência no processo de investimento.
 
-- Investidores Internacionais: Pessoas físicas ou jurídicas de outros países interessadas em investir no mercado de títulos públicos brasileiros.
+- Investidores internacionais que desejam investir no mercado de títulos públicos brasileiros.
+
+- CoDiv/SID/SIAFI que buscam mais automações e otimização de processos.
+
+#### Proposta de Valor
+- Tokenização do Tesouro Nacional para simplificar o acesso e uso de títulos públicos, oferecendo transparência, automação e fracionamento de investimentos.
 
 #### Segmento de Mercado
 - Investidores em Títulos Públicos: Pessoas físicas e jurídicas interessadas em investir em títulos públicos do Tesouro Nacional.
@@ -161,6 +166,7 @@ A solução oferece uma forma acessível, transparente e automatizada de investi
 
 #### Canais de Distribuição
 - Plataformas Online: Site oficial, aplicativos móveis para investimento.
+
 - Parcerias Estratégicas: Colaborações com instituições financeiras, divulgação em eventos, parcerias com órgãos reguladores.
 
 #### Relacionamento com o Cliente
@@ -169,16 +175,32 @@ A solução oferece uma forma acessível, transparente e automatizada de investi
 - Comunidade de Investidores: Fóruns de discussão, webinars educativos, eventos presenciais.
 
 #### Atividades-Chave
-- Desenvolvimento Tecnológico: Manutenção e melhoria contínua das plataformas.
+- Desenvolvimento e manutenção da plataforma de investimento.
 
-- Educação Financeira: Criar conteúdo educativo sobre títulos públicos e blockchain.
+- Integração e uso de oráculos para automatizar coleta de dados.
 
-- Manutenção da Comunidade: Estímulo à interação entre investidores, resolução de dúvidas e problemas.
+- Suporte ao cliente e educação sobre o uso da plataforma.
+
+- Manutenção e aprimoramento contínuo da segurança da plataforma.
+
+- Automatização dos processos envolvidos atualmente no STN.
+
+- Publicidade em pontos físicos, como em totens da cidade, estações de metro, trem, ônibus, etc.
 
 #### Recursos-Chave
 - Equipe de Desenvolvimento: Engenheiros de software, especialistas em blockchain, designers.
 
 - Parcerias Estratégicas: Colaborações com órgãos reguladores, instituições financeiras e educacionais.
+
+- Tecnologia Blockchain para tokenização e transparência.
+
+- Oráculos para automação de coleta de dados.
+
+- Interface amigável e simplificada para investidores nacionais e internacionais.
+
+- Sistema de "account abstraction" para simplificar o processo de cadastro e incluir menores de idade.
+
+- Contrato inteligente para gerenciamento de títulos e transações.
 
 #### Parcerias-Chave
 - Instituições Financeiras: Bancos, corretoras, parceiros para liquidez e infraestrutura.
@@ -188,12 +210,16 @@ A solução oferece uma forma acessível, transparente e automatizada de investi
 #### Fluxo de Receita
 - Taxas de Transação: Cobrança de pequenas taxas sobre as transações realizadas.
 
-- Serviços Premium: Oferta de serviços exclusivos para assinantes.
+- Serviços adicionais oferecidos aos investidores para facilitar a experiência de investimento.
+
+- Possíveis parcerias com órgãos governamentais para soluções específicas.
 
 #### Estrutura de Custos
-- Desenvolvimento Tecnológico: Custos de manutenção das plataformas, atualizações, segurança.
+- Desenvolvimento e manutenção da plataforma e tecnologia.
 
-- Marketing e Publicidade: Investimento em campanhas de marketing, presença em eventos, publicidade online.
+- Custos de segurança e conformidade com regulamentações.
+
+- Custos de marketing e promoção para atrair investidores e órgãos governamentais.
 
 ## Arquitetura
 <img src="https://github.com/paulo-evangelista/serpro-hackathon-2023/blob/main/assets/images/Fluxograma.jpg" width="100%">
