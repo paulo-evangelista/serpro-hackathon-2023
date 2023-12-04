@@ -50,6 +50,9 @@ Além disso, a utilização do token DREX facilita essa entrada, permitindo que 
 Combinar o fracionamento dos títulos públicos e o uso do token DREX abre as portas para uma nova geração de investidores, reduzindo a barreira financeira de entrada e proporcionando uma maneira acessível e flexível de participar no mercado de investimentos em títulos públicos. Esta abordagem inovadora promove a inclusão financeira e a democratização do acesso aos investimentos, alinhando-se com os princípios de nossa solução.
 
 ## Problem-Solution Fit
+
+<img src="https://github.com/paulo-evangelista/serpro-hackathon-2023/blob/main/assets/images/PSF.jpg" width="100%">
+
 1. **Público-Alvo (Quem é o seu cliente?)**
     - Investidores novatos interessados em iniciar investimentos em títulos públicos.
     - Investidores experientes que buscam maior facilidade e transparência no processo de investimento.
@@ -144,6 +147,8 @@ Combinar o fracionamento dos títulos públicos e o uso do token DREX abre as po
 
 ## Business Model Canvas
 A solução oferece uma forma acessível, transparente e automatizada de investir em títulos públicos, utilizando tecnologias avançadas para tornar o mercado mais inclusivo, simplificado e seguro.
+
+<img src="https://github.com/paulo-evangelista/serpro-hackathon-2023/blob/main/assets/images/BMC.jpg" width="100%">
 
 #### Segmentos de Clientes
 - Investidores novatos interessados em iniciar investimentos em títulos públicos.
