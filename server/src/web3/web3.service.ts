@@ -58,7 +58,7 @@ export class Web3Service {
         try {
             const publicTitleContract = new ethers.Contract(contractAddress, this.publicTitleAbi, this.wallet);
 
-            const tx = await publicTitleContract.safeMint(userAddress, financi alAmount, userPayables, ipfsUri);
+            const tx = await publicTitleContract.safeMint(userAddress, financialAmount, userPayables, ipfsUri);
 
             const receipt = await tx.wait();
             console.log('Transação enviada:', receipt);
