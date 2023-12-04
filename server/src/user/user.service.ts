@@ -54,14 +54,15 @@ export class UserService {
         const { payable, span } = calculateCompoundInterest(nowTimestamp, assetEntrie.deadline, financialAmount, assetEntrie.interest / 100);
         console.log('compound interest calculated -> R$', financialAmount, ' will turn into R$', payable, ' in ', span, ' months');
 
+        const companyEntries = await this.companyRepository.findOne({ where: { id: 1 } });
+        if (!companyEntries) throw new BadRequestException('Deve existir uma empresa com id 1 para essa rota funcionar');
+
         const amount = (financialAmount / assetEntrie.price).toFixed(2);
         console.log('amount to buy: ', amount, ', each for R$', assetEntrie.price);
 
         console.log('pinning to ipfs');
         const ipfsUri = await this.web3service.pinToIPFS(assetEntrie.name, 'NFT que comprova a compra e posse de um título do Tesouro Nacional', nowTimestamp, assetEntrie.deadline, financialAmount);
 
-        const companyEntries = await this.companyRepository.findOne({ where: { id: 1 } });
-        if (!companyEntries) throw new BadRequestException('Deve existir uma empresa com id 1 para essa rota funcionar');
 
         const investmentEntries = this.investmentRepository.create({
             company: companyEntries,
@@ -70,7 +71,10 @@ export class UserService {
             amount: Number(amount),
             ipfs_uri: ipfsUri,
         });
-
+        if (userEntrie.drexBalance >= financialAmount) {
+            userEntrie.drexBalance -= financialAmount;
+        } 
+        await this.userRepository.save(userEntrie);
         return await this.investmentRepository.save(investmentEntries);
     }
 }
