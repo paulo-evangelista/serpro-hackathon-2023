@@ -105,7 +105,7 @@ Combinar o fracionamento dos títulos públicos e o uso do token DREX abre as po
 A solução oferece uma forma acessível, transparente e automatizada de investir em títulos públicos, utilizando tecnologias avançadas para tornar o mercado mais inclusivo, simplificado e seguro.
 
 #### Segmentos de Clientes
-- Investidores Novatos: Pessoas interessadas em começar a investir, sem experiência prévia no mercado financeiro.
+- Investidores Novatos: Pessoas interessadas em começar a investir, sem experiência prévia no mercado financeiro, que 
 
 - Investidores Experientes: Indivíduos ou instituições com conhecimento no mercado, buscando maior facilidade e transparência.
 
@@ -158,40 +158,104 @@ A solução oferece uma forma acessível, transparente e automatizada de investi
 <img src="https://github.com/paulo-evangelista/serpro-hackathon-2023/blob/main/assets/images/Fluxograma.jpg" width="100%">
 
 ## Regras de negócio dos Smart Contracts(Contratos Inteligentes)
-### Contrato 1: `InstitutionContract`
 
-Este contrato define a permissão para "minters" e as ações permitidas por eles. Os "minters" têm o poder de executar ações específicas no sistema.
+### IpcaOracle.sol
 
-#### Regras de Negócio:
-- Adição e remoção de "minters" são exclusivas para o dono do contrato.
-- A função `checkIfUserHavePermission` permite verificar se um endereço tem permissão de "minter".
+Este contrato utiliza um Node LinkWell para puxar dados do IPCA de uma API externa
+
+**Regras de Negócio:**
+
+1. **Atualização dos parâmetros do Oracle:**
+   - Métodos:
+     - `setOracleAddress`: Atualiza o endereço do Oracle.
+     - `setJobId`: Atualiza o ID do trabalho.
+     - `setFeeInJuels`: Define a taxa de consulta.
+   - Modificadores:
+     - `onlyOwner`: Restringe o acesso aos proprietários.
+
+2. **Solicitação e recebimento de dados do Oracle:**
+   - Métodos:
+     - `request`: Envia uma solicitação ao Oracle.
+     - `fulfill`: Recebe e processa a resposta do Oracle.
+
+3. **Acesso a informações do Oracle:**
+   - Métodos:
+     - `getOracleAddress`: Retorna o endereço do Oracle.
+     - `getJobId`: Retorna o ID do trabalho.
+     - `getFeeInHundredthsOfLink`: Retorna a taxa em LINK.
+     - `withdrawLink`: Permite a retirada de LINK do contrato.
 
 ---
 
-### Contrato 2: `PublicTitle`
+### DataFeed.sol
 
-Esse contrato gerencia a emissão e venda de tokens não fungíveis (NFTs) associados a títulos públicos. Ele define informações sobre os títulos, como nome, símbolo, rentabilidade anual, datas de vencimento e lançamento, entre outros. Além disso, permite a emissão de NFTs para investidores.
+Este contrato utiliza ChainLink Data Feeds para servir como oráculo, de forma a abstrair para o usuário seu meio de pagamento na plataforma para "Real", ao invés de alguma criptomoeda
 
-#### Regras de Negócio:
-- A emissão de NFTs (`safeMint`) é possível apenas se o título ainda não tiver expirado (`notExpired`).
-- A liquidação (`liquidate`) pode ser realizada apenas após a expiração do título pelo dono do contrato.
-- Proíbe a transferência de tokens, garantindo a posse fixa dos NFTs emitidos.
+**Regras de Negócio:**
+
+1. **Conversão de preços de USD para BRL:**
+   - Método:
+     - `convertUsdToBrl`: Converte o preço de USD para BRL.
+
+2. **Obtenção de dados do Chainlink:**
+   - Método:
+     - `getChainlinkDataFeedLatestAnswer`: Retorna a resposta mais recente do Chainlink.
 
 ---
 
-### Contrato 3: `RealDigital`
+### DREX.sol
 
 Este contrato é um token ERC20 denominado "Real Digital" (DREX) e gerencia a criação e transferência desses tokens.
 
-#### Regras de Negócio:
-- A criação inicial do token é feita durante a inicialização do contrato, com um suprimento fixo emitido para o proprietário inicial.
-- A função `mint` permite que o proprietário crie novos tokens e os envie para endereços específicos.
+
+**Regras de Negócio:**
+
+1. **Criação e gerenciamento de tokens:**
+   - Métodos:
+     - `mint`: Cria novos tokens.
+     - `decimals`: Retorna o número de casas decimais.
+
+---
+
+### InstitutionContract.sol
+
+Este contrato define a permissão para "minters" e as ações permitidas por eles. Os "minters" têm o poder de executar ações específicas no sistema.
+
+**Regras de Negócio:**
+
+1. **Gestão de permissões de minting:**
+   - Métodos:
+     - `addMinter`: Adiciona permissões de minting.
+     - `removeMinter`: Remove permissões de minting.
+     - `checkIfUserHavePermission`: Verifica se um usuário tem permissão de minting.
+
+---
+
+### PublicTitle.sol
+
+Esse contrato gerencia a emissão e venda de tokens não fungíveis (NFTs) associados a títulos públicos. Ele define informações sobre os títulos, como nome, símbolo, rentabilidade anual, datas de vencimento e lançamento, entre outros. Além disso, permite a emissão de NFTs para investidores.
+
+**Regras de Negócio:**
+
+1. **Criação de títulos e gestão de vendas:**
+   - Métodos:
+     - `safeMint`: Cria novos títulos e gerencia a venda.
+     - `liquidate`: Liquida os títulos após o vencimento.
+   - Modificadores:
+     - `notExpired`: Restringe ações para títulos não expirados.
+     - `expired`: Restringe ações para títulos expirados.
+
+2. **Gestão de informações e parâmetros do título:**
+   - Métodos:
+     - `setBaseURI`: Define a URI base para os tokens.
+     - `changeDrexAddress`: Altera o endereço do token DREX.
+   - Modificadores:
+     - `onlyOwner`: Restringe o acesso aos proprietários.
 
 #### Observações Gerais:
 - Os contratos `InstitutionContract` e `PublicTitle` têm propriedades de acesso que controlam quem pode realizar certas ações.
-- O `RealDigital` define uma moeda digital e seu proprietário tem controle sobre a emissão de novos tokens.
+- O `DREX` define uma moeda digital e seu proprietário tem controle sobre a emissão de novos tokens.
 
-Esta formatação em Markdown destaca as principais funcionalidades e restrições de cada contrato para facilitar o entendimento das regras e operações permitidas dentro do sistema.
 
 ## Diagrama de Blocos
 <img src="https://github.com/paulo-evangelista/serpro-hackathon-2023/blob/main/assets/images/DiagramaBlocos.jpg" width="100%">
