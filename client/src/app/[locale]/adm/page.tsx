@@ -122,8 +122,6 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 	const [companies, setCompanies] = useState([]);
 
 	const getUsers = async () => {
-		toast.info("Buscando usuários...");
-
 		const account = localStorage.getItem("account");
 
 		let jwt = "";
@@ -139,7 +137,6 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 				},
 			})
 			.then((res: { data: any }) => {
-				toast.success("Usuários buscados com sucesso!");
 				return res.data;
 			})
 			.catch((err: any) => {
@@ -151,8 +148,6 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 	};
 
 	const getCompanies = async () => {
-		toast.info("Buscando corretoras...");
-
 		const account = localStorage.getItem("account");
 
 		let jwt = "";
@@ -168,7 +163,6 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 				},
 			})
 			.then((res: { data: any }) => {
-				toast.success("Corretoras buscadas com sucesso!");
 				return res.data;
 			})
 			.catch((err: any) => {
@@ -193,25 +187,28 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 
 	const [ipca, setIpca] = useState<{
 		value: {
-			ipca: number;
+			ipca: any;
 			yearMonth: string;
 		};
 		timestamp: number;
 		transactionHash: string;
-	}>({
-		value: {
-			ipca: 0.32,
-			yearMonth: "2023-10",
-		},
-		timestamp: /* unix timestamp */ 1629885600,
-		transactionHash:
-			"0x7240e2973d8871392d410fb404c8d03024aa932938b1bc207265f3cd9624598a",
-	});
+	} | null>(null);
 
 	const getIpca = async () => {
+		const account = localStorage.getItem("account");
+		let jwt = "";
+		if (account) {
+			jwt = JSON.parse(account).jwt;
+		}
+
 		// http://localhost:3050/user/getOracleData
 		try {
-			const response = await axios.get("/user/getOracleData");
+			const response = await axios.get("/user/getOracleData", {
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${jwt}`,
+				},
+			});
 			setIpca(response.data);
 			return response.data;
 		} catch (error) {
@@ -220,6 +217,10 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 			return;
 		}
 	};
+
+	useEffect(() => {
+		getIpca();
+	}, []);
 
 	return (
 		<div className="container mx-auto p-8">
@@ -473,26 +474,57 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 							Emitir Título
 						</button>
 					</form>
+
 					<div className="flex flex-col mt-8">
-						<p className="">
+						<p className="flex items-center">
 							IPCA do mês {ipca?.value.yearMonth}:
 							<span className="text-2xl font-medium ml-2">
-								{ipca?.value.ipca * 100}%
+								{ipca ? (
+									ipca.value.ipca * 100 + "%"
+								) : (
+									<svg
+										className="animate-spin h-5 w-5 mr-3 text-center"
+										viewBox="0 0 24 24"
+									>
+										<circle
+											className="opacity-25"
+											cx="12"
+											cy="12"
+											r="10"
+											stroke="currentColor"
+											strokeWidth="4"
+										/>
+										<path
+											className="opacity-75"
+											fill="currentColor"
+											d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+										/>
+									</svg>
+								)}
 							</span>
 						</p>
-						<div className="flex">
-							<Link
-								target={"_blank"}
-								className="text-blue-500 hover:underline"
-								href={`https://sepolia.etherscan.io/tx/${ipca?.transactionHash}`}
-							>
-								{ipca?.transactionHash.length == 66 &&
-									ipca?.transactionHash.slice(0, 10)}
-								...
-								{ipca?.transactionHash.length == 66 &&
-									ipca?.transactionHash.slice(-10)}
-							</Link>
-						</div>
+						{ipca && ipca.timestamp && (
+							<p className="text-sm text-gray-500">
+								{new Date(ipca.timestamp).toLocaleString()}
+							</p>
+						)}
+						{ipca &&
+							ipca.transactionHash !==
+								"0x0000000000000000000000000000000000000000" && (
+								<div className="flex">
+									<Link
+										target={"_blank"}
+										className="text-blue-500 hover:underline"
+										href={`https://sepolia.etherscan.io/tx/${ipca.transactionHash}`}
+									>
+										{ipca.transactionHash.length == 66 &&
+											ipca.transactionHash.slice(0, 10)}
+										...
+										{ipca.transactionHash.length == 66 &&
+											ipca.transactionHash.slice(-10)}
+									</Link>
+								</div>
+							)}
 					</div>
 				</div>
 

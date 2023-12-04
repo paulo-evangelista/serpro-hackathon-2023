@@ -13,7 +13,7 @@ export class UserController {
         return await this.userService.getAll();
     }
 
-    @UseGuards(IsUser)
+    // @UseGuards(IsUser)
     @Post('newInvestment')
     async consolidateInvest(@Body() body: any, @Req() request: Request) {
         // return await this.userService.consolidateInvest();

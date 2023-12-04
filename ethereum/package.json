@@ -1,12 +1,14 @@
 {
-  "name": "hardhat-project",
-  "devDependencies": {
-    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
-    "hardhat": "^2.19.1"
-  },
-  "dependencies": {
-    "@chainlink/contracts": "^0.8.0",
-    "@openzeppelin/contracts": "^5.0.0",
-    "dotenv": "^16.3.1"
-  }
+    "name": "hardhat-project",
+    "devDependencies": {
+        "@chainlink/contracts": "^0.6.0",
+        "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+        "hardhat": "^2.19.1",
+        "ts-node": "^10.9.1",
+        "typescript": "^5.3.2"
+    },
+    "dependencies": {
+        "@openzeppelin/contracts": "^5.0.0",
+        "dotenv": "^16.3.1"
+    }
 }

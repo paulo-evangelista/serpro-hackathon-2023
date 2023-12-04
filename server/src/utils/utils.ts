@@ -20,7 +20,7 @@ export const calculateCompoundInterest = (beginTimestamp: number, endTimestamp: 
 };
 
 export const verifyContract = async (argArr: Array<any>) => {
-    const process = spawn('npx', ['hardhat', 'verify', '--network', 'sepolia', ...argArr, ">", "~/output.txt"]);
+    const process = spawn('npx', ['hardhat', 'verify', '--network', 'sepolia', ...argArr, '>', '~/output.txt']);
 
     process.stdout.on('data', (message) => {
         console.log(message);
@@ -34,3 +34,5 @@ export const verifyContract = async (argArr: Array<any>) => {
         console.log('exited with code', code);
     });
 };
+
+export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
