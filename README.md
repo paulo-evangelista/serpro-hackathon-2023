@@ -49,59 +49,100 @@ Além disso, a utilização do token DREX facilita essa entrada, permitindo que 
 
 Combinar o fracionamento dos títulos públicos e o uso do token DREX abre as portas para uma nova geração de investidores, reduzindo a barreira financeira de entrada e proporcionando uma maneira acessível e flexível de participar no mercado de investimentos em títulos públicos. Esta abordagem inovadora promove a inclusão financeira e a democratização do acesso aos investimentos, alinhando-se com os princípios de nossa solução.
 
-## Público-alvo(Personas)
-
-## Business Model Canvas
+## Problem-Solution Fit
 1. **Público-Alvo (Quem é o seu cliente?)**
     - Investidores novatos interessados em iniciar investimentos em títulos públicos.
     - Investidores experientes que buscam maior facilidade e transparência no processo de investimento.
     - Investidores internacionais que desejam investir no mercado de títulos públicos brasileiros.
+    - CoDiv/SID/SIAFI por meio de automações e otimização de processos.
+
 
 2. **Problemas/Dores (Descreva os problemas que pretende resolver)**
+    **Investidores**
     - Complexidade no acesso aos títulos públicos, dificultando a entrada de novos investidores.
     - Falta de massificação e adoção dos títulos públicos por investidores nacionais e estrangeiros.
     - Barreiras de usabilidade e acessibilidade nas ferramentas de investimento em títulos públicos.
     - Limitações no mercado secundário de títulos públicos, como falta de liquidez e agilidade nas transações.
 
+    **Órgãos Governamentais**
+    - Falta de automatização no processo de coleta dos dados do IPCA.
+    - Falta de automatização na geração de relatórios.
+    - Falta de automatização do Pagamento Antecipado e do Pagamento de Gabarito.
+    - Falta de otimização no processo de Liquidação e Contabilização.
+    - Falta de otimização na geração de Relatórios e Indicadores da Dívida.
+
 3. **Motivação para Agir (Gatilhos que fazem o público querer mudar a ação)**
-    - Facilidade de acesso e uso de ferramentas simplificadas para investir em títulos públicos.
-    - A oportunidade de investir de forma transparente e automatizada em um mercado estável.
-    - A possibilidade de fracionar títulos públicos, reduzindo a barreira financeira de entrada.
+    **Investidores**
+    - Facilidade de acesso e uso de ferramentas simplificadas para investir em títulos públicos por meio do account abstraction.
+    - A oportunidade de investir de forma transparente e automatizada em um mercado estável por meio da blockchain.
+    - A possibilidade de fracionar títulos públicos, reduzindo a barreira financeira de entrada por meio do uso de título tokenizado e DREX.
+
+    **Órgãos Governamentais**
     - Acesso a informações precisas e em tempo real sobre os títulos públicos por meio de oráculos.
+    - Acesso e geração de relatórios para cumprir com as rotinas de forma mais automatizada o otimizada.
+    - Melhora na automação e velocidade do Pagamento de Gabarito e Antecipado.
 
 4. **Emoções Antes e Depois da Solução (Quais emoções o cliente sente antes e depois da solução?)**
-    - Antes: Frustração, confusão e desconfiança devido à complexidade e falta de acessibilidade.
-    - Depois: Confiança, segurança e satisfação ao investir de forma simplificada e transparente.
+    - Antes(Investidores): Frustração, confusão e desconfiança devido à complexidade e falta de acessibilidade.
+    - Depois(Investidores): Confiança, segurança e satisfação ao investir de forma simplificada e transparente.
+
+    - Antes(Órgãos governamentais): Frustração e cansaço devido ao trabalho manual e maçante.
+    - Depois(Órgãos governamentais): Satisfação e felicidade ao poder investir o tempo de trabalho em atividades mais produtivas.
 
 5. **Limitações dos Clientes (O que limita seus clientes a agir quando ocorre um problema?)**
+    **Investidores**
     - Falta de acesso a informações claras e precisas sobre títulos públicos.
     - Dificuldade em encontrar ferramentas simples e intuitivas para investir.
     - Restrições financeiras devido à exigência de quantias mínimas para investimentos.
+    - Restrições e dificuldade em investir sendo de outro país.
+    - Burocracias e restrições ao investir sendo menor de idade.
+
+    **Órgãos Governamentais**
+    - Processos lentos devido ao trabalho manual.
+    - Falta de tempo para investir em tarefas mais produtivas.
 
 6. **Raiz/Causa dos Problemas (São relações completas com os problemas propostos)**
+    **Investidores**
     - Complexidade burocrática e falta de usabilidade das plataformas de investimento.
     - Restrições financeiras impostas pela quantia mínima para investir em títulos públicos.
     - Falta de acesso a informações atualizadas e transparentes sobre os títulos disponíveis.
+    - Legislação, idioma e moeda diferente entre países.
+    - Menores de idade geralmente não possuem fonte de renda própria e são dependentes financeiramente.
+
+    **Órgãos Governamentais**
+    - Dependência da integração entre diferentes instituições, órgãos e custodiantes.
+    - Falta de automação nos processos.
 
 7. **Sua solução (Descreva em poucas palavras sua proposta)**
     - Tokenização do Tesouro Nacional para simplificar o acesso e uso de títulos públicos, oferecendo transparência, automação e fracionamento de investimentos.
 
 8. **Soluções disponíveis (Quais soluções estão disponíveis para o cliente?)**
+    **Investidores**
     - Plataformas tradicionais de investimento em títulos públicos com interfaces complexas.
     - Mercado secundário de títulos com limitações de liquidez e agilidade nas transações.
     - Restrições financeiras impostas por quantias mínimas para investir em títulos públicos.
 
+    **Órgãos Governamentais**
+    - Fluxo atual do STN, citado anteriormente na documentação.
+
 9. **Comportamento (O que seu cliente faz relacionado ao problema?)**
+    **Investidores**
+    - Mantém o dinheiro na poupança, por considerar mais seguro, rentável e fácil.
     - Busca por alternativas mais acessíveis e simples para investir em títulos públicos.
     - Procura por informações precisas e transparentes sobre os títulos disponíveis.
     - Deseja investir de forma segura e confiável, sem enfrentar barreiras financeiras significativas.
+
+    **Órgãos Governamentais**
+    - Busca melhoria e otimização nos processos(ex: integrações por web services e criação do cadastro simplificado)
 
 10. **Canais de comportamento (Canal onde o problema se manifesta. Onde estão?)**
     - Plataformas de investimento tradicionais com interfaces complexas.
     - Mercado secundário de títulos com restrições de liquidez e agilidade nas transações.
     - Restrições financeiras em relação às quantias mínimas para investir em títulos públicos.
+    - Órgãos governamentais enfrentando falta de automatização nos processos de coleta de dados, geração de relatórios, pagamentos e otimização de rotinas contábeis e de dívida.
 
-## Problem-Solution Fit
+
+## Business Model Canvas
 A solução oferece uma forma acessível, transparente e automatizada de investir em títulos públicos, utilizando tecnologias avançadas para tornar o mercado mais inclusivo, simplificado e seguro.
 
 #### Segmentos de Clientes
