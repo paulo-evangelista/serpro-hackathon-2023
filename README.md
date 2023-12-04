@@ -18,6 +18,9 @@ A usabilidade das ferramentas para investir em títulos públicos pode represent
 4. **Limitações no Mercado Secundário**
 O mercado secundário de títulos públicos pode carecer de liquidez e agilidade nas transações. A falta de dinamismo nesse mercado pode desestimular investimentos e dificultar a negociação dos títulos.
 
+## Fluxo Atual
+<img src="https://github.com/paulo-evangelista/serpro-hackathon-2023/blob/main/assets/images/FluxoSTN.jpg" width="100%">
+
 ## Solução
 
 O cenário financeiro atual demanda soluções inovadoras para massificar e simplificar o acesso a investimentos em títulos públicos, tanto para investidores nacionais quanto estrangeiros. Diante disso, desenvolvemos uma solução robusta e abrangente que utiliza tecnologias avançadas, centradas na eficiência, facilidade e transparência para os investidores. Nesse sentido, a nossa solução tem como objetivo não apenas facilitar o acesso, adoção, uso e a usabilidade dos títulos públicos, mas também aumentar a confiança dos investidores, fornecendo transparência, automação e simplicidade nos processos de investimento e conformidade.
