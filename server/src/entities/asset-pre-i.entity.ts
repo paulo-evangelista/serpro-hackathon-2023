@@ -14,7 +14,6 @@ export class Asset_Pre_I {
     @Column({ nullable: true })
     ipfsImageURI: string;
 
-
     @Column()
     total_supply: number;
 

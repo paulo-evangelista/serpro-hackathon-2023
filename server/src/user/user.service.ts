@@ -1,10 +1,12 @@
-import { Injectable, Inject, NotFoundException } from '@nestjs/common';
+import { Injectable, Inject, NotFoundException, BadRequestException } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { User } from 'src/entities/user.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Web3Service } from 'src/web3/web3.service';
 import { Asset_Pre_I } from 'src/entities/asset-pre-i.entity';
 import { calculateCompoundInterest } from 'src/utils/utils';
+import { Investment } from 'src/entities/investment.entity';
+import { Company } from 'src/entities/company.entity';
 @Injectable()
 export class UserService {
     constructor(
@@ -13,6 +15,8 @@ export class UserService {
         private readonly userRepository: Repository<User>,
         @InjectRepository(Asset_Pre_I)
         private readonly assetRepository: Repository<Asset_Pre_I>,
+        @InjectRepository(Investment) private readonly investmentRepository: Repository<Investment>,
+        @InjectRepository(Company) private readonly companyRepository: Repository<Company>,
     ) {}
 
     async getAll() {
@@ -56,7 +60,17 @@ export class UserService {
         console.log('pinning to ipfs');
         const ipfsUri = await this.web3service.pinToIPFS(assetEntrie.name, 'NFT que comprova a compra e posse de um título do Tesouro Nacional', nowTimestamp, assetEntrie.deadline, financialAmount);
 
-        console.log('Pinned to ', ipfsUri, '. Starting web3 service for buying asset');
-        const nftId  = await this.web3service.buyAsset(assetEntrie.address, userEntrie.wallet, payable, financialAmount, ipfsUri);
+        const companyEntries = await this.companyRepository.findOne({ where: { id: 1 } });
+        if (!companyEntries) throw new BadRequestException('Deve existir uma empresa com id 1 para essa rota funcionar');
+
+        const investmentEntries = this.investmentRepository.create({
+            company: companyEntries,
+            owner: userEntrie,
+            asset: assetEntrie,
+            amount: Number(amount),
+            ipfs_uri: ipfsUri,
+        });
+
+        return await this.investmentRepository.save(investmentEntries);
     }
 }

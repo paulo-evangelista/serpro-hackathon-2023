@@ -26,7 +26,7 @@ export class User {
     @CreateDateColumn()
     created_at: Date;
 
-    @Column({default: 0})
+    @Column({ default: 0 })
     drexBalance: number;
 
     @Column({ nullable: true, default: '' })

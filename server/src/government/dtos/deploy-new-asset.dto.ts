@@ -4,7 +4,7 @@ import { isBigInt64Array } from 'util/types';
 export class CreateAssetDto {
     @IsString()
     titleName: string;
-    
+
     @IsString()
     titleSymbol: string;
 

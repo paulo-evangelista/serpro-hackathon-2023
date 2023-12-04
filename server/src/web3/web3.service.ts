@@ -63,7 +63,7 @@ export class Web3Service {
             const receipt = await tx.wait();
             console.log('Transação enviada:', receipt);
 
-            return receipt.hash; 
+            return receipt.hash;
         } catch (error) {
             console.error('Erro ao comprar o ativo:', error);
         }
