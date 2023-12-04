@@ -57,6 +57,6 @@ export class UserService {
         const ipfsUri = await this.web3service.pinToIPFS(assetEntrie.name, 'NFT que comprova a compra e posse de um título do Tesouro Nacional', nowTimestamp, assetEntrie.deadline, financialAmount);
 
         console.log('Pinned to ', ipfsUri, '. Starting web3 service for buying asset');
-        const tx = await this.web3service.buyAsset(assetEntrie.address, financialAmount, ipfsUri);
+        const nftId  = await this.web3service.buyAsset(assetEntrie.address, userEntrie.wallet, payable, financialAmount, ipfsUri);
     }
 }
