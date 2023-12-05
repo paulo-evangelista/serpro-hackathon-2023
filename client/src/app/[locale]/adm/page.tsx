@@ -218,9 +218,41 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 		}
 	};
 
+	const reloadIpca = async () => {
+		const account = localStorage.getItem("account");
+		let jwt = "";
+		if (account) {
+			jwt = JSON.parse(account).jwt;
+		}
+
+		// http://localhost:3050/user/getOracleData
+		try {
+			const response = await axios.get("/user/reloadOracleData", {
+				headers: {
+					"Content-Type": "application/json",
+					Authorization: `Bearer ${jwt}`,
+				},
+			});
+			setIpca(response.data);
+			return response.data;
+		} catch (error) {
+			console.error(error);
+			setIpca(null);
+			return;
+		}
+	};
+
 	useEffect(() => {
 		getIpca();
 	}, []);
+
+	// run reloadIpca every 5 seconds
+	// useEffect(() => {
+	// 	const interval = setInterval(() => {
+	// 		reloadIpca();
+	// 	}, 5000);
+	// 	return () => clearInterval(interval);
+	// }, []);
 
 	return (
 		<div className="container mx-auto p-8">
@@ -477,7 +509,11 @@ const AdmHome = ({ params: { locale } }: { params: { locale: string } }) => {
 
 					<div className="flex flex-col mt-8">
 						<p className="flex items-center">
-							IPCA do mês {ipca?.value.yearMonth}:
+							IPCA do mês{" "}
+							{ipca && ipca?.value.yearMonth
+								? ipca.value.yearMonth
+								: ""}
+							:{"    "}
 							<span className="text-2xl font-medium ml-2">
 								{ipca ? (
 									ipca.value.ipca * 100 + "%"

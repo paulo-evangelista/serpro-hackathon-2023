@@ -47,8 +47,16 @@ export class GovernmentService {
     }
 
     async deployNewAsset(assetData: CreateAssetDto) {
+        console.log('Starting new asset deployment...');
+        console.log('Asset data:', assetData);
+
         const contractAddress = await this.web3service.deployNewAsset(assetData);
-        if (!contractAddress) throw new InternalServerErrorException('Erro ao criar o contrato');
+        console.log('Contract address:', contractAddress);
+
+        if (!contractAddress) {
+            console.error('Error creating contract');
+            throw new InternalServerErrorException('Erro ao criar o contrato');
+        }
 
         const newAsset = this.assetPreIRepository.create({
             address: contractAddress,
@@ -61,7 +69,12 @@ export class GovernmentService {
             ipfsImageURI: 'QmVhukDoiXFLPWxsMhYgiiV5HT1UfZUzL1wqfk5Mi3Z1Qa',
         });
 
-        return await this.assetPreIRepository.save(newAsset);
+        console.log('New asset:', newAsset);
+
+        const savedAsset = await this.assetPreIRepository.save(newAsset);
+        console.log('Saved asset:', savedAsset);
+
+        return savedAsset;
     }
 
     async getAllCompanies() {

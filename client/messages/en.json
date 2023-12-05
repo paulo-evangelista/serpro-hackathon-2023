@@ -213,13 +213,33 @@
         "permissionGranted": "Permission granted successfully!",
         "errorGrantingPermission": "Error granting permission!"
     },
+    "TitlePage": {
+        "loading": "Loading...",
+        "productImageAlt": "Product Image",
+        "pricePrefix": "R$",
+        "deadlineLabel": "Deadline",
+        "interestLabel": "Interest",
+        "totalLabel": "Total",
+        "availableLabel": "Available",
+        "quantityLabel": "Quantity in BRL (R$) / DREX",
+        "buyButton": "Buy",
+        "perMonth": "per month"
+    },
     "MyTitle": {
         "pageTitle": "My Titles",
         "bannerAlt": "Background Image",
         "profitabilityTitle": "Check the profitability of each title",
         "marketStatus": "Market Open",
         "operationHours": "Operating Hours:",
-        "serviceAvailability": "Our services are available 24 hours a day, 7 days a week."
+        "serviceAvailability": "Our services are available 24 hours a day, 7 days a week.",
+        "investmentId": "Investment ID",
+        "investedAmount": "Invested Amount",
+        "asset": "Asset",
+        "ipfsUri": "IPFS URI",
+        "InvestmentDetails": "Investment Details",
+        "totalInvested": "Total Invested",
+        "lastInvestment": "Last Investment",
+        "investmentDate": "Investment Date"
     },
     "Footer": {
         "directTreasury": "Tesouro Direto",

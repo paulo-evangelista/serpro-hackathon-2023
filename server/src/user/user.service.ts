@@ -27,6 +27,14 @@ export class UserService {
         return await this.web3service.requestIPCA();
     }
 
+    async reloadOracleData() {
+        return await this.web3service.reloadIPCA();
+    }
+
+    async getDataFeed(amount: number) {
+        return await this.web3service.getDataFeed(amount);
+    }
+
     async getUserInvestments(userId: number) {
         const user = await this.userRepository.find({
             where: { id: userId },
@@ -63,7 +71,6 @@ export class UserService {
         console.log('pinning to ipfs');
         const ipfsUri = await this.web3service.pinToIPFS(assetEntrie.name, 'NFT que comprova a compra e posse de um título do Tesouro Nacional', nowTimestamp, assetEntrie.deadline, financialAmount);
 
-
         const investmentEntries = this.investmentRepository.create({
             company: companyEntries,
             owner: userEntrie,
@@ -73,8 +80,10 @@ export class UserService {
         });
         if (userEntrie.drexBalance >= financialAmount) {
             userEntrie.drexBalance -= financialAmount;
-        } 
+        }
         await this.userRepository.save(userEntrie);
+        assetEntrie.available_supply -= Number(amount);
+        await this.assetRepository.save(assetEntrie);
         return await this.investmentRepository.save(investmentEntries);
     }
 }

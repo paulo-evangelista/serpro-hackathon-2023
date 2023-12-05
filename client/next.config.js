@@ -24,6 +24,12 @@ const nextConfig = {
 				pathname: "/**",
 				protocol: "https",
 			},
+			{
+				// ipfs.io
+				hostname: "ipfs.io",
+				pathname: "/**",
+				protocol: "https",
+			},
 		],
 	},
 };

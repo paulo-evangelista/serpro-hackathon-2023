@@ -25,10 +25,15 @@ export class GovernmentController {
 
     @Post('deployNewAsset')
     async deployNewAsset(@Body() assetData: CreateAssetDto) {
+        console.log('Starting new asset deployment...');
+        console.log('Asset data:', assetData);
+
         try {
             const newAsset = await this.governmentService.deployNewAsset(assetData);
+            console.log('New asset:', newAsset);
             return newAsset;
         } catch (error) {
+            console.error('Error deploying new asset:', error);
             return { success: false, message: error.message };
         }
     }

@@ -8,6 +8,7 @@ import drexAbi from './ABIs/drexAbi';
 import { CreateAssetDto } from 'src/government/dtos/deploy-new-asset.dto';
 import { sleep, verifyContract } from 'src/utils/utils';
 import oracleAbi from './ABIs/oracleAbi';
+import dataFeedAbi from './ABIs/dataFeedAbi';
 
 let ipcaData: {
     value: {
@@ -17,14 +18,6 @@ let ipcaData: {
     timestamp: number;
     transactionHash: string;
 } | null = null;
-// } = {
-//     value: {
-//         ipca: 0,
-//         yearMonth: '',
-//     },
-//     timestamp: 0,
-//     transactionHash: '',
-// };
 
 @Injectable()
 export class Web3Service {
@@ -40,6 +33,9 @@ export class Web3Service {
     private oracleAbi: any;
     private oracleAddress: HexString;
     private oracleContract: ethers.Contract;
+    private dataFeedAbi: any;
+    private dataFeedAddress: HexString;
+    private dataFeedContract: ethers.Contract;
 
     constructor() {
         this.provider = new ethers.InfuraProvider('sepolia', process.env.INFURA_APIKEY);
@@ -52,6 +48,9 @@ export class Web3Service {
         this.oracleAbi = oracleAbi; // lembra de preenhcer la no orcaleAbi.ts!!
         this.oracleAddress = '0x7AD5D09c204E61aFB33fd1126acC3f5ABd140171'; // lembra de colocar o endereço do oracle aqui!!
         this.oracleContract = new ethers.Contract(this.oracleAddress, this.oracleAbi, this.wallet);
+        this.dataFeedAbi = dataFeedAbi;
+        this.dataFeedAddress = '0x6cE9bc679E5E904A0aC3975fdA978576c0601fd7';
+        this.dataFeedContract = new ethers.Contract(this.dataFeedAddress, this.dataFeedAbi, this.wallet);
     }
 
     buyAsset = async (contractAddress: HexString, userAddress: HexString, userPayables: number, financialAmount: number, ipfsUri: string) => {
@@ -79,12 +78,14 @@ export class Web3Service {
 
     pinToIPFS = async (title: string, description: string, boughtTimestamp: number, endTimestamp: number, amount: number) => {
         const options: AxiosRequestConfig = {
-            method: 'GET',
-            url: 'https://api.pinata.cloud/data/testAuthentication',
+            method: 'POST',
+            // url: 'https://api.pinata.cloud/data/testAuthentication',
+            url: 'https://api.pinata.cloud/pinning/pinJSONToIPFS',
             headers: {
                 'content-type': 'application/json',
                 accept: 'application/json',
-                authorization: `Bearer  ${process.env.PINATA_JWT}`,
+                // authorization: `Bearer  ${process.env.PINATA_JWT}`,
+                Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI0OWI5YzY4My0zZjRhLTRkNjUtYWYwMS03YWZhY2RiNGNlYTUiLCJlbWFpbCI6InBhdWxvLmV2YW5nZWxpc3RhQHNvdS5pbnRlbGkuZWR1LmJyIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsInBpbl9wb2xpY3kiOnsicmVnaW9ucyI6W3siaWQiOiJGUkExIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9LHsiaWQiOiJOWUMxIiwiZGVzaXJlZFJlcGxpY2F0aW9uQ291bnQiOjF9XSwidmVyc2lvbiI6MX0sIm1mYV9lbmFibGVkIjpmYWxzZSwic3RhdHVzIjoiQUNUSVZFIn0sImF1dGhlbnRpY2F0aW9uVHlwZSI6InNjb3BlZEtleSIsInNjb3BlZEtleUtleSI6Ijk5NmU2YzIzODJiYmY2MDhmZTgwIiwic2NvcGVkS2V5U2VjcmV0IjoiZDQyY2ZjYmVjNzJhNTcwNzY0ZDZlYzM0ZmIwYWY3ODIzMGZiNGY3NjIyZWYxMTU1ZTEyZTViMTZmN2YyOTA2YSIsImlhdCI6MTcwMTcwMjU0M30.qtLzQA_SvZ6XDetUPXWVSrl5DWtXApGwzX_EIUQeh-E`,
             },
             data: {
                 pinataOptions: { cidVersion: 1 },
@@ -117,12 +118,17 @@ export class Web3Service {
             console.log(error);
             throw new InternalServerErrorException('pinata upload error');
         });
+        console.log(response.data);
         return response.data.IpfsHash as string;
-    };
+    }; 
 
     deployNewAsset = async ({ titleName, titleSymbol, annualProfitability, unitPrice, program, lobby, launchDate, expirationDate, amount, financialAmount, accountOpening }: CreateAssetDto) => {
         try {
+            console.log('Starting contract deployment...');
+
             const factory = new ethers.ContractFactory(this.publicTitleAbi, this.publicTitleBytecode, this.wallet);
+            console.log('Factory created:', factory);
+
             const contract = await factory.deploy(
                 titleName,
                 titleSymbol,
@@ -138,15 +144,19 @@ export class Web3Service {
                 this.drexAddress,
             );
 
-            console.log('Contrato:', contract);
-            console.log('Endereço contrato deployado:', contract.target);
-            setTimeout(() => {
-                console.log('verifying...');
-                verifyContract([titleName, titleSymbol, annualProfitability, unitPrice, program, lobby, launchDate, expirationDate, amount, financialAmount, accountOpening, this.drexAddress]);
-            }, 5000);
+            console.log('Contract deployed:', contract);
+            console.log('Deployed contract address:', contract.target);
+
+            // try {
+            //     console.log('Starting contract verification...');
+            //     verifyContract([titleName, titleSymbol, annualProfitability, unitPrice, program, lobby, launchDate, expirationDate, amount, financialAmount, accountOpening, this.drexAddress]);
+            // } catch (error) {
+            //     console.error('Error verifying contract:', error);
+            // }
+
             return contract.target as string;
         } catch (error) {
-            console.error('Erro ao fazer o deploy do contrato:', error);
+            console.error('Error deploying contract:', error);
         }
     };
 
@@ -154,6 +164,37 @@ export class Web3Service {
         const tx = await this.drexContract.mint(wallet, amount);
         const receipt: TransactionReceipt = await tx.wait();
         return receipt.hash;
+    };
+
+    reloadIPCA = async () => {
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        let month: number | string = currentDate.getMonth();
+        const currentYearMonth = `${year}-${month}`;
+
+        const ipcaValue = await this.oracleContract.getResponse();
+
+        if (month < 10) {
+            month = String(`0${month}`);
+        }
+
+        if (ipcaData && ipcaData.value.yearMonth === currentYearMonth) {
+            console.log('IPCA cacheado:', ipcaData);
+            return ipcaData;
+        }
+
+        const parsedIpcaValue = ethers.formatUnits((await this.oracleContract.getResponse()).toString(), 18);
+
+        if (ipcaValue != '0') {
+            ipcaData = {
+                value: {
+                    ipca: parsedIpcaValue,
+                    yearMonth: currentYearMonth,
+                },
+                transactionHash: ipcaData && ipcaData.transactionHash ? ipcaData.transactionHash : '0x0000000000000000000000000000000000000000',
+                timestamp: Date.now(),
+            };
+        }
     };
 
     requestIPCA = async () => {
@@ -243,5 +284,21 @@ export class Web3Service {
         } catch (error) {
             console.error('Erro ao liquidar o contrato:', error);
         }
+    };
+
+    getDataFeed = async (brlAmount: number) => {
+        const response = await this.dataFeedContract.getChainlinkDataFeedLatestAnswer();
+        const ethInUsd = parseFloat(ethers.formatUnits(response, 8)); // Make sure this is the correct conversion rate
+
+        const brlConversionRate /* 10968,73 BRL = 1 ETH */ = 0.0000911682574; // 1 BRL = 0.0000911682574 ETH
+
+        const ethAmount = brlAmount * brlConversionRate; // 1000 * 0.0000911682574 = 0.0911682574
+        const usdAmount = ethAmount * ethInUsd; // 0.0911682574 * 2222,16 = 202,58
+
+        return {
+            dataFeed: String(response),
+            brlAmount,
+            usdAmount,
+        };
     };
 }

@@ -12,11 +12,11 @@ const Contact = ({ params: { locale } }: { params: { locale: string } }) => {
 	return (
 		<div>
 			<Navbar />
-			<div className="pt-20 md:pt-40 min-h-screen h-full">
+			<div className="pt-20 md:pt-40 min-h-screen h-full pb-8">
 				<h1 className="flex justify-center text-4xl font-bold mb-2 md:mb-8 pb-16">
 					{t("title")}
 				</h1>
-				<div className="flex flex-col md:flex-row justify-center space-y-8 md:space-x-32 pb-16">
+				<div className="flex flex-col md:flex-row justify-center md:space-x-32">
 					<div className="flex flex-col items-center">
 						<a
 							href={t("links.marcelo.link")}
@@ -36,7 +36,7 @@ const Contact = ({ params: { locale } }: { params: { locale: string } }) => {
 							</sub>
 						</a>
 					</div>
-					<div className="flex flex-col items-center">
+					<div className="flex flex-col items-center my-8 md:my-0">
 						<a
 							href={t("links.paulo.link")}
 							target="_blank"
