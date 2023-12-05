@@ -326,6 +326,8 @@ Este contrato define a permissão para "minters" e as ações permitidas por ele
 
 ### PublicTitle.sol
 
+**✅ Contrato verificado:** [etherscan](https://sepolia.etherscan.io/address/0xB8A37ef4d8f5DA488a18F3FFEfcE1716B97dA166#code)
+
 Esse contrato gerencia a emissão e venda de tokens não fungíveis (NFTs) associados a títulos públicos. Ele define informações sobre os títulos, como nome, símbolo, rentabilidade anual, datas de vencimento e lançamento, entre outros. Além disso, permite a emissão de NFTs para investidores.
 
 **Regras de Negócio:**
