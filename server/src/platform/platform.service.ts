@@ -5,16 +5,16 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class PlatformService {
-  constructor(
-    @InjectRepository(Asset_Pre_I)
-    private readonly assetPreIRepository: Repository<Asset_Pre_I>,
-  ){}
+    constructor(
+        @InjectRepository(Asset_Pre_I)
+        private readonly assetPreIRepository: Repository<Asset_Pre_I>,
+    ) {}
 
-  async getAllAssets() {
-    return await this.assetPreIRepository.find();
-  }
+    async getAllAssets() {
+        return await this.assetPreIRepository.find();
+    }
 
-  async getAsset(id: number) {
-    return await this.assetPreIRepository.findOne({ where: { id } });
-  }
+    async getAsset(id: number) {
+        return await this.assetPreIRepository.findOne({ where: { id } });
+    }
 }

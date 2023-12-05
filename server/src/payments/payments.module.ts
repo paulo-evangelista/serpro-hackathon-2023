@@ -7,8 +7,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 
 @Module({
-  imports: [Web3Module, TypeOrmModule.forFeature([User])],
-  controllers: [PaymentsController],
-  providers: [PaymentsService],
+    imports: [Web3Module, TypeOrmModule.forFeature([User])],
+    controllers: [PaymentsController],
+    providers: [PaymentsService],
 })
 export class PaymentsModule {}

@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.22;
 
-import "../node_modules/@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
-// import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+// import "../node_modules/@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 
 contract DataFeed {
     AggregatorV3Interface internal ethToUsdDataFeed;
@@ -16,15 +16,6 @@ contract DataFeed {
         ethToUsdDataFeed = AggregatorV3Interface(
             0x694AA1769357215DE4FAC081bf1f309aDC325306
         );
-    }
-
-    struct DataFeedResponse {
-        uint80 roundID;
-        int answerInUSD;
-        int answerInBRL;
-        uint startedAt;
-        uint timeStamp;
-        uint80 answeredInRound;
     }
 
     /**
@@ -41,26 +32,17 @@ contract DataFeed {
     function getChainlinkDataFeedLatestAnswer()
         public
         view
-        returns (DataFeedResponse memory)
+        returns (int)
     {
         (
-            uint80 roundID,
-            int answerInUSD,
-            uint startedAt,
-            uint timeStamp,
-            uint80 answeredInRound
+            /* uint80 roundID */,
+            int price,
+            /* uint startedAt */,
+            /* uint timeStamp */,
+            /* uint80 answeredInRound */
         ) = ethToUsdDataFeed.latestRoundData();
 
-        int answerInBRL = convertUsdToBrl(answerInUSD);
 
-        return
-            DataFeedResponse(
-                roundID,
-                answerInUSD,
-                answerInBRL,
-                startedAt,
-                timeStamp,
-                answeredInRound
-            );
+        return price;
     }
 }

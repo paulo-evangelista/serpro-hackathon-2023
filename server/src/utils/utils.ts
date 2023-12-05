@@ -20,19 +20,29 @@ export const calculateCompoundInterest = (beginTimestamp: number, endTimestamp: 
 };
 
 export const verifyContract = async (argArr: Array<any>) => {
-    const process = spawn('npx', ['hardhat', 'verify', '--network', 'sepolia', ...argArr, '>', '~/output.txt']);
+    try {
+        const process = spawn('npx', ['hardhat', 'verify', '--network', 'sepolia', ...argArr, '>', '~/output.txt']);
 
-    process.stdout.on('data', (message) => {
-        console.log(message);
-    });
+        process.stdout.on('data', (message) => {
+            console.log(`stdout: ${message}`);
+        });
 
-    process.stderr.on('data', (error) => {
-        console.log(error);
-    });
+        process.stderr.on('data', (error) => {
+            console.error(`stderr: ${error}`);
+        });
 
-    process.on('close', (code) => {
-        console.log('exited with code', code);
-    });
+        process.on('close', (code) => {
+            if (code !== 0) {
+                console.log(`process exited with code ${code}`);
+            }
+        });
+
+        process.on('error', (error) => {
+            console.error(`spawn error: ${error}`);
+        });
+    } catch (error) {
+        console.error(`Error verifying contract: ${error}`);
+    }
 };
 
 export const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));

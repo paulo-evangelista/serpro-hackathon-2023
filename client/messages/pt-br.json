@@ -219,7 +219,27 @@
         "profitabilityTitle": "Confira a rentabilidade de cada título",
         "marketStatus": "Mercado Aberto",
         "operationHours": "Horário de funcionamento:",
-        "serviceAvailability": "Nossos serviços estão disponíveis 24 horas por dia, 7 dias por semana."
+        "serviceAvailability": "Nossos serviços estão disponíveis 24 horas por dia, 7 dias por semana.",
+        "investmentId": "ID do Investimento",
+        "investedAmount": "Quantidade Investida",
+        "asset": "Asset",
+        "ipfsUri": "IPFS URI",
+        "InvestmentDetails": "Detalhes dos Investimentos",
+        "totalInvested": "Total Investido",
+        "lastInvestment": "Último Investimento",
+        "investmentDate": "Data do Investimento"
+    },
+    "TitlePage": {
+        "loading": "Carregando...",
+        "productImageAlt": "Imagem do produto",
+        "pricePrefix": "R$",
+        "deadlineLabel": "Prazo",
+        "interestLabel": "Juros",
+        "totalLabel": "Total",
+        "availableLabel": "Disponível",
+        "quantityLabel": "Quantidade em Real (R$) / DREX",
+        "buyButton": "Comprar",
+        "perMonth": "por mês"
     },
     "Footer": {
         "directTreasury": "Tesouro Direto",
