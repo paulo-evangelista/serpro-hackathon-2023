@@ -202,28 +202,6 @@ const MyTitle = ({
 										).toDateString() ?? "N/A"}
 									</span>
 								</div>
-
-								{/* <div className="flex flex-col md:items-end">
-									<p className="text-gray-600 text-md md:text-sm lg:text-md font-semibold">
-										{t("lastInvestment")}
-									</p>
-									<span className="text-gray-900 text-2xl md:text-xl lg:text-2xl">
-										{new Date(
-											investments.sort(
-												(a: Title, b: Title) => {
-													return (
-														new Date(
-															b.created_at
-														).getTime() -
-														new Date(
-															a.created_at
-														).getTime()
-													);
-												}
-											)[0]?.asset?.created_at
-										).toDateString() ?? "N/A"}
-									</span>
-								</div> */}
 							</div>
 						</div>
 					</div>

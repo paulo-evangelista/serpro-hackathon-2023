@@ -9,10 +9,23 @@ import Image from "next/image";
 import { useTranslations } from "next-intl";
 import { unstable_setRequestLocale } from "next-intl/server";
 
+interface TitleModel {
+	id: number;
+	name: string;
+	ipfsImageURI: string;
+	total_supply: number;
+	available_supply: number;
+	price: number;
+	interest: number;
+	deadline: number;
+	address: string;
+	created_at: string;
+}
+
 const Title = ({ params: { locale } }: { params: { locale: string } }) => {
 	unstable_setRequestLocale(locale);
 
-	const [titles, setTitles] = useState<any>([]);
+	const [titles, setTitles] = useState<TitleModel[] | []>([]);
 	const [isLoadingTitles, setIsLoadingTitles] = useState<boolean>(true);
 
 	const getTitles = async () => {
@@ -52,7 +65,7 @@ const Title = ({ params: { locale } }: { params: { locale: string } }) => {
 		<div>
 			<Navbar />
 			<div className="flex flex-1 flex-col min-h-screen mt-16">
-				<div className="relative mt-1 mb-10">
+				<div className="relative mt-1 mb-10 ">
 					<div className="w-full h-80 overflow-hidden">
 						{/* <img
 							src="https://www.tesourodireto.com.br/data/files/8B/75/DD/0C/63D4D710C0F1C0D7894D49A8/banner-acessibilidade-precos-taxas.png"
@@ -75,7 +88,7 @@ const Title = ({ params: { locale } }: { params: { locale: string } }) => {
 					</div>
 				</div>
 
-				<div className="max-w-screen-xl mx-auto px-2">
+				<div className="w-full md:w-4/5 mx-auto px-2">
 					<h1 className="text-4xl text-gray-700 font-semibold mb-8">
 						{t("checkProfitability")}
 					</h1>
@@ -106,10 +119,10 @@ const Title = ({ params: { locale } }: { params: { locale: string } }) => {
 					</div>
 				</div>
 
-				<div className="max-w-screen-xl mx-auto px-2 md:max-w-screen-xl w-full md:w-2/3">
+				<div className="mx-auto px-2  w-full md:w-4/5">
 					{/* Titles */}
 					<div className="overflow-x-auto">
-						<table className="table-auto w-full">
+						<table className="table-auto w-full border rounded-lg">
 							{/* Table Head and Body */}
 
 							<thead>
@@ -126,30 +139,42 @@ const Title = ({ params: { locale } }: { params: { locale: string } }) => {
 							<tbody>
 								{titles &&
 									titles.length > 0 &&
-									titles.map((title: any, index: any) => (
-										<tr key={index} className="border-b">
-											<td className="px-4 py-2 text-center">
-												{title.name}
-											</td>
-											<td className="px-4 py-2 text-center">
-												{title.percentageReturnPerYear}
-											</td>
-											<td className="px-4 py-2 text-center">
-												{title.price}
-											</td>
-											<td className="px-4 py-2 text-center">
-												{title.deadline}
-											</td>
-											<td className="px-4 py-2 text-center">
-												<Link
-													href={`/titles/${title.id}`}
-													className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
-												>
-													{t("invest")}
-												</Link>
-											</td>
-										</tr>
-									))}
+									titles.map(
+										(title: TitleModel, index: any) => (
+											<tr
+												key={index}
+												className="border-b"
+											>
+												<td className="px-4 py-2 text-center">
+													{title.name || "-"}
+												</td>
+												<td className="px-4 py-2 text-center">
+													{title.interest / 100 ||
+														"-"}
+													%
+												</td>
+												<td className="px-4 py-2 text-center text-sm">
+													R$ / DREX{" "}
+													<span className="text-xl">
+														{title.price || "-"}
+													</span>
+												</td>
+												<td className="px-4 py-2 text-center">
+													{new Date(
+														title.deadline
+													).toDateString() || "-"}
+												</td>
+												<td className="px-4 py-2 text-center">
+													<Link
+														href={`/titles/${title.id}`}
+														className="bg-white border border-green-700 px-3 py-1 rounded text-green-700 hover:bg-green-700 hover:text-white transition duration-300"
+													>
+														{t("invest")}
+													</Link>
+												</td>
+											</tr>
+										)
+									)}
 
 								{titles.length < 1 && !isLoadingTitles && (
 									<tr>
