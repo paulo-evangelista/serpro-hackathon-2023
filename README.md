@@ -436,6 +436,20 @@ Este diagrama é útil para entender como diferentes partes de uma aplicação i
 │
 ```
 
+## Variáveis de ambiente necessárias
+
+- **no servidor:**
+    - **GOV_WALLET:** endereço da carteira que será usada como carteira master, controladora do sistema.
+    - **GOV_PK:** Private Key da carteira master.
+    - **INFURA_KEY:** Chave de api do Infura, gateway para interações com a blockchain. *Outros gateways ou provedores podem facilmente ser implementados, com simples mundanças no `web3.service.ts`* 
+    - **PINATA_JWT:** Chave de autenticação do Pinata, utilizado para subir os conteúdos ao IPFS. *Outros provedores podem ser implementados, também no arquivo `we3.service.ts`*
+
+- **no frontend:**
+    - **ETHERSCAN_API:** Chave de api do Ethercan para interações com contratos.
+
+- **no Hardhat** *(pasta ./ethereum/)*, são necessárias as **mesmas variáveis do servidor**, com excessão da `PINATA_JWT`
+
+
 ## Rodando a aplicação
 
 Para rodar a aplicação existem algumas dependências que precisam ser instaladas devido às tecnologias utilizadas, são elas:
