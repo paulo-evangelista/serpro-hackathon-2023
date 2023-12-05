@@ -1,4 +1,19 @@
 # Hackathon Web3 - Tokenização do Tesouro Nacional
+## Sumário
+1. **Desafio**
+2. **Cenário Atual e Dores**
+3. **Fluxo Atual**
+4. **Solução**
+5. **Problem-Solution Fit**
+6. **Business Model Canvas**
+7. **Arquitetura**
+8. **Regras de Negócio dos Smart Contracts(Contratos Inteligentes)**
+9. **Diagrama de Blocos**
+10. **Tecnologias**
+11. **Estrutura de pastas**
+12. **Rodando a aplicação**
+13. **Nosso time**
+
 ## Desafio
 **Desafio 1**:
 Desenvolvimento de tecnologias para casos de uso utilizando títulos públicos tokenizados para aplicações em: Tesouro Direto e Mercado Secundário. Com a finalidade de incentivar a massificação, adoção e uso dos títulos, por investidores no Brasil e/ou no Exterior, prestigiando fácil acesso e a usabilidade das ferramentas.
@@ -384,7 +399,7 @@ Este diagrama é útil para entender como diferentes partes de uma aplicação i
 -   Infraestrutura
     -   Docker
 
-## Árvore de arquivos
+## Estrutura de pastas
 
 ```
 ├── client
@@ -452,7 +467,7 @@ Para rodar o servidor backend é necessário entrar no repositório backend cham
   $ npm run start:dev
 ```
 
-## Desenvolvido por:
+## Nosso time
 
 <table>
   <tr>
