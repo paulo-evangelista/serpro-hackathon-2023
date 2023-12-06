@@ -1,4 +1,8 @@
 # Hackathon Web3 - Tokenização do Tesouro Nacional
+
+### 📺 Pitch & Live Demo: [Aqui!](https://youtu.be/TLnNbR7li9I)
+### 📊 Apresentação: [Aqui!](./presentation.pdf)
+
 ## Sumário
 1. **Desafio**
 2. **Cenário Atual e Dores**
